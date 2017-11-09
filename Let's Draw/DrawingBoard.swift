@@ -28,6 +28,7 @@ class DrawingBoard: UIImageView {
         super.init(coder: aDecoder)
     }
     
+    
     // MARK: touches methods
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

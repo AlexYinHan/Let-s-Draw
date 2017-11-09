@@ -21,11 +21,48 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="455"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3oT-Xa-5Mo">
+                                <rect key="frame" x="0.0" y="519" width="375" height="148"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQw-UE-xtB">
+                                        <rect key="frame" x="0.0" y="0.0" width="94" height="148"/>
+                                        <state key="normal" title="Red"/>
+                                        <connections>
+                                            <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="itG-lL-gHf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjd-pi-ySy">
+                                        <rect key="frame" x="94" y="0.0" width="93.5" height="148"/>
+                                        <state key="normal" title="White"/>
+                                        <connections>
+                                            <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CIa-Bi-qD2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUI-8b-SG1">
+                                        <rect key="frame" x="187.5" y="0.0" width="94" height="148"/>
+                                        <state key="normal" title="Pencil"/>
+                                        <connections>
+                                            <action selector="BrushButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="seL-Ea-AG2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P78-hf-jMv">
+                                        <rect key="frame" x="281.5" y="0.0" width="93.5" height="148"/>
+                                        <state key="normal" title="Eraser"/>
+                                        <connections>
+                                            <action selector="BrushButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UpU-e2-rRp"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="edy-7z-To0" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="HPO-n5-ZNi"/>
+                            <constraint firstItem="3oT-Xa-5Mo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SxT-0g-TS4"/>
                             <constraint firstItem="edy-7z-To0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aTm-EV-OEP"/>
+                            <constraint firstItem="3oT-Xa-5Mo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bod-b7-5VR"/>
+                            <constraint firstItem="3oT-Xa-5Mo" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="c3l-fT-R98"/>
+                            <constraint firstItem="3oT-Xa-5Mo" firstAttribute="top" secondItem="edy-7z-To0" secondAttribute="bottom" id="jKc-SN-Iw5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="edy-7z-To0" secondAttribute="bottom" constant="148" id="t0i-xr-zgu"/>
                             <constraint firstItem="edy-7z-To0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vG0-0I-pGW"/>
                         </constraints>
