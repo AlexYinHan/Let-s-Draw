@@ -10,6 +10,9 @@ import UIKit
 
 class PrepareSceneViewController: UIViewController {
 
+    //MARK: Properties
+    var players = [Player]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

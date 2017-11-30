@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1809571D1FC97D6900146E7B /* GuessMainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809571C1FC97D6900146E7B /* GuessMainSceneViewController.swift */; };
 		180957211FC99A7C00146E7B /* PrepareSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180957201FC99A7C00146E7B /* PrepareSceneViewController.swift */; };
+		181026751FD0007D00401583 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181026741FD0007D00401583 /* Player.swift */; };
+		181026771FD0039500401583 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181026761FD0039500401583 /* SignInViewController.swift */; };
 		18FD8E1A1FB315BE00A89954 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E191FB315BE00A89954 /* AppDelegate.swift */; };
 		18FD8E1C1FB315BE00A89954 /* DrawMainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */; };
 		18FD8E1F1FB315BE00A89954 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E1D1FB315BE00A89954 /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 /* Begin PBXFileReference section */
 		1809571C1FC97D6900146E7B /* GuessMainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessMainSceneViewController.swift; sourceTree = "<group>"; };
 		180957201FC99A7C00146E7B /* PrepareSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareSceneViewController.swift; sourceTree = "<group>"; };
+		181026741FD0007D00401583 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		181026761FD0039500401583 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		18FD8E161FB315BE00A89954 /* Let's Draw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let's Draw.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FD8E191FB315BE00A89954 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawMainSceneViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +103,8 @@
 				18FD8E391FB31EC700A89954 /* DrawingBoard.swift */,
 				1809571C1FC97D6900146E7B /* GuessMainSceneViewController.swift */,
 				180957201FC99A7C00146E7B /* PrepareSceneViewController.swift */,
+				181026741FD0007D00401583 /* Player.swift */,
+				181026761FD0039500401583 /* SignInViewController.swift */,
 			);
 			path = "Let's Draw";
 			sourceTree = "<group>";
@@ -232,6 +238,8 @@
 				18FD8E3A1FB31EC700A89954 /* DrawingBoard.swift in Sources */,
 				18FD8E3C1FB328DC00A89954 /* Brush.swift in Sources */,
 				180957211FC99A7C00146E7B /* PrepareSceneViewController.swift in Sources */,
+				181026751FD0007D00401583 /* Player.swift in Sources */,
+				181026771FD0039500401583 /* SignInViewController.swift in Sources */,
 				18FD8E1A1FB315BE00A89954 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

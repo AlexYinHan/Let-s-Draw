@@ -21,7 +21,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         
         chattingInputBoxTextField.delegate = self
-        chattingDisplayAreaTextView.text.append("在这里讨论吧\nf\n\n\n\n\nff\n\nff\n")
+        chattingDisplayAreaTextView.text.append("在这里讨论吧\n")
         chattingDisplayAreaTextView.layoutManager.allowsNonContiguousLayout = false
         answerButton.layer.cornerRadius = 5 //  设置为圆角按钮
     }
