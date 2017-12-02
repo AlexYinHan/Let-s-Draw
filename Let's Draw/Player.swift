@@ -14,7 +14,9 @@ class Player: NSObject {
     
     var name:String
     var photo: UIImage?
-    
+    var isGameRoomOwner = false;
+    var isDrawer = false
+    var isReady = false
     //MARK: Initialization
     init?(name: String, photo: UIImage?) {
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -14,13 +15,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
     
     var me: Player?
     
+    @IBOutlet weak var enterGameButton: UIButton!
     @IBOutlet weak var userPhotoImageView: UIImageView!
     @IBOutlet weak var userNameTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        userNameTextField.delegate = self
+        enterGameButton.isEnabled = false
     }
 
     
@@ -30,15 +33,26 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch segue.identifier ?? "" {
+        case "EnterGame":
+            os_log("Entering game after signing in.", log: OSLog.default, type: .debug)
+            guard let choosingGameRoomViewController = segue.destination as? ChoosingGameRoomSceneViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            choosingGameRoomViewController.me = self.me
+            
+        default:
+            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+        }
     }
-    */
+    
 
     //MARK: UIImagePIckerControllerDelegate
     
@@ -62,6 +76,28 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         
     }
     
+    //MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //当用户结束编辑时（比如回车），调用这个函数， text field归还FirstResponser地位
+        // Hide the keyboard.
+        userNameTextField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //textFieldShouldReturn后调用此函数，可以获取用户输入的内容进行操作
+        //mealNameLabel.text = textField.text\
+        
+        updateEnterGameButtonState()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // 当编辑或者键盘显示在屏幕上时，调用这个函数
+        // Disable the save button while editing
+        enterGameButton.isEnabled = false
+    }
+    
     //MARK: Action
     @IBAction func enterGameButtonPressed(_ sender: UIButton) {
         if let name = userNameTextField.text, let photo = userPhotoImageView.image {
@@ -81,5 +117,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         // Make sure ViewController is notified when the user picks an image.
         imagePickerController.delegate = self
         present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    //MARK: Private Methods
+    private func updateEnterGameButtonState() {
+        // Disable the enterGame button if the userName text field is empty.
+        let text = userNameTextField.text ?? ""
+        enterGameButton.isEnabled = !text.isEmpty
     }
 }
