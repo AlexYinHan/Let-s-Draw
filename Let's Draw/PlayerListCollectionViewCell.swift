@@ -11,8 +11,9 @@ import UIKit
 class PlayerListCollectionViewCell: UICollectionViewCell {
 
     // MARK: Properties
-    @IBOutlet weak var playerName: UILabel!
+    
     @IBOutlet weak var playerPhoto: UIImageView!
+    @IBOutlet weak var playerName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

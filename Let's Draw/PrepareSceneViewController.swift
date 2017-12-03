@@ -9,11 +9,14 @@
 import UIKit
 import os.log
 
-class PrepareSceneViewController: UIViewController, UICollectionViewDelegate {
+class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+    //MARK: Properties
+    
 
     @IBOutlet weak var playerList: UICollectionView!
     @IBOutlet weak var readyButton: UIButton!
-    //MARK: Properties
+    
     var players = [Player]()
     var me: Player?
     var roomNumber: Int?
@@ -22,13 +25,20 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
 
         playerList.delegate = self
+        playerList.dataSource = self
+        
         
         guard let myPlayerInfo = me else {
             fatalError("No information about this player.")
         }
         //把“我”加入玩家列表。实际应该是，在进入这个页面之前，向服务器发信息告知“我”进入了这个房间。由服务器发送消息告知本页面修改玩家列表。
         players.append(myPlayerInfo)
-        
+        //测试player List
+        let tempPlayer = Player(name: "Edmund", photo: #imageLiteral(resourceName: "People"))
+        players.append(tempPlayer!)
+        players.append(tempPlayer!)
+        players.append(tempPlayer!)
+        players.append(tempPlayer!)
         getAllPlayers()
         
         guard let roomNum = roomNumber else {
@@ -44,6 +54,27 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate {
     }
     
 
+    //MARK: UICollectionViewDataSource
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return players.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellIdentifier = "PlayerListCollectionViewCell"
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? PlayerListCollectionViewCell else {
+            fatalError("The dequeued cell is not an instance of PlayerListCollectionViewCell.")
+        }
+        
+        let playerInfo = players[indexPath.row]
+        cell.playerName.text = playerInfo.name
+        cell.playerPhoto.image = playerInfo.photo
+        
+        return cell
+    }
     
     // MARK: - Navigation
 
