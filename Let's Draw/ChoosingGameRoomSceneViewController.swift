@@ -11,7 +11,7 @@ import os.log
 
 class ChoosingGameRoomSceneViewController: UIViewController {
 
-    //MARK: Properties
+    // MARK: Properties
     
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userName: UILabel!
@@ -56,7 +56,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
     }
  
 
-    //MARK: Private Methods
+    // MARK: Private Methods
     
     // Ask the server to create a new game room and return the number of the new room.
     private func createGameRoom() -> Int {

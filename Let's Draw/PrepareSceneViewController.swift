@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import os.log
 
-class PrepareSceneViewController: UIViewController {
+class PrepareSceneViewController: UIViewController, UICollectionViewDelegate {
 
+    @IBOutlet weak var playerList: UICollectionView!
     @IBOutlet weak var readyButton: UIButton!
     //MARK: Properties
     var players = [Player]()
@@ -19,6 +21,7 @@ class PrepareSceneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        playerList.delegate = self
         
         guard let myPlayerInfo = me else {
             fatalError("No information about this player.")
@@ -41,15 +44,27 @@ class PrepareSceneViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch segue.identifier ?? "" {
+        case "WaitingForGameToStart":
+            os_log("Waiting for game to start after all players get ready.", log: OSLog.default, type: .debug)
+            guard let waitingForGameToStartViewController = segue.destination as? WaitingForGameToStartSceneViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            waitingForGameToStartViewController.me = self.me
+            waitingForGameToStartViewController.players = self.players
+            
+        default:
+            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+        }
     }
-    */
+    
 
     //MARK: Private Methods
     

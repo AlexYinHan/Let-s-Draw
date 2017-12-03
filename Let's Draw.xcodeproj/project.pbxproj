@@ -13,9 +13,11 @@
 		180FF0061FD2EC690026DCD1 /* WaitingForGameToStartSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FF0051FD2EC690026DCD1 /* WaitingForGameToStartSceneViewController.swift */; };
 		181026751FD0007D00401583 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181026741FD0007D00401583 /* Player.swift */; };
 		181026771FD0039500401583 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181026761FD0039500401583 /* SignInViewController.swift */; };
+		1814DF341FD3D6E900125291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E1D1FB315BE00A89954 /* Main.storyboard */; };
+		1814DF391FD3E97200125291 /* PlayerListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */; };
+		1814DF3A1FD3E97200125291 /* PlayerListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1814DF381FD3E97200125291 /* PlayerListCollectionViewCell.xib */; };
 		18FD8E1A1FB315BE00A89954 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E191FB315BE00A89954 /* AppDelegate.swift */; };
 		18FD8E1C1FB315BE00A89954 /* DrawMainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */; };
-		18FD8E1F1FB315BE00A89954 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E1D1FB315BE00A89954 /* Main.storyboard */; };
 		18FD8E211FB315BE00A89954 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E201FB315BE00A89954 /* Assets.xcassets */; };
 		18FD8E241FB315BE00A89954 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E221FB315BE00A89954 /* LaunchScreen.storyboard */; };
 		18FD8E2F1FB315BE00A89954 /* Let_s_DrawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E2E1FB315BE00A89954 /* Let_s_DrawTests.swift */; };
@@ -42,6 +44,8 @@
 		180FF0051FD2EC690026DCD1 /* WaitingForGameToStartSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingForGameToStartSceneViewController.swift; sourceTree = "<group>"; };
 		181026741FD0007D00401583 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		181026761FD0039500401583 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCollectionViewCell.swift; sourceTree = "<group>"; };
+		1814DF381FD3E97200125291 /* PlayerListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerListCollectionViewCell.xib; sourceTree = "<group>"; };
 		18FD8E161FB315BE00A89954 /* Let's Draw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let's Draw.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FD8E191FB315BE00A89954 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawMainSceneViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 				181026761FD0039500401583 /* SignInViewController.swift */,
 				180FF0031FD2C3100026DCD1 /* ChoosingGameRoomSceneViewController.swift */,
 				180FF0051FD2EC690026DCD1 /* WaitingForGameToStartSceneViewController.swift */,
+				1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */,
+				1814DF381FD3E97200125291 /* PlayerListCollectionViewCell.xib */,
 			);
 			path = "Let's Draw";
 			sourceTree = "<group>";
@@ -217,9 +223,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1814DF341FD3D6E900125291 /* Main.storyboard in Resources */,
 				18FD8E241FB315BE00A89954 /* LaunchScreen.storyboard in Resources */,
+				1814DF3A1FD3E97200125291 /* PlayerListCollectionViewCell.xib in Resources */,
 				18FD8E211FB315BE00A89954 /* Assets.xcassets in Resources */,
-				18FD8E1F1FB315BE00A89954 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +247,7 @@
 				18FD8E3E1FB32BBD00A89954 /* PencilBrush.swift in Sources */,
 				1809571D1FC97D6900146E7B /* GuessMainSceneViewController.swift in Sources */,
 				18FD8E1C1FB315BE00A89954 /* DrawMainSceneViewController.swift in Sources */,
+				1814DF391FD3E97200125291 /* PlayerListCollectionViewCell.swift in Sources */,
 				18FD8E421FB341D900A89954 /* EraserBrush.swift in Sources */,
 				18FD8E3A1FB31EC700A89954 /* DrawingBoard.swift in Sources */,
 				18FD8E3C1FB328DC00A89954 /* Brush.swift in Sources */,

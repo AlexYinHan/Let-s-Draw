@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DrawMainSceneViewController.swift
 //  Let's Draw
 //
 //  Created by apple on 2017/11/8.
@@ -8,8 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DrawMainSceneViewController: UIViewController {
 
+    // MARK: Properties
+    
     @IBOutlet weak var DrawingBoardArea: DrawingBoard!
     
     // 所有笔刷
@@ -22,11 +24,14 @@ class ViewController: UIViewController {
         "White": UIColor.white,
     ]
 
+    var me: Player?
+    var KeyWord: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         self.DrawingBoardArea.brush = brushes["Pencil"]
+        navigationItem.title = "题目：" + KeyWord!
     }
 
     override func didReceiveMemoryWarning() {

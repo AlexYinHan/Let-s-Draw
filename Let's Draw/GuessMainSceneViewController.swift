@@ -15,14 +15,21 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var chattingDisplayAreaTextView: UITextView!
     @IBOutlet weak var answerButton: UIButton!
     
+    var Hint: String!
+    var me: Player?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        // navigation bar
+        navigationItem.title = "提示：" + Hint!
         
+        // chatting area
         chattingInputBoxTextField.delegate = self
         chattingDisplayAreaTextView.text.append("在这里讨论吧\n")
         chattingDisplayAreaTextView.layoutManager.allowsNonContiguousLayout = false
+        
+        // answer button
         answerButton.layer.cornerRadius = 5 //  设置为圆角按钮
     }
 

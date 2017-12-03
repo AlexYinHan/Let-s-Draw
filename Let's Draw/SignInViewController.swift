@@ -11,7 +11,7 @@ import os.log
 
 class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
-    //MARK: Properties
+    // MARK: Properties
     
     var me: Player?
     
@@ -54,7 +54,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
     }
     
 
-    //MARK: UIImagePIckerControllerDelegate
+    // MARK: UIImagePIckerControllerDelegate
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss the picker if the user canceled
@@ -76,7 +76,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         
     }
     
-    //MARK: UITextFieldDelegate
+    // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //当用户结束编辑时（比如回车），调用这个函数， text field归还FirstResponser地位
@@ -98,7 +98,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         enterGameButton.isEnabled = false
     }
     
-    //MARK: Action
+    // MARK: Action
     @IBAction func enterGameButtonPressed(_ sender: UIButton) {
         if let name = userNameTextField.text, let photo = userPhotoImageView.image {
             me = Player(name: name, photo: photo)
@@ -119,7 +119,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    //MARK: Private Methods
+    // MARK: Private Methods
     private func updateEnterGameButtonState() {
         // Disable the enterGame button if the userName text field is empty.
         let text = userNameTextField.text ?? ""
