@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
 
@@ -77,7 +78,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
                 // 提交答案
             if let answer = (answerAlertController.textFields!.first as UITextField?)?.text
             {
-                print("提交答案\(answer)")
+                print("[GuessMainScene]Confirm answer:\(answer).")
             }
             })
         answerAlertController.addAction(cancelAction)

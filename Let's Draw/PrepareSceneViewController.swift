@@ -45,7 +45,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             fatalError("Unknown room Number.")
         }
         navigationItem.title = "房间号：\(roomNum)"
-        
+        playerList.backgroundColor = UIColor.clear  //  要在这里设置透明，在storyboard 中设置的话运行时会变成黑色。
     }
 
     override func didReceiveMemoryWarning() {
