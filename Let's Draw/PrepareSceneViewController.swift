@@ -17,8 +17,8 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var playerList: UICollectionView!
     @IBOutlet weak var readyButton: UIButton!
     
-    var players = [Player]()
-    var me: Player?
+    var players = [User]()
+    var me: User?
     var roomNumber: Int?
     
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         //把“我”加入玩家列表。实际应该是，在进入这个页面之前，向服务器发信息告知“我”进入了这个房间。由服务器发送消息告知本页面修改玩家列表。
         players.append(myPlayerInfo)
         //测试player List
-        let tempPlayer = Player(name: "Edmund", photo: #imageLiteral(resourceName: "People"))
+        let tempPlayer = User(name: "Edmund", photo: #imageLiteral(resourceName: "People"))
         players.append(tempPlayer!)
         players.append(tempPlayer!)
         players.append(tempPlayer!)

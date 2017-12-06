@@ -13,7 +13,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
 
     // MARK: Properties
     
-    var me: Player?
+    var me: User?
     
     @IBOutlet weak var enterGameButton: UIButton!
     @IBOutlet weak var userPhotoImageView: UIImageView!
@@ -101,7 +101,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
     // MARK: Action
     @IBAction func enterGameButtonPressed(_ sender: UIButton) {
         if let name = userNameTextField.text, let photo = userPhotoImageView.image {
-            me = Player(name: name, photo: photo)
+            me = User(name: name, photo: photo)
         }
     }
     @IBAction func selectUserPhotoFromPhotoLibrary(_ sender: UITapGestureRecognizer) {

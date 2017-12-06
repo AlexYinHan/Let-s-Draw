@@ -16,8 +16,8 @@ enum PlayerRole {
 class WaitingForGameToStartSceneViewController: UIViewController {
 
     // MARK: Properties
-    var players = [Player]()
-    var me: Player?
+    var players = [User]()
+    var me: User?
     var Subject:String!
     
     override func viewDidLoad() {
@@ -98,7 +98,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
         return String("文具")
     }
     
-    private func getPlayerRole(Player: Player) -> PlayerRole{
+    private func getPlayerRole(Player: User) -> PlayerRole{
         let urlPath: String = "http://localhost:3000/tasks/playerRole"
         let url = URL(string: urlPath)!
         let request = URLRequest(url: url)
@@ -108,7 +108,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
         // Use semaphore to send Synchronous request
         let semaphore = DispatchSemaphore(value: 0)
         
-        httpGet(request: request){
+        ServerConnectionDelegator.httpGet(request: request){
             (data, error) -> Void in
             if error != nil {
                 print(error!)
@@ -134,20 +134,6 @@ class WaitingForGameToStartSceneViewController: UIViewController {
 
 }
 
-private func httpGet(request: URLRequest!, callback: @escaping (String, String?) -> Void) {
-    let session = URLSession.shared
-    let task = session.dataTask(with: request){
-        (data, response, error) -> Void in
-        if error != nil {
-            callback("", error!.localizedDescription)
-        } else {
-            let result = NSString(data: data!, encoding:
-                String.Encoding.ascii.rawValue)!
-            callback(result as String, nil)
-        }
-    }
-    task.resume()
-}
 
 
 

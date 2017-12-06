@@ -17,7 +17,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var answerButton: UIButton!
     
     var Hint: String!
-    var me: Player?
+    var me: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()

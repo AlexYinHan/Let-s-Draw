@@ -10,7 +10,16 @@ var users = require('./routes/users');
 var tasks = require('./routes/tasks');
 
 var app = express();
+var mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/express-app', {useMongoClient: true},
+function(err) {
+  if(err) {
+    console.log('connect error', err);
+  } else {
+    console.log('connect successful');
+  }
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

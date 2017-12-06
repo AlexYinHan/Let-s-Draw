@@ -24,7 +24,7 @@ class DrawMainSceneViewController: UIViewController {
         "White": UIColor.white,
     ]
 
-    var me: Player?
+    var me: User?
     var KeyWord: String!
     
     override func viewDidLoad() {

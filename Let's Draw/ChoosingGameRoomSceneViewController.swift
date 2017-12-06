@@ -15,7 +15,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
     
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userName: UILabel!
-    var me: Player?
+    var me: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
