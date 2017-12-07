@@ -21,6 +21,10 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     var me: User?
     var roomNumber: Int?
     
+    var queue = OperationQueue()
+    //var updatePlayerListOperation: BlockOperation?
+    var updatePlayerListOperationIsCancelled = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,15 +43,38 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         players.append(tempPlayer!)
         players.append(tempPlayer!)
         players.append(tempPlayer!)
-        getAllPlayers()
+        //getAllPlayers()
         
         guard let roomNum = roomNumber else {
             fatalError("Unknown room Number.")
         }
         navigationItem.title = "房间号：\(roomNum)"
         playerList.backgroundColor = UIColor.clear  //  要在这里设置透明，在storyboard 中设置的话运行时会变成黑色。
+        
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        // updatePlayerListOperation
+        let updatePlayerListOperation = BlockOperation(block: {
+            print("update")
+            while true {
+                if self.updatePlayerListOperationIsCancelled {
+                    break
+                }
+                self.getAllPlayers()
+                OperationQueue.main.addOperation {
+                    self.playerList.reloadData()
+                }
+                sleep(1)
+            }
+        })
+        updatePlayerListOperation.completionBlock = {
+            print("updatePlayerListOperation completed.")
+        }
+        
+        queue.addOperation(updatePlayerListOperation)
+        //queue.cancelAllOperations()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,11 +103,17 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         return cell
     }
     
+    // MARK: Actions
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        
+        // 在转移之前取消更新playerList的线程
+        self.queue.cancelAllOperations()
+        updatePlayerListOperationIsCancelled = true
         
         switch segue.identifier ?? "" {
         case "WaitingForGameToStart":
@@ -102,5 +135,41 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     // Ask the server for the playerList and modify the players array.
     private func getAllPlayers() {
         
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/getPlayersInRoom?roomId=\(roomNumber ?? -1)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to creat game room.")
+        }
+        
+        struct PlayerInfo {
+            var name: String
+            var photo = 0   //  暂时是Int，应该是image
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                print("test")
+                print((data as! [NSDictionary]).count)
+                self.players.removeAll()
+                for player in (data as! [NSDictionary]) {
+                    if let actualPlayer = User(name: player["name"] as! String, photo: nil) {
+                        self.players.append(actualPlayer)
+                    }
+                }
+            }
+            
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
 }

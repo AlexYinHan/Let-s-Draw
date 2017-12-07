@@ -89,13 +89,53 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     
     // Ask the the server for the key word for the game.
     private func getKeyWord() -> String {
-        // ...
-        return String("直尺")
+        let urlPath: String = "http://localhost:3000/tasks/keyWord"
+        let url = URL(string: urlPath)!
+        let request = URLRequest(url: url)
+        
+        var keyWord:String = ""
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpGet(request: request){
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                print("keyWord data:\(data)")
+                keyWord = data
+            }
+            semaphore.signal()
+        }
+        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        return keyWord
     }
     
     private func getHint() -> String {
-        // ...
-        return String("文具")
+        let urlPath: String = "http://localhost:3000/tasks/hint"
+        let url = URL(string: urlPath)!
+        let request = URLRequest(url: url)
+        
+        var hint:String = ""
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpGet(request: request){
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                print("hint data:\(data)")
+                hint = data
+            }
+            semaphore.signal()
+        }
+        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        return hint
     }
     
     private func getPlayerRole(Player: User) -> PlayerRole{
@@ -129,7 +169,6 @@ class WaitingForGameToStartSceneViewController: UIViewController {
         default:
             fatalError("\(playerRole):Unrecognized player role returned from server.")
         }
-        //return PlayerRole.Guesser
     }
 
 }

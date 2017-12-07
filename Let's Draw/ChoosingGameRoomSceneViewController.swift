@@ -60,9 +60,38 @@ class ChoosingGameRoomSceneViewController: UIViewController {
     
     // Ask the server to create a new game room and return the number of the new room.
     private func createGameRoom() -> Int {
-        // Connect the server
-        // ...
+        var roomId: Int?
         
-        return 1001;
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/createRoom"
+        let params = NSMutableDictionary()
+        
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to creat game room.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                roomId = (data as! [NSDictionary])[0]["roomId"] as? Int
+                print((data as! [NSDictionary])[0]["roomId"] as? Int ?? "Wrong room Id returned from server.")
+            }
+            semaphore.signal()
+        }
+        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        guard let resultRoomId = roomId else {
+            fatalError("No room Id returned from server.")
+        }
+        return resultRoomId;
     }
 }
