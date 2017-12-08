@@ -21,6 +21,8 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var chattingDisplayAreaTextView: UITextView!
     
     var players = [User]()
+    var playerIds = [Int]()
+    
     var me: User?
     var roomNumber: Int?
     
@@ -177,7 +179,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     private func getAllPlayers() {
         
         // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/getPlayersInRoom?roomId=\(roomNumber ?? -1)"
+        let urlPath: String = "http://localhost:3000/tasks/getPlayerIDsInRoom?roomId=\(roomNumber ?? -1)"
         let params = NSMutableDictionary()
         var jsonData:Data? = nil
         do {
@@ -201,19 +203,65 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             } else {
                 //print("test")
                 //print((data as! [NSDictionary]).count)
-                self.players.removeAll()
+                self.playerIds.removeAll()
                 for player in (data as! [NSDictionary]) {
-                    if let actualPlayer = User(name: player["name"] as! String, photo: nil) {
-                        self.players.append(actualPlayer)
-                    }
+                    self.playerIds.append(player["id"] as! Int)
                 }
             }
             
             semaphore.signal()
         }
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        players.removeAll()
+        for player in playerIds {
+            let anotherUser = getPlayerInfo(withId: player)
+            players.append(anotherUser)
+        }
     }
     
+    private func getPlayerInfo(withId playerId: Int) ->User {
+        var userName: String?
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/getPlayerInfoWithId?playerId=\(playerId)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to creat game room.")
+        }
+        /*
+         struct PlayerInfo {
+         var name: String
+         var photo = 0   //  暂时是Int，应该是image
+         }
+         */
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                //print("test")
+                //print((data as! [NSDictionary]).count)
+                //let userId = (data as! [NSDictionary])[0]["Id"] as? Int
+                userName = (data as! [NSDictionary])[0]["name"] as? String
+            }
+            
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        guard let resultUserName = userName else {
+            fatalError("No user name returned from server.")
+        }
+        guard let resultPlayerInfo = User(name: resultUserName, photo: nil) else {
+            fatalError("Unrecognized user info returned from server.")
+        }
+        return resultPlayerInfo;
+    }
     private func sendChattingMessage(message: String) {
         // Connect the server
         let urlPath: String = "http://localhost:3000/tasks/sendChattingMessageInRoom?roomId=\(roomNumber ?? -1)&\(me!.name)&\(message)"

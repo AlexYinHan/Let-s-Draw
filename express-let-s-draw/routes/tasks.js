@@ -36,6 +36,18 @@ router.get('/getAllPlayers', function(req, res, next) {
 
 });
 
+router.delete('/deleteAllPlayers', function(req, res, next) {
+  PlayerList.remove({}, function(err, tasks){
+		if(err){
+			return res.status(400).send("err in get /getAllPlayers");
+		}else{
+			console.log(tasks);
+			return res.status(200).json("delete all players");
+		}
+	});
+
+});
+
 router.post('/signIn', function(req, res, next) {
   var playerName = req.query.userName;
 
@@ -112,7 +124,21 @@ router.delete('/deleteRoom', function(req, res, next) {
 
 });
 
-router.post('/getPlayersInRoom', function(req, res, next) {
+router.delete('/deleteAllRooms', function(req, res, next) {
+
+  GameRoom.remove({}, function(error) {
+    if(error) {
+        console.log(error);
+        return res.status(400).send("err in delete /task");
+    } else {
+        return res.status(200).json("delete all rooms.");
+        console.log('delete ok!');
+    }
+  });
+
+});
+
+router.post('/getPlayerIDsInRoom', function(req, res, next) {
   var roomID = req.query.roomId;
 
   GameRoom.find({roomId: roomID}, function(err, tasks){
@@ -126,16 +152,24 @@ router.post('/getPlayersInRoom', function(req, res, next) {
         console.log("getPlayersInRoom room.");
         console.log(tasks[0].players);
         return res.status(200).json(tasks[0].players);
-        /*
-        PlayerList.find({Id: tasks[0].players}, function(err, players){
-          if (err) {
-            console.log(error);
-      			return res.status(400).send("err in get /getPlayersInRoom");
-      		} else {
-            return res.status(200).json(players);
-          }
-        });
-        */
+      }
+		}
+	});
+});
+
+router.post('/getPlayerInfoWithId', function(req, res, next) {
+  var playerID = req.query.playerId;
+
+  PlayerList.find({Id: playerID}, function(err, tasks){
+		if (err) {
+      console.log(error);
+			return res.status(400).send("err in get /getPlayerInfoWithId");
+		} else {
+      if (tasks.length < 1) {
+        return res.status(400).send("No player found with id " + playerID);
+      } else {
+        console.log("getPlayerInfoWithId.");
+        return res.status(200).json(tasks);
       }
 		}
 	});
@@ -143,7 +177,8 @@ router.post('/getPlayersInRoom', function(req, res, next) {
 
 router.put('/addPlayerToRoom', function(req, res, next) {
   var roomID = req.query.roomId;
-  var playerId = req.query.playerId;
+  var playerId = Number(req.query.playerId);
+  //console.log(playerId);
 
   GameRoom.update({roomId: roomID}, {$push : {players: {id: playerId}}}, function(err, tasks){
 		if (err) {
@@ -159,7 +194,7 @@ router.put('/addPlayerToRoom', function(req, res, next) {
 
 router.put('/removePlayerFromRoom', function(req, res, next) {
   var roomID = req.query.roomId;
-  var playerId = req.query.playerId;
+  var playerId = Number(req.query.playerId);
 
   GameRoom.update({roomId: roomID}, {$pull : {players: {id: playerId}}}, function(err, tasks){
 		if (err) {
