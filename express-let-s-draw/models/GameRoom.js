@@ -2,18 +2,25 @@ var mongoose = require('mongoose');
 
 var GameRoomSchema = new mongoose.Schema({
   roomId: Number,
+  chatContent: {
+    type: String,
+    default: "Hello Everyone!"
+  },
   players: {
     type: Array,
+    /*
     default: [
       {
-        photo: 0,
-        name: "Jackson",      
+        //isNotified: 1,
+        //photo: 0,
+        id: 1
       },
       {
-        photo: 0,
+        //isNotified: 1,
+        //photo: 0,
         name: "Lina",
       },
-    ]
+    ]*/
   }
 });
 

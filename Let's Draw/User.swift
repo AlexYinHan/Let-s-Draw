@@ -12,7 +12,8 @@ class User: NSObject {
 
     //MARK: Properties
     
-    var name:String
+    var id: Int
+    var name: String
     var photo: UIImage?
     
     //MARK: Initialization
@@ -30,6 +31,8 @@ class User: NSObject {
         } else {
             self.photo = #imageLiteral(resourceName: "People");
         }
+        
+        id = 0;
         
     }
 }

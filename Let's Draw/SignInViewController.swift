@@ -46,6 +46,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
             guard let choosingGameRoomViewController = segue.destination as? ChoosingGameRoomSceneViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
+            
+            // signIn and get a user ID from server
+            me?.id = signIn()
+            
             choosingGameRoomViewController.me = self.me
             
         default:
@@ -124,5 +128,41 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         // Disable the enterGame button if the userName text field is empty.
         let text = userNameTextField.text ?? ""
         enterGameButton.isEnabled = !text.isEmpty
+    }
+    
+    private func signIn() -> Int{
+        var userId: Int?
+        
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/signIn?userName=\(self.me?.name ?? "unknown")"
+        let params = NSMutableDictionary()
+        
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to creat game room.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                userId = (data as! [NSDictionary])[0]["playerId"] as? Int
+                print((data as! [NSDictionary])[0]["playerId"] as? Int ?? "Wrong user Id returned from server.")
+            }
+            semaphore.signal()
+        }
+        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        guard let resultUserId = userId else {
+            fatalError("No user Id returned from server.")
+        }
+        return resultUserId;
     }
 }

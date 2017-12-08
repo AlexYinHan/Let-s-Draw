@@ -145,7 +145,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
     private func joinGameRoom(roomId: Int) {
         
         // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/addPlayerToRoom?roomId=\(roomId)&playerName=\(self.me?.name ?? "unknown")"
+        let urlPath: String = "http://localhost:3000/tasks/addPlayerToRoom?roomId=\(roomId)&playerId=\(self.me?.id ?? -1)"
         let params = NSMutableDictionary()
         
         var jsonData:Data? = nil
@@ -179,7 +179,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
     private func exitGameRoom(roomId: Int) {
         
         // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/removePlayerFromRoom?roomId=\(roomId)&playerName=\(self.me?.name ?? "unknown")"
+        let urlPath: String = "http://localhost:3000/tasks/removePlayerFromRoom?roomId=\(roomId)&playerId=\(self.me?.id ?? -1)"
         let params = NSMutableDictionary()
         
         var jsonData:Data? = nil

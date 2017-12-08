@@ -26,7 +26,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     
     var queue = OperationQueue()
     //var updatePlayerListOperation: BlockOperation?
-    var updatePlayerListOperationIsCancelled = false
+    var isOperationQueueCancelled = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,9 +56,9 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     override func viewDidAppear(_ animated: Bool) {
         // updatePlayerListOperation
         let updatePlayerListOperation = BlockOperation(block: {
-            print("update")
+            print("updatePlayerList")
             while true {
-                if self.updatePlayerListOperationIsCancelled {
+                if self.isOperationQueueCancelled {
                     break
                 }
                 self.getAllPlayers()
@@ -72,8 +72,31 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             print("updatePlayerListOperation completed.")
         }
         
+        // updateChattingAreaOperation
+        let updateChattingAreaOperation = BlockOperation(block: {
+            //print("updateChattingArea")
+            while true {
+                if self.isOperationQueueCancelled {
+                    break
+                }
+                
+                let newMessage = self.getChattingMessage()
+                
+                OperationQueue.main.addOperation {
+                    // 更新聊天区
+                    self.chattingDisplayAreaTextView.text.append("\n\(newMessage)")
+                    let allStrCount = self.chattingDisplayAreaTextView.text.count //获取总文字个数
+                    self.chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
+                }
+                sleep(1)
+            }
+        })
+        updateChattingAreaOperation.completionBlock = {
+            print("updateChattingAreaOperation completed.")
+        }
+        
         queue.addOperation(updatePlayerListOperation)
-        //queue.cancelAllOperations()
+        queue.addOperation(updateChattingAreaOperation)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -106,9 +129,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let newChattingRecord = textField.text {
-            chattingDisplayAreaTextView.text.append("\n\(newChattingRecord)")
-            let allStrCount = chattingDisplayAreaTextView.text.count //获取总文字个数
-            chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
+            sendChattingMessage(message: newChattingRecord)
         }
         // text field归还FirstResponser地位
         // Hide the keyboard.
@@ -126,9 +147,9 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        // 在转移之前取消更新playerList的线程
+        // 在转移之前取消用于与服务器通信的线程
         self.queue.cancelAllOperations()
-        updatePlayerListOperationIsCancelled = true
+        isOperationQueueCancelled = true
         
         switch segue.identifier ?? "" {
         case "WaitingForGameToStart":
@@ -178,8 +199,8 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             if error != nil {
                 print(error!)
             } else {
-                print("test")
-                print((data as! [NSDictionary]).count)
+                //print("test")
+                //print((data as! [NSDictionary]).count)
                 self.players.removeAll()
                 for player in (data as! [NSDictionary]) {
                     if let actualPlayer = User(name: player["name"] as! String, photo: nil) {
@@ -191,5 +212,67 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             semaphore.signal()
         }
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+    
+    private func sendChattingMessage(message: String) {
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/sendChattingMessageInRoom?roomId=\(roomNumber ?? -1)&\(me!.name)&\(message)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to creat game room.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                if let ok = (data as! [NSDictionary])[0]["ok"] {
+                    print("sendChattingMessage: ok : \(ok)")
+                } else {
+                    os_log("sendChattingMessage: unexpected response from server.", log: OSLog.default, type: .debug)
+                }
+            }
+            
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+    
+    private func getChattingMessage() ->String {
+        var result = ""
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/getChattingMessageInRoom?roomId=\(roomNumber ?? -1)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to creat game room.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                for message in (data as! [String]) {
+                    result += message
+                }
+            }
+            
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        return result
     }
 }
