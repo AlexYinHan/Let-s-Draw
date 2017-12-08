@@ -9,13 +9,16 @@
 import UIKit
 import os.log
 
-class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
 
     //MARK: Properties
     
 
     @IBOutlet weak var playerList: UICollectionView!
     @IBOutlet weak var readyButton: UIButton!
+    @IBOutlet weak var exitButton: UIButton!
+    @IBOutlet weak var chattingInputBoxTextField: UITextField!
+    @IBOutlet weak var chattingDisplayAreaTextView: UITextView!
     
     var players = [User]()
     var me: User?
@@ -32,19 +35,16 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         playerList.dataSource = self
         
         
-        guard let myPlayerInfo = me else {
+        guard me != nil else {
             fatalError("No information about this player.")
         }
-        //把“我”加入玩家列表。实际应该是，在进入这个页面之前，向服务器发信息告知“我”进入了这个房间。由服务器发送消息告知本页面修改玩家列表。
-        players.append(myPlayerInfo)
-        //测试player List
-        let tempPlayer = User(name: "Edmund", photo: #imageLiteral(resourceName: "People"))
-        players.append(tempPlayer!)
-        players.append(tempPlayer!)
-        players.append(tempPlayer!)
-        players.append(tempPlayer!)
-        //getAllPlayers()
         
+        // chatting area
+        chattingInputBoxTextField.delegate = self
+        chattingDisplayAreaTextView.text.append("在这里讨论吧\n")
+        chattingDisplayAreaTextView.layoutManager.allowsNonContiguousLayout = false
+        
+        // navigation bar
         guard let roomNum = roomNumber else {
             fatalError("Unknown room Number.")
         }
@@ -103,10 +103,25 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         return cell
     }
     
-    // MARK: Actions
+    //MARK: UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let newChattingRecord = textField.text {
+            chattingDisplayAreaTextView.text.append("\n\(newChattingRecord)")
+            let allStrCount = chattingDisplayAreaTextView.text.count //获取总文字个数
+            chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
+        }
+        // text field归还FirstResponser地位
+        // Hide the keyboard.
+        textField.resignFirstResponder()
+        textField.text = ""
+        return true
+    }
     
+    // MARK: Actions
+    @IBAction func exitButtonPressed(_ sender: UIButton) {
+        
+    }
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -125,9 +140,14 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             waitingForGameToStartViewController.players = self.players
             
         default:
-            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+            // exitButton triggles an unwind segue
+            guard let button = sender as? UIButton, button === exitButton else {
+                fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+            }
         }
     }
+    
+    
     
 
     //MARK: Private Methods
@@ -144,12 +164,12 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         } catch {
             fatalError("Wrong post params when trying to creat game room.")
         }
-        
+        /*
         struct PlayerInfo {
             var name: String
             var photo = 0   //  暂时是Int，应该是image
         }
-        
+        */
         // Use semaphore to send Synchronous request
         let semaphore = DispatchSemaphore(value: 0)
         

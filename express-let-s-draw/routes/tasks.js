@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/playerRole', function(req, res, next) {
-  res.send("Drawer");
+  res.send("Guesser");
 });
 
 router.get('/getAllRooms', function(req, res, next) {
@@ -67,6 +67,37 @@ router.post('/getPlayersInRoom', function(req, res, next) {
       console.log(tasks[0].players);
       console.log(tasks);
 			return res.status(200).json(tasks[0].players);
+		}
+	});
+});
+
+router.put('/addPlayerToRoom', function(req, res, next) {
+  var roomID = req.query.roomId;
+  var playerName = req.query.playerName;
+
+  GameRoom.update({roomId: roomID}, {$push : {players: {name: playerName, photo: 0}}}, function(err, tasks){
+		if (err) {
+      console.log(error);
+			return res.status(400).send("err in post /addPlayerToRoom");
+		} else {
+      console.log("add player with name " + playerName + " to room with roomId " + roomID);
+			return res.status(200).json([tasks]);
+		}
+	});
+
+});
+
+router.put('/removePlayerFromRoom', function(req, res, next) {
+  var roomID = req.query.roomId;
+  var playerName = req.query.playerName;
+
+  GameRoom.update({roomId: roomID}, {$pull : {players: {name: playerName}}}, function(err, tasks){
+		if (err) {
+      console.log(error);
+			return res.status(400).send("err in post /removePlayerFromRoom");
+		} else {
+      console.log("remove player with name " + playerName + " to room with roomId " + roomID);
+			return res.status(200).json([tasks]);
 		}
 	});
 

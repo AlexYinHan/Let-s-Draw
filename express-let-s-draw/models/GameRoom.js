@@ -6,12 +6,12 @@ var GameRoomSchema = new mongoose.Schema({
     type: Array,
     default: [
       {
-        name: "Jackson",
-        photo: 0
+        photo: 0,
+        name: "Jackson",      
       },
       {
+        photo: 0,
         name: "Lina",
-        photo: 0
       },
     ]
   }

@@ -54,4 +54,31 @@ class ServerConnectionDelegator: NSObject {
         task.resume()
     }
     
+    static public func httpPut(urlPath: String, httpBody: Data, callback: @escaping ([Any]?, String?) -> Void) {
+        let session = URLSession.shared
+        let url = URL(string: urlPath)!
+        //NSMutableURLRequest
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = httpBody
+        
+        let task = session.dataTask(with: request) {
+            (data, response, error) -> Void in
+            if error != nil {
+                callback(nil, error!.localizedDescription)
+            } else {
+                var dict = [Any]()
+                do {
+                    dict  = (try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) as? [Any])!
+                    //dict  = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary
+                } catch {
+                    
+                }
+                print("put res from server: ",dict)
+                callback(dict, nil)
+            }
+        }
+        task.resume()
+    }
+    
 }
