@@ -296,7 +296,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     private func getChattingMessage() ->String {
         var result = ""
         // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/getChattingMessageInRoom?roomId=\(roomNumber ?? -1)&playerName=\(me!.name)"
+        let urlPath: String = "http://localhost:3000/tasks/getChattingMessageInRoom?roomId=\(roomNumber ?? -1)&playerId=\(me!.id)"
         let params = NSMutableDictionary()
         var jsonData:Data? = nil
         do {

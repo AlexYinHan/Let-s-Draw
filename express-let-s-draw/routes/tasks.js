@@ -224,19 +224,23 @@ router.post('/sendChattingMessageInRoom', function(req, res, next) {
       console.log("sendChattingMessage to room " + roomID);
       console.log(message);
 
-      PlayerList.update({roomNumber: roomID}, {isNotified: 0}, function(err, tasks) {
-        console.log(tasks);
+      PlayerList.find({roomNumber: roomID}, function(err, players) {
+        players.forEach(function(item) {
+            PlayerList.update({isNotified: 1}, {isNotified: 0}, function(err, tasks2) {
+              console.log(tasks2);
+            });
+        });
       });
 			return res.status(200).json([tasks]);
-		}
+    }
 	});
 });
 
 router.post('/getChattingMessageInRoom', function(req, res, next) {
   var roomID = req.query.roomId;
-  var playerName = req.query.playerName;
+  var playerId = Number(req.query.playerId);
 
-  PlayerList.find({name: playerName}, function(err, players){//find user check isNotified state
+  PlayerList.find({Id: playerId}, function(err, players){//find user check isNotified state
     if (err) {
       console.log(error);
       return res.send("");
@@ -252,7 +256,7 @@ router.post('/getChattingMessageInRoom', function(req, res, next) {
       			return res.status(400).send("err in get /getChattingMessageInRoom");
       		} else {
             console.log("is not notified");
-            PlayerList.update({name: playerName}, {isNotified: 1}, function(err, tasks) {
+            PlayerList.update({Id: playerId}, {isNotified: 1}, function(err, tasks) {
               console.log(tasks);
             });
             return res.send([String(rooms[0].chatContent)]);
