@@ -97,9 +97,41 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             print("updateChattingAreaOperation completed.")
         }
         
+        // getGameStateOperation
+        let getGameStateOperation = BlockOperation(block: {
+            //print("updateChattingArea")
+            while true {
+                if self.isOperationQueueCancelled {
+                    break
+                }
+                
+                let gameState = self.getGameState()
+                switch gameState {
+                    /*
+                     0: ended
+                     1: readyToBegin
+                     2: onGoing
+                     */
+                case 0:
+                    sleep(1)
+                case 1:
+                    sleep(1)
+                case 2:
+                    self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
+                default:
+                    fatalError("Unknown game state.")
+                }
+                
+            }
+        })
+        getGameStateOperation.completionBlock = {
+            print("getGameStateOperation completed.")
+        }
         queue.addOperation(updatePlayerListOperation)
         queue.addOperation(updateChattingAreaOperation)
+        queue.addOperation(getGameStateOperation)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -143,6 +175,10 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     // MARK: Actions
     @IBAction func exitButtonPressed(_ sender: UIButton) {
         
+    }
+    @IBAction func readyButtonPressed(_ sender: UIButton) {
+        // inform server that the game has begun in this room.
+        beginGame()
     }
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -328,4 +364,132 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         }
         
     }
+    
+    private func getGameState() -> Int {
+        var state:Int?
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/getGameStateInRoom?roomId=\(me!.roomId!)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to get ready.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                state = (data as! [Int])[0]
+            }
+            
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        guard let realState = state else {
+            fatalError("Unknown game state returned from server.")
+        }
+        return realState
+    }
+    
+    private func beginGame() {
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/beginGameInRoom?roomId=\(me!.roomId!)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to begin game.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                if let ok = (data as! [NSDictionary])[0]["ok"] {
+                    print("beginGame: ok : \(ok)")
+                } else {
+                    os_log("beginGame: unexpected response from server.", log: OSLog.default, type: .debug)
+                }
+            }
+            
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+    
+    /*
+    private func getReady() {
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/playerGetReady?playerId=\(me!.id)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to get ready.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                if let ok = (data as! [NSDictionary])[0]["ok"] {
+                    print("getReady: ok : \(ok)")
+                } else {
+                    os_log("getReady: unexpected response from server.", log: OSLog.default, type: .debug)
+                }
+            }
+            
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+    */
+    /*
+    private func resetReady() {
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/playerResetReady?playerId=\(me!.id)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to get ready.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        //let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                if let ok = (data as! [NSDictionary])[0]["ok"] {
+                    print("resetReady: ok : \(ok)")
+                } else {
+                    os_log("resetReady: unexpected response from server.", log: OSLog.default, type: .debug)
+                }
+            }
+            
+            //semaphore.signal()
+        }
+        //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+     */
 }

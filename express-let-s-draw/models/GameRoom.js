@@ -9,18 +9,29 @@ var GameRoomSchema = new mongoose.Schema({
   players: {
     type: Array,
     /*
-    default: [
-      {
-        //isNotified: 1,
-        //photo: 0,
-        id: 1
-      },
-      {
-        //isNotified: 1,
-        //photo: 0,
-        name: "Lina",
-      },
-    ]*/
+    player Ids
+    */
+  },
+  questionNumber: {
+    type: Number,
+    default: 0
+  },
+  drawerNumber: {
+    type: Number,
+    default: 0
+  },
+  readyNumber: {
+    type: Number,
+    default: 0
+  },
+  gameState:{
+    type: Number,
+    default: 0
+    /*
+    0: ended
+    1: readyToBegin
+    2: onGoing
+    */
   }
 });
 

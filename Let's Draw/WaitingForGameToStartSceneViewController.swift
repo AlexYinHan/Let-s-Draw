@@ -89,7 +89,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     
     // Ask the the server for the key word for the game.
     private func getKeyWord() -> String {
-        let urlPath: String = "http://localhost:3000/tasks/keyWord"
+        let urlPath: String = "http://localhost:3000/tasks/getHintInRoom?roomId=\(me?.roomId ?? 0)"
         let url = URL(string: urlPath)!
         let request = URLRequest(url: url)
         
@@ -114,7 +114,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     }
     
     private func getHint() -> String {
-        let urlPath: String = "http://localhost:3000/tasks/hint"
+        let urlPath: String = "http://localhost:3000/tasks/getHintInRoom?roomId=\(me?.roomId ?? 0)"
         let url = URL(string: urlPath)!
         let request = URLRequest(url: url)
         
@@ -139,7 +139,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     }
     
     private func getPlayerRole(Player: User) -> PlayerRole{
-        let urlPath: String = "http://localhost:3000/tasks/playerRole"
+        let urlPath: String = "http://localhost:3000/tasks/playerRole?roomId=\(me!.roomId!)&playerId=\(me!.id)"
         let url = URL(string: urlPath)!
         let request = URLRequest(url: url)
         

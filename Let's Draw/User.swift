@@ -15,6 +15,7 @@ class User: NSObject {
     var id: Int
     var name: String
     var photo: UIImage?
+    var roomId: Int?
     
     //MARK: Initialization
     init?(name: String, photo: UIImage?) {

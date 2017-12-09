@@ -274,6 +274,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="Ready"/>
                                 <connections>
+                                    <action selector="readyButtonPressed:" destination="oRY-jV-NAz" eventType="touchUpInside" id="bYt-S8-0As"/>
                                     <segue destination="Glv-eT-rKS" kind="showDetail" identifier="WaitingForGameToStart" id="eId-1l-ybD"/>
                                 </connections>
                             </button>
@@ -363,7 +364,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kux-PP-2dt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BY6-1I-xl5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1229" y="600"/>
+            <point key="canvasLocation" x="-1230.4347826086957" y="600"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qGq-ih-cFC">

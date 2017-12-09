@@ -174,6 +174,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 
+        me!.roomId = roomId
     }
     
     private func exitGameRoom(roomId: Int) {
@@ -208,6 +209,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         
+        me!.roomId = -1
     }
     
     private func searchGameRoom(roomId: Int) -> Bool {
