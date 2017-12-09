@@ -186,6 +186,9 @@ router.put('/addPlayerToRoom', function(req, res, next) {
 			return res.status(400).send("err in post /addPlayerToRoom");
 		} else {
       console.log("add player with id " + playerId + " to room with roomId " + roomID);
+      PlayerList.update({Id: playerId}, {roomNumber: roomID}, function(err, tasks2) {
+        console.log(tasks2);
+      });
 			return res.status(200).json([tasks]);
 		}
 	});
@@ -221,7 +224,9 @@ router.post('/sendChattingMessageInRoom', function(req, res, next) {
       console.log("sendChattingMessage to room " + roomID);
       console.log(message);
 
-      PlayerList.update({roomNumber: roomID}, {isNotified: 0});
+      PlayerList.update({roomNumber: roomID}, {isNotified: 0}, function(err, tasks) {
+        console.log(tasks);
+      });
 			return res.status(200).json([tasks]);
 		}
 	});
@@ -238,6 +243,7 @@ router.post('/getChattingMessageInRoom', function(req, res, next) {
     } else {
       console.log(players);
       if (players.length < 1 || players[0].isNotified == 1) {
+        console.log("is notified");
         return res.send("");
       } else {
         GameRoom.find({roomId: roomID}, function(err, rooms){// find the chat content of the room
@@ -245,7 +251,11 @@ router.post('/getChattingMessageInRoom', function(req, res, next) {
             console.log(error);
       			return res.status(400).send("err in get /getChattingMessageInRoom");
       		} else {
-            return res.send(rooms[0].chatContent)
+            console.log("is not notified");
+            PlayerList.update({name: playerName}, {isNotified: 1}, function(err, tasks) {
+              console.log(tasks);
+            });
+            return res.send([String(rooms[0].chatContent)]);
           }
         });
       }

@@ -86,7 +86,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
                 
                 OperationQueue.main.addOperation {
                     // 更新聊天区
-                    self.chattingDisplayAreaTextView.text.append("\n\(newMessage)")
+                    self.chattingDisplayAreaTextView.text.append("\(newMessage)")
                     let allStrCount = self.chattingDisplayAreaTextView.text.count //获取总文字个数
                     self.chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
                 }
@@ -264,7 +264,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     }
     private func sendChattingMessage(message: String) {
         // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/sendChattingMessageInRoom?roomId=\(roomNumber ?? -1)&\(me!.name)&\(message)"
+        let urlPath: String = "http://localhost:3000/tasks/sendChattingMessageInRoom?roomId=\(roomNumber ?? -1)&playerName=\(me!.name)&content=\(message)"
         let params = NSMutableDictionary()
         var jsonData:Data? = nil
         do {
@@ -296,7 +296,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     private func getChattingMessage() ->String {
         var result = ""
         // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/getChattingMessageInRoom?roomId=\(roomNumber ?? -1)"
+        let urlPath: String = "http://localhost:3000/tasks/getChattingMessageInRoom?roomId=\(roomNumber ?? -1)&playerName=\(me!.name)"
         let params = NSMutableDictionary()
         var jsonData:Data? = nil
         do {
@@ -321,6 +321,11 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             semaphore.signal()
         }
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        return result
+        if result == "" {
+            return ""
+        } else {
+            return "\n\(result)"
+        }
+        
     }
 }
