@@ -77,6 +77,7 @@ class DrawMainSceneViewController: UIViewController {
     @IBAction func ColorButtonTapped(_ sender: UIButton) {
         if let colorName = sender.currentTitle, let color = DrawingTools.drawingColors[colorName] {
             self.DrawingBoardArea.strokeColor = color
+            self.DrawingBoardArea.colorName = colorName
         }
     }
     
@@ -90,8 +91,8 @@ class DrawMainSceneViewController: UIViewController {
                 "brushState": self.DrawingBoardArea.drawingState,
                 "brushPositionX": self.DrawingBoardArea.brushPositionX,
                 "brushPositionY": self.DrawingBoardArea.brushPositionY,
-                "brushKind": "Pencil",
-                "brushColor": "Red"
+                "brushKind": self.DrawingBoardArea.brush?.brushName() ?? "default",
+                "brushColor": self.DrawingBoardArea.colorName
             ]
             Alamofire.request("http://localhost:3000/tasks/sendDrawingBoard?roomId=\(me!.roomId!)", method: .post, parameters: parameters).responseJSON { response in
                 semaphore.signal()

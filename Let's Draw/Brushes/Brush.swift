@@ -11,6 +11,7 @@ import UIKit
 protocol PaintBrush {
     func supportContinuousDrawing() -> Bool
     func drawInContext(context: CGContext)
+    func brushName() -> String
 }
 
 class Brush: NSObject, PaintBrush {
@@ -29,5 +30,9 @@ class Brush: NSObject, PaintBrush {
     
     func drawInContext(context: CGContext) {
         assert(false, "func drawInContext(context: CGContext) Should be implemented in subclass.")
+    }
+    
+    func brushName() -> String {
+        return "default"
     }
 }

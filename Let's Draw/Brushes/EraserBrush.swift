@@ -15,4 +15,8 @@ class EraserBrush: PencilBrush {
         
         super.drawInContext(context: context)
     }
+    
+    override func brushName() -> String {
+        return "Eraser"
+    }
 }

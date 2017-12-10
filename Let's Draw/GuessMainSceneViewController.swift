@@ -129,7 +129,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
                     //把得到的JSON数据转为数组
                     //print(response.result.value)
                     if let items = response.result.value as? Dictionary<String , Any>{
-                        print(items["brushColor"] as! String)
+                        //print(items["brushColor"] as! String)
                         // 画笔颜色
                         if let colorName = items["brushColor"] as? String, let color = DrawingTools.drawingColors[colorName] {
                             self.renderingBoardArea.strokeColor = color
@@ -137,6 +137,11 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
                         // 画笔种类
                         if let brushName = items["brushKind"] as? String {
                             self.renderingBoardArea.brush = DrawingTools.brushes[brushName]
+                            if brushName == "Eraser" {
+                                self.renderingBoardArea.strokeWidth = 15
+                            } else {
+                                self.renderingBoardArea.strokeWidth = 1
+                            }
                         }
                         
                         // 画
@@ -147,7 +152,8 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
                             case "Moved":
                                 self.renderingBoardArea.drawWhenTouchMoves(x: x, y: y)
                             case "Ended":
-                                self.renderingBoardArea.drawWhenTouchEnds(x: x, y: y)
+                                print("ended brush state.")
+                                //self.renderingBoardArea.drawWhenTouchEnds(x: x, y: y)
                             default:
                                 print("Unknown brush state.")
                             }

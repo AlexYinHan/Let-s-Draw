@@ -17,6 +17,7 @@ class DrawingBoard: UIImageView {
     
     var strokeWidth: CGFloat
     var strokeColor: UIColor
+    var colorName = "White" // default color
     
     var brush: Brush?
     var realtimeImage: UIImage?

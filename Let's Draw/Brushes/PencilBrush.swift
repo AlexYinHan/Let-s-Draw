@@ -28,4 +28,8 @@ class PencilBrush: Brush {
     override func supportContinuousDrawing() -> Bool {
         return true
     }
+    
+    override func brushName() -> String {
+        return "Pencil"
+    }
 }
