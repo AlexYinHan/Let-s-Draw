@@ -57,7 +57,8 @@ viewDidUnload－当内存过低，释放一些不需要的视图时调用。<br>
 将字典类型转为json类型，作为post的参数<br>
 发送{roomid:1001}<br>
 变成{'{\n "roomId" : 1001\n}': ''}<br>
-暂时把参数都放在URL里，但是没法传中文、空格等特殊字符
+暂时把参数都放在URL里，但是没法传中文、空格等特殊字符<br>
+可以采用Alamofire，传参数很方便。
 ***
 8. **OperationQueue中的operation无法取消**
 其实该operation的isCancelled已经为true，但是不知道什么原因还在运行。<br>
