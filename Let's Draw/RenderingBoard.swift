@@ -1,17 +1,14 @@
 //
-//  DrawingBoard.swift
+//  RenderingBoard.swift
 //  Let's Draw
 //
-//  Created by apple on 2017/11/8.
+//  Created by apple on 2017/12/10.
 //  Copyright © 2017年 apple. All rights reserved.
 //
 
 import UIKit
-enum DrawingState {
-    case Began, Moved, Ended
-}
 
-class DrawingBoard: UIImageView {
+class RenderingBoard: UIImageView {
 
     var drawingState: DrawingState!
     
@@ -21,31 +18,18 @@ class DrawingBoard: UIImageView {
     var brush: Brush?
     var realtimeImage: UIImage?
     
-    var brushPositionX: CGFloat
-    var brushPositionY: CGFloat
-    
     required init?(coder aDecoder: NSCoder) {
         self.strokeColor = UIColor.white
         self.strokeWidth = 1
         
-        brushPositionX = 0
-        brushPositionY = 0
-        
         super.init(coder: aDecoder)
     }
     
-    
-    // MARK: touches methods
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    func drawWhenTouchBegins(x: CGFloat, y: CGFloat) {
         if let brush = self.brush {
-            let location = touches.first?.location(in: self)
-            
-            brushPositionX = (location?.x)!
-            brushPositionY = (location?.y)!
             
             brush.lastPoint = nil
-            brush.beginPoint = location
+            brush.beginPoint = CGPoint(x: x, y: y)
             brush.endPoint = brush.beginPoint
             
             self.drawingState = .Began
@@ -54,14 +38,10 @@ class DrawingBoard: UIImageView {
         }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    func drawWhenTouchMoves(x: CGFloat, y: CGFloat) {
         if let brush = self.brush {
-            let location = touches.first?.location(in: self)
             
-            brushPositionX = (location?.x)!
-            brushPositionY = (location?.y)!
-            
-            brush.endPoint = location
+            brush.endPoint = CGPoint(x: x, y: y)
             
             self.drawingState = .Moved
             
@@ -69,14 +49,10 @@ class DrawingBoard: UIImageView {
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    func drawWhenTouchEnds(x: CGFloat, y: CGFloat) {
         if let brush = self.brush {
-            let location = touches.first?.location(in: self)
             
-            brushPositionX = (location?.x)!
-            brushPositionY = (location?.y)!
-            
-            brush.endPoint = location
+            brush.endPoint = CGPoint(x: x, y: y)
             
             self.drawingState = .Ended
             
@@ -86,7 +62,7 @@ class DrawingBoard: UIImageView {
     
     // MARK: drawing
     
-    private func drawImage() {
+    func drawImage() {
         if let brush = self.brush {
             
             // 设置一个新的ImageContext，用来保存每次的绘图状态
@@ -101,8 +77,8 @@ class DrawingBoard: UIImageView {
             context?.setLineCap(.round)  //  圆角定点
             context?.setLineWidth(self.strokeWidth)
             context?.setStrokeColor(self.strokeColor.cgColor)
-        
-        
+            
+            
             // 把之前已经保存的图形绘制到context
             if let realImage = self.realtimeImage {
                 realImage.draw(in: self.bounds)
@@ -127,12 +103,4 @@ class DrawingBoard: UIImageView {
             brush.lastPoint = brush.endPoint
         }
     }
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

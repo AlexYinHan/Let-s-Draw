@@ -33,33 +33,26 @@ var GameRoomSchema = new mongoose.Schema({
     2: onGoing
     */
   },
-  drawingBoard: Object,
+  //drawingBoard: Object,
   brushState: {
-    type: Number,
-    default: 0
-    /*
-    0: ended
-    1: begined
-    2: moved
-    */
+    type: String,
+    default: "Ended"
   },
-  brushPositionX: Number,
-  brushPositionY: Number,
-  brushKind: {
+  brushPositionX: {
     type: Number,
     default: 0
-    /*
-    0: eraser
-    1: pencil
-    */
+  },
+  brushPositionY: {
+    type: Number,
+    default: 0
+  },
+  brushKind: {
+    type: String,
+    default: "Eraser"
   },
   brushColor: {
-    type: Number,
-    default: 0
-    /*
-    0: red
-    1: white
-    */
+    type: String,
+    default: "Red"
   },
 });
 

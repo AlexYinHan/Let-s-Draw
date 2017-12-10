@@ -15,16 +15,6 @@ class DrawMainSceneViewController: UIViewController {
     // MARK: Properties
     
     @IBOutlet weak var DrawingBoardArea: DrawingBoard!
-    
-    // 所有笔刷
-    var brushes = [
-        "Pencil": PencilBrush(),
-        "Eraser": EraserBrush(),
-    ]
-    var drawingColors = [
-        "Red": UIColor.red,
-        "White": UIColor.white,
-    ]
 
     var me: User?
     var KeyWord: String!
@@ -35,7 +25,7 @@ class DrawMainSceneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.DrawingBoardArea.brush = brushes["Pencil"]
+        self.DrawingBoardArea.brush = DrawingTools.brushes["Pencil"]
         navigationItem.title = "题目：" + KeyWord!
     }
 
@@ -56,7 +46,7 @@ class DrawMainSceneViewController: UIViewController {
                 }
                 
                 self.sendDrawingBoard()
-                sleep(1)
+                //sleep(1)
             }
         })
         sendDrawingBoardOperation.completionBlock = {
@@ -73,11 +63,10 @@ class DrawMainSceneViewController: UIViewController {
 
 
     // MARK: Actions
-    @IBAction func panGestureOnDrawingboard(_ sender: UIPanGestureRecognizer) {
-    }
+
     @IBAction func BrushButtonTapped(_ sender: UIButton) {
         if let brushName = sender.currentTitle {
-            self.DrawingBoardArea.brush = brushes[brushName]
+            self.DrawingBoardArea.brush = DrawingTools.brushes[brushName]
             if(brushName == "Eraser") {
                 self.DrawingBoardArea.strokeWidth = 15
             } else {
@@ -86,7 +75,7 @@ class DrawMainSceneViewController: UIViewController {
         }
     }
     @IBAction func ColorButtonTapped(_ sender: UIButton) {
-        if let colorName = sender.currentTitle, let color = drawingColors[colorName] {
+        if let colorName = sender.currentTitle, let color = DrawingTools.drawingColors[colorName] {
             self.DrawingBoardArea.strokeColor = color
         }
     }
@@ -94,36 +83,21 @@ class DrawMainSceneViewController: UIViewController {
     // MARK: Private methods
     
     private func sendDrawingBoard() {
-        //Alamofire.request(<#T##url: URLConvertible##URLConvertible#>)
-        // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/sendDrawingBoard?roomId=\(me!.roomId!)"
-        /*let params = NSMutableDictionary()
-        var jsonData:Data? = nil
-        do {
-            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            fatalError("Wrong post params when trying to creat game room.")
-        }
-        */
-        if let image = DrawingBoardArea.realtimeImage, let data = UIImagePNGRepresentation(image) {
-            print(data)
-            // Use semaphore to send Synchronous request
-            //let semaphore = DispatchSemaphore(value: 0)
+        
+            let semaphore = DispatchSemaphore(value: 0)
             
-            ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: data) {
-                (data, error) -> Void in
-                if error != nil {
-                    print(error!)
-                } else {
-                    if let ok = (data as? [String]) {
-                        print(ok)
-                    }
-                }
-                
-                //semaphore.signal()
+            let parameters:[String: Any] = [
+                "brushState": self.DrawingBoardArea.drawingState,
+                "brushPositionX": self.DrawingBoardArea.brushPositionX,
+                "brushPositionY": self.DrawingBoardArea.brushPositionY,
+                "brushKind": "Pencil",
+                "brushColor": "Red"
+            ]
+            Alamofire.request("http://localhost:3000/tasks/sendDrawingBoard?roomId=\(me!.roomId!)", method: .post, parameters: parameters).responseJSON { response in
+                semaphore.signal()
             }
-            //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        }
+            _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
         
     }
     

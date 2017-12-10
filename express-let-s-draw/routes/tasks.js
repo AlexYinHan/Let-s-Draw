@@ -105,7 +105,7 @@ router.post('/createRoom', function(req, res, next) {
     });
   }while(isThisIdExist == 1);
 
-  var randomQuestionId = 1 + Math.round(Math.random()*questionBank.length-1); // 1 ~ (questionBank.length-1)
+  var randomQuestionId = 1 + Math.round(Math.random()*(questionBank.length-1)); // 1 ~ (questionBank.length-1)
 
   GameRoom.create({roomId: randomId, questionNumber: randomQuestionId}, function(err){
 		if (err) {
@@ -397,38 +397,60 @@ router.post('/createRoom', function(req, res, next) {
 
 router.post('/sendDrawingBoard', function(req, res, next) {
   var roomID = Number(req.query.roomId);
-  var image = req.body;
+  var image = Object(req.body.image);
+  var brushState = String(req.body.brushState);
+  var brushPositionX = Number(req.body.brushPositionX);
+  var brushPositionY = Number(req.body.brushPositionY);
+  var brushKind = (String)(req.body.brushKind);
+  var brushColor = (String)(req.body.brushColor);
+
+/*
   console.log(image);
-  drawingBoardImage = new Buffer(JSON.parse(image));
-  return res.status(200).send(["sendDrawingBoard"]);
-  /*
-  GameRoom.update({roomId: roomID}, {drawingBoard: image}, function(err, tasks) {
-    if(err) {
-      console.log(err);
-      return res.status(400).send("err in post /getGameStateInRoom");
-    } else {
-      console.log(tasks);
-      return res.status(200).send([tasks]);
-    }
+  console.log(brushState);
+  console.log(brushPositionX);
+  console.log(brushPositionY);
+  console.log(brushKind);
+  console.log(brushColor);
+*/
+  //drawingBoardImage = new Buffer(JSON.parse(image));
+  //return res.status(200).send(["sendDrawingBoard"]);
+
+  GameRoom.update({roomId: roomID},
+    {
+      brushState: brushState,
+      brushPositionX: brushPositionX,
+      brushPositionY: brushPositionY,
+      brushKind: brushKind,
+      brushColor: brushColor
+    },
+    function(err, tasks) {
+      if(err) {
+        console.log(err);
+        return res.status(400).send("err in post /getGameStateInRoom");
+      } else {
+        console.log(tasks);
+        return res.status(200).send([tasks]);
+      }
   });
-  */
+
 });
 
-router.post('/getDrawingBoard', function(req, res, next) {
+router.get('/getDrawingBoard', function(req, res, next) {
   var roomID = Number(req.query.roomId);
-  return res.send(drawingBoardImage);
-  /*
-  GameRoom.update({roomId: roomID}, {drawingBoard: image}, function(err, tasks) {
+  //return res.send(drawingBoardImage);
+
+  GameRoom.find({roomId: roomID}, function(err, tasks) {
     if(err) {
       console.log(err);
       return res.status(400).send("err in post /getGameStateInRoom");
     } else {
-      console.log(tasks);
-      return res.status(200).send([tasks]);
+      return res.status(200).json(tasks[0]);
     }
   });
-  */
+
 });
+
+router.post('/')
 module.exports = router;
 
 var drawingBoardImage;

@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Alamofire
 
 class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
 
@@ -15,7 +16,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var chattingInputBoxTextField: UITextField!
     @IBOutlet weak var chattingDisplayAreaTextView: UITextView!
     @IBOutlet weak var answerButton: UIButton!
-    @IBOutlet weak var DrawingBoardArea: DrawingBoard!
+    @IBOutlet weak var renderingBoardArea: RenderingBoard!
     
     var Hint: String!
     var me: User?
@@ -54,8 +55,8 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
                     break
                 }
                 
-                self.getDrawingBoard()
-                sleep(1)
+                self.updateRenderingBoard()
+                //sleep(1)
             }
         })
         getDrawingBoardOperation.completionBlock = {
@@ -117,40 +118,48 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
         self.present(answerAlertController, animated: true, completion: nil)
     }
     
-    private func getDrawingBoard() {
-        // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/getDrawingBoard?roomId=\(me!.roomId!)"
-        let params = NSMutableDictionary()
-        var jsonData:Data? = nil
-        do {
-            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            fatalError("Wrong post params when trying to creat game room.")
-        }
+    private func updateRenderingBoard() {
         
-            // Use semaphore to send Synchronous request
-            //let semaphore = DispatchSemaphore(value: 0)
-            
-        ServerConnectionDelegator.anotherHttpPost(urlPath: urlPath, httpBody: jsonData!) {
-            (data, error) -> Void in
-            if error != nil {
-                print(error!)
-            } else {
-                if let ok = data {
-                    print("image data: ")
-                    print(ok)
-                    let imageData = UIImage(data: ok)
-                    OperationQueue.main.addOperation {
-                        self.DrawingBoardArea.image = imageData
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Alamofire.request("http://localhost:3000/tasks/getDrawingBoard?roomId=\(me!.roomId!)")
+            .responseJSON { response in
+                switch response.result.isSuccess {
+                case true:
+                    //把得到的JSON数据转为数组
+                    //print(response.result.value)
+                    if let items = response.result.value as? Dictionary<String , Any>{
+                        print(items["brushColor"] as! String)
+                        // 画笔颜色
+                        if let colorName = items["brushColor"] as? String, let color = DrawingTools.drawingColors[colorName] {
+                            self.renderingBoardArea.strokeColor = color
+                        }
+                        // 画笔种类
+                        if let brushName = items["brushKind"] as? String {
+                            self.renderingBoardArea.brush = DrawingTools.brushes[brushName]
+                        }
+                        
+                        // 画
+                        if let brushState = items["brushState"] as? String, let x = items["brushPositionX"] as? CGFloat, let y = items["brushPositionY"] as? CGFloat {
+                            switch  brushState{
+                            case "Began":
+                                self.renderingBoardArea.drawWhenTouchBegins(x: x, y: y)
+                            case "Moved":
+                                self.renderingBoardArea.drawWhenTouchMoves(x: x, y: y)
+                            case "Ended":
+                                self.renderingBoardArea.drawWhenTouchEnds(x: x, y: y)
+                            default:
+                                print("Unknown brush state.")
+                            }
+                        }
                     }
+                case false:
+                    print(response.result.error as Any)
                 }
-                    
-            }
-            
-            //semaphore.signal()
+                
+               semaphore.signal()
         }
-            //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
 
 }
