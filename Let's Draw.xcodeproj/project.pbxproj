@@ -16,6 +16,7 @@
 		1814DF341FD3D6E900125291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E1D1FB315BE00A89954 /* Main.storyboard */; };
 		1814DF391FD3E97200125291 /* PlayerListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */; };
 		18CC887D1FD7C831007D6720 /* ServerConnectionDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */; };
+		18F49D851FDD2D9D00CC7549 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F49D841FDD2D9D00CC7549 /* Alamofire.framework */; };
 		18FD8E1A1FB315BE00A89954 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E191FB315BE00A89954 /* AppDelegate.swift */; };
 		18FD8E1C1FB315BE00A89954 /* DrawMainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */; };
 		18FD8E211FB315BE00A89954 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E201FB315BE00A89954 /* Assets.xcassets */; };
@@ -37,6 +38,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		18F49D831FDD2B0600CC7549 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1809571C1FC97D6900146E7B /* GuessMainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessMainSceneViewController.swift; sourceTree = "<group>"; };
 		180957201FC99A7C00146E7B /* PrepareSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareSceneViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +60,7 @@
 		181026761FD0039500401583 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCollectionViewCell.swift; sourceTree = "<group>"; };
 		18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionDelegator.swift; sourceTree = "<group>"; };
+		18F49D841FDD2D9D00CC7549 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		18FD8E161FB315BE00A89954 /* Let's Draw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let's Draw.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FD8E191FB315BE00A89954 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawMainSceneViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18F49D851FDD2D9D00CC7549 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +99,7 @@
 		18FD8E0D1FB315BE00A89954 = {
 			isa = PBXGroup;
 			children = (
+				18F49D841FDD2D9D00CC7549 /* Alamofire.framework */,
 				18FD8E181FB315BE00A89954 /* Let's Draw */,
 				18FD8E2D1FB315BE00A89954 /* Let's DrawTests */,
 				18FD8E171FB315BE00A89954 /* Products */,
@@ -150,6 +167,7 @@
 				18FD8E121FB315BE00A89954 /* Sources */,
 				18FD8E131FB315BE00A89954 /* Frameworks */,
 				18FD8E141FB315BE00A89954 /* Resources */,
+				18F49D831FDD2B0600CC7549 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -408,9 +426,14 @@
 		18FD8E341FB315BE00A89954 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7HTA7Q28WW;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Let's Draw/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AlexYinHan.Let-s-Draw";
@@ -423,9 +446,14 @@
 		18FD8E351FB315BE00A89954 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7HTA7Q28WW;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Let's Draw/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AlexYinHan.Let-s-Draw";

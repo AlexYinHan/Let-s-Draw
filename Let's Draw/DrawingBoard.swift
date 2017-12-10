@@ -19,7 +19,7 @@ class DrawingBoard: UIImageView {
     var strokeColor: UIColor
     
     var brush: Brush?
-    private var realtimeImage: UIImage?
+    var realtimeImage: UIImage?
     
     required init?(coder aDecoder: NSCoder) {
         self.strokeColor = UIColor.white

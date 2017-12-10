@@ -394,8 +394,44 @@ router.post('/createRoom', function(req, res, next) {
 	});
 });
 */
+
+router.post('/sendDrawingBoard', function(req, res, next) {
+  var roomID = Number(req.query.roomId);
+  var image = req.body;
+  console.log(image);
+  drawingBoardImage = new Buffer(JSON.parse(image));
+  return res.status(200).send(["sendDrawingBoard"]);
+  /*
+  GameRoom.update({roomId: roomID}, {drawingBoard: image}, function(err, tasks) {
+    if(err) {
+      console.log(err);
+      return res.status(400).send("err in post /getGameStateInRoom");
+    } else {
+      console.log(tasks);
+      return res.status(200).send([tasks]);
+    }
+  });
+  */
+});
+
+router.post('/getDrawingBoard', function(req, res, next) {
+  var roomID = Number(req.query.roomId);
+  return res.send(drawingBoardImage);
+  /*
+  GameRoom.update({roomId: roomID}, {drawingBoard: image}, function(err, tasks) {
+    if(err) {
+      console.log(err);
+      return res.status(400).send("err in post /getGameStateInRoom");
+    } else {
+      console.log(tasks);
+      return res.status(200).send([tasks]);
+    }
+  });
+  */
+});
 module.exports = router;
 
+var drawingBoardImage;
 var questionBank = [
   {
     // this is not a real question, normally this question should not be sent to clients.

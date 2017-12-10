@@ -15,9 +15,13 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var chattingInputBoxTextField: UITextField!
     @IBOutlet weak var chattingDisplayAreaTextView: UITextView!
     @IBOutlet weak var answerButton: UIButton!
+    @IBOutlet weak var DrawingBoardArea: DrawingBoard!
     
     var Hint: String!
     var me: User?
+    
+    var isOperationQueueCancelled = false
+    var queue = OperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,33 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
         answerButton.layer.cornerRadius = 5 //  设置为圆角按钮
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        /*
+         while true {
+         self.sendDrawingBoard()
+         sleep(1)
+         }
+         */
+        
+        // getDrawingBoardOperation
+        let getDrawingBoardOperation = BlockOperation(block: {
+            //print("updateChattingArea")
+            while true {
+                if self.isOperationQueueCancelled {
+                    break
+                }
+                
+                self.getDrawingBoard()
+                sleep(1)
+            }
+        })
+        getDrawingBoardOperation.completionBlock = {
+            print("getDrawingBoardOperation completed.")
+        }
+        self.queue.addOperation(getDrawingBoardOperation)
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -84,6 +115,42 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
         answerAlertController.addAction(cancelAction)
         answerAlertController.addAction(confirmAction)
         self.present(answerAlertController, animated: true, completion: nil)
+    }
+    
+    private func getDrawingBoard() {
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/getDrawingBoard?roomId=\(me!.roomId!)"
+        let params = NSMutableDictionary()
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to creat game room.")
+        }
+        
+            // Use semaphore to send Synchronous request
+            //let semaphore = DispatchSemaphore(value: 0)
+            
+        ServerConnectionDelegator.anotherHttpPost(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                if let ok = data {
+                    print("image data: ")
+                    print(ok)
+                    let imageData = UIImage(data: ok)
+                    OperationQueue.main.addOperation {
+                        self.DrawingBoardArea.image = imageData
+                    }
+                }
+                    
+            }
+            
+            //semaphore.signal()
+        }
+            //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
     }
 
 }

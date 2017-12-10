@@ -21,6 +21,10 @@
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edy-7z-To0" userLabel="DrawingBoardArea" customClass="DrawingBoard" customModule="Let_s_Draw" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="414" height="462"/>
                                 <color key="backgroundColor" red="0.89804714919999995" green="0.8767719262" blue="0.64143090670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="fFX-uM-M0v" appends="YES" id="KdO-sn-jpN"/>
+                                </connections>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3oT-Xa-5Mo">
                                 <rect key="frame" x="0.0" y="526" width="414" height="210"/>
@@ -77,6 +81,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="fFX-uM-M0v">
+                    <connections>
+                        <action selector="panGestureOnDrawingboard:" destination="BYZ-38-t0r" id="wf1-jz-K4K"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2185" y="106"/>
         </scene>
@@ -163,6 +172,7 @@
                         <outlet property="answerButton" destination="W0z-rk-1vv" id="T0B-0W-yGe"/>
                         <outlet property="chattingDisplayAreaTextView" destination="ye3-6y-mkA" id="sXx-Re-6Uo"/>
                         <outlet property="chattingInputBoxTextField" destination="wFg-gg-fow" id="cHl-a6-Fsw"/>
+                        <outlet property="drawingBoardArea" destination="pZC-yx-ptC" id="FCe-yx-ywV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fI5-6i-olp" userLabel="First Responder" sceneMemberID="firstResponder"/>
