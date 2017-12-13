@@ -60,7 +60,11 @@ viewDidUnload－当内存过低，释放一些不需要的视图时调用。<br>
 暂时把参数都放在URL里，但是没法传中文、空格等特殊字符<br>
 可以采用Alamofire，传参数很方便。
 ***
-8. **OperationQueue中的operation无法取消**
+8. **OperationQueue中的operation无法取消**<br>
 其实该operation的isCancelled已经为true，但是不知道什么原因还在运行。<br>
 在取消后手动记录下取消状态，在operation中检查这个值，手动终止该任务。<br>
+更新：<br>
+[Documentation-operation](https://developer.apple.com/documentation/foundation/operation#1661262)
+>Canceling an operation does not actively stop the receiver’s code from executing. An operation object is responsible for calling this method periodically and stopping itself if the method returns true.
+
 ***
