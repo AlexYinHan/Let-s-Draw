@@ -11,6 +11,10 @@ var tasks = require('./routes/tasks');
 
 var app = express();
 var mongoose = require('mongoose');
+var webSocketServer = require('websocket').server;
+var http = require('http');
+//var expressWs = require('express-ws')(app);
+//var util = require('util');
 
 mongoose.connect('mongodb://localhost/express-app', {useMongoClient: true},
 function(err) {
@@ -20,6 +24,78 @@ function(err) {
     console.log('connect successful');
   }
 });
+
+// WebSocket
+
+var webSocketsServerPort = 9090;
+
+// list of currently connected clients (users)
+var clients = [ ];
+/**
+ * HTTP server
+ */
+var server = http.createServer(function(request, response) {
+    // Not important for us. We're writing WebSocket server, not HTTP server
+});
+server.listen(webSocketsServerPort, function() {
+    console.log((new Date()) + " Server is listening on port " + webSocketsServerPort);
+});
+
+/**
+ * WebSocket server
+ */
+var wsServer = new webSocketServer({
+    httpServer: server
+});
+
+wsServer.on('request', function(request) {
+    console.log((new Date()) + ' Connection from origin ' + request.origin + '.');
+    var connection = request.accept(null, request.origin);
+    // we need to know client index to remove them on 'close' event
+    var index = clients.push(connection) - 1;
+    console.log((new Date()) + ' Connection accepted.');
+    // user sent some message
+    connection.on('message', function(message) {
+      console.log("message.type");
+      if (message.type === 'utf8') { // accept only text
+        console.log((new Date()) + ' Received Message ' + ': ' + message.utf8Data);
+
+        // message object
+        var obj = {
+            time: (new Date()).getTime(),
+            text: message.utf8Data,
+            //author: userName,
+        };
+
+        // broadcast message to all connected clients
+        var json = JSON.stringify({ type:'message', data: obj });
+        for (var i=0; i < clients.length; i++) {
+            clients[i].sendUTF(json);
+        }
+      }
+    });
+
+    // user disconnected
+    connection.on('close', function(connection) {
+      console.log((new Date()) + " Peer " + connection.remoteAddress + " disconnected.");
+      // remove user from the list of connected clients
+      clients.splice(index, 1);
+    });
+
+  });
+/*
+app.use(express.static('./static'));
+app.ws('/ws', function(ws, req) {
+  util.inspect(ws);
+  ws.on('message', function(msg) {
+    console.log('_message');
+    console.log(msg);
+    ws.send('echo:' + msg);
+  });
+})
+app.listen(9090);
+*/
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -15,6 +15,8 @@
 		181026771FD0039500401583 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181026761FD0039500401583 /* SignInViewController.swift */; };
 		1814DF341FD3D6E900125291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E1D1FB315BE00A89954 /* Main.storyboard */; };
 		1814DF391FD3E97200125291 /* PlayerListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */; };
+		182635BF1FE507FC00B5E83A /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182635BE1FE507FC00B5E83A /* Starscream.framework */; };
+		182635C01FE50D2E00B5E83A /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 182635BE1FE507FC00B5E83A /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18CC887D1FD7C831007D6720 /* ServerConnectionDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */; };
 		18F49D871FDD328D00CC7549 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F49D861FDD328D00CC7549 /* Alamofire.framework */; };
 		18F49D8A1FDD32F700CC7549 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 18F49D861FDD328D00CC7549 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -58,6 +60,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				182635C01FE50D2E00B5E83A /* Starscream.framework in CopyFiles */,
 				18F49D8A1FDD32F700CC7549 /* Alamofire.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,6 +75,7 @@
 		181026741FD0007D00401583 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		181026761FD0039500401583 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCollectionViewCell.swift; sourceTree = "<group>"; };
+		182635BE1FE507FC00B5E83A /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionDelegator.swift; sourceTree = "<group>"; };
 		18F49D861FDD328D00CC7549 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		18F49D8B1FDD3C4A00CC7549 /* RenderingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderingBoard.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18F49D871FDD328D00CC7549 /* Alamofire.framework in Frameworks */,
+				182635BF1FE507FC00B5E83A /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +119,7 @@
 		18FD8E0D1FB315BE00A89954 = {
 			isa = PBXGroup;
 			children = (
+				182635BE1FE507FC00B5E83A /* Starscream.framework */,
 				18F49D861FDD328D00CC7549 /* Alamofire.framework */,
 				18FD8E181FB315BE00A89954 /* Let's Draw */,
 				18FD8E2D1FB315BE00A89954 /* Let's DrawTests */,

@@ -8,12 +8,12 @@
 
 import UIKit
 import os.log
+import Starscream
 
-class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
-
+class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WebSocketDelegate {
+    
     //MARK: Properties
     
-
     @IBOutlet weak var playerList: UICollectionView!
     @IBOutlet weak var readyButton: UIButton!
     @IBOutlet weak var exitButton: UIButton!
@@ -27,15 +27,21 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     var roomNumber: Int?
     
     var queue = OperationQueue()
-    //var updatePlayerListOperation: BlockOperation?
+    
+    var socket = WebSocket(url: URL(string: "ws://localhost:9090/")!, protocols: ["chat"])
+    
     var isOperationQueueCancelled = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // web socket
+        socket.delegate = self
+        socket.connect()
+        
+        // players
         playerList.delegate = self
         playerList.dataSource = self
-        
         
         guard me != nil else {
             fatalError("No information about this player.")
@@ -55,7 +61,14 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         
     }
 
+    deinit {
+        // 当 View Controller 被销毁时，强制关闭 WebSocket 连接。
+        socket.disconnect(forceTimeout: 0)
+        socket.delegate = nil
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
+        socket.write(string: "hello ")
         // updatePlayerListOperation
         let updatePlayerListOperation = BlockOperation(block: {
             print("updatePlayerList")
@@ -127,9 +140,9 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         getGameStateOperation.completionBlock = {
             print("getGameStateOperation completed.")
         }
-        queue.addOperation(updatePlayerListOperation)
-        queue.addOperation(updateChattingAreaOperation)
-        queue.addOperation(getGameStateOperation)
+        //queue.addOperation(updatePlayerListOperation)
+        //queue.addOperation(updateChattingAreaOperation)
+        //queue.addOperation(getGameStateOperation)
     }
     
     override func didReceiveMemoryWarning() {
@@ -492,4 +505,35 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
      */
+    
+    // MARK: - WebSocketDelegate
+    func websocketDidConnect(socket: WebSocketClient) {
+        
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        // 1
+        guard let data = text.data(using: .utf16),
+            let jsonData = try? JSONSerialization.jsonObject(with: data),
+            let jsonDict = jsonData as? [String: Any],
+            let messageType = jsonDict["type"] as? String else {
+                return
+        }
+        
+        // 2
+        if messageType == "message",
+            let messageData = jsonDict["data"] as? [String: Any],
+            let messageText = messageData["text"] as? String {
+            
+            print("webSocket receive message \(messageText)")
+        }
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        
+    }
 }

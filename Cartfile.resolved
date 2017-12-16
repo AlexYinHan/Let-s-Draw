@@ -1,1 +1,4 @@
 github "Alamofire/Alamofire" "4.6.0"
+github "daltoniam/Starscream" "3.0.3"
+github "daltoniam/common-crypto-spm" "1.1.0"
+github "daltoniam/zlib-spm" "1.1.0"
