@@ -152,8 +152,8 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
                             case "Moved":
                                 self.renderingBoardArea.drawWhenTouchMoves(x: x, y: y)
                             case "Ended":
-                                print("ended brush state.")
-                                //self.renderingBoardArea.drawWhenTouchEnds(x: x, y: y)
+                                //print("ended brush state.")
+                                self.renderingBoardArea.drawWhenTouchEnds(x: x, y: y)
                             default:
                                 print("Unknown brush state.")
                             }

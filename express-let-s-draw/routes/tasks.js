@@ -105,7 +105,7 @@ router.post('/createRoom', function(req, res, next) {
     });
   }while(isThisIdExist == 1);
 
-  var randomQuestionId = 1 + Math.round(Math.random()*(questionBank.length-1)); // 1 ~ (questionBank.length-1)
+  var randomQuestionId = 1 + Math.round(Math.random()*(questionBank.length-2)); // 1 ~ (questionBank.length-1)
 
   GameRoom.create({roomId: randomId, questionNumber: randomQuestionId}, function(err){
 		if (err) {

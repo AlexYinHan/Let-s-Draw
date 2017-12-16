@@ -89,7 +89,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     
     // Ask the the server for the key word for the game.
     private func getKeyWord() -> String {
-        let urlPath: String = "http://localhost:3000/tasks/getHintInRoom?roomId=\(me?.roomId ?? 0)"
+        let urlPath: String = "http://localhost:3000/tasks/getKeyWordInRoom?roomId=\(me?.roomId ?? 0)"
         let url = URL(string: urlPath)!
         let request = URLRequest(url: url)
         
