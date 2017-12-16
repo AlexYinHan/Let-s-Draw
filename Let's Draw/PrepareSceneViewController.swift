@@ -23,12 +23,13 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     var players = [User]()
     var playerIds = [Int]()
     
-    var me: User?
+    var me: User!
     var roomNumber: Int?
     
     var queue = OperationQueue()
     
-    var socket = WebSocket(url: URL(string: "ws://localhost:9090/")!, protocols: ["chat"])
+    var socket:WebSocket!
+    var webSocket = WebSocket(url: URL(string: "ws://localhost:9090/")!, protocols: [])
     
     var isOperationQueueCancelled = false
     
@@ -37,7 +38,8 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
 
         // web socket
         socket.delegate = self
-        socket.connect()
+        webSocket.delegate = self
+        //socket.connect()
         
         // players
         playerList.delegate = self
@@ -60,16 +62,18 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         playerList.backgroundColor = UIColor.clear  //  要在这里设置透明，在storyboard 中设置的话运行时会变成黑色。
         
     }
-
+/*
     deinit {
         // 当 View Controller 被销毁时，强制关闭 WebSocket 连接。
         socket.disconnect(forceTimeout: 0)
         socket.delegate = nil
     }
-    
+*/
     override func viewDidAppear(_ animated: Bool) {
-        socket.write(string: "hello ")
+        //socket.write(string: "\(self.me.roomId!)")
         // updatePlayerListOperation
+        self.getAllPlayers()
+        self.playerList.reloadData()
         let updatePlayerListOperation = BlockOperation(block: {
             print("updatePlayerList")
             while true {
@@ -187,7 +191,15 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     
     // MARK: Actions
     @IBAction func exitButtonPressed(_ sender: UIButton) {
-        
+        // socket
+        /*let parameters:[String: Any] = [
+            "type": "exitGameRoom",
+            "roomId": self.me!.roomId!,
+            "playerId": self.me!.id
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        webSocket.write(data: data!)
+ */
     }
     @IBAction func readyButtonPressed(_ sender: UIButton) {
         // inform server that the game has begun in this room.
@@ -313,6 +325,19 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     }
     private func sendChattingMessage(message: String) {
         // Connect the server
+        
+        let parameters:[String: Any] = [
+            "tt": "ss",
+            "aa": "bb"
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+        //let str = String(data:data!, encoding: String.Encoding.utf8)
+        
+        //socket.write(string: "\(self.me.name): \(message)\n")
+        //socket.write(string: str!)
+        
+        /*
         let urlPath: String = "http://localhost:3000/tasks/sendChattingMessageInRoom?roomId=\(roomNumber ?? -1)&playerName=\(me!.name)&content=\(message)"
         let params = NSMutableDictionary()
         var jsonData:Data? = nil
@@ -340,6 +365,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             semaphore.signal()
         }
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+         */
     }
     
     private func getChattingMessage() ->String {
@@ -525,11 +551,27 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         }
         
         // 2
-        if messageType == "message",
-            let messageData = jsonDict["data"] as? [String: Any],
+        switch messageType {
+        case "message":
+            if let messageData = jsonDict["data"] as? [String: Any],
             let messageText = messageData["text"] as? String {
-            
-            print("webSocket receive message \(messageText)")
+                
+                self.chattingDisplayAreaTextView.text.append("\(messageText)")
+                let allStrCount = self.chattingDisplayAreaTextView.text.count //获取总文字个数
+                self.chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
+                //print("webSocket receive message \(messageText)")
+            }
+        case "joinGameRoom":
+            if let anotherPlayerId = jsonDict["playerId"] as? Int {
+                let anotherUser = getPlayerInfo(withId: anotherPlayerId)
+                players.append(anotherUser)
+                self.playerList.reloadData()
+            }
+        case "exitGameRoom":
+            self.getAllPlayers()
+            self.playerList.reloadData()
+        default:
+            os_log("Unknown message type.", log: OSLog.default, type: .debug)
         }
     }
     

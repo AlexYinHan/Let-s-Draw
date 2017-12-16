@@ -26,6 +26,8 @@ function(err) {
 });
 
 // WebSocket
+var GameRoom = require('./models/GameRoom');
+var PlayerList = require('./models/Player');
 
 var webSocketsServerPort = 9090;
 
@@ -52,26 +54,85 @@ wsServer.on('request', function(request) {
     console.log((new Date()) + ' Connection from origin ' + request.origin + '.');
     var connection = request.accept(null, request.origin);
     // we need to know client index to remove them on 'close' event
-    var index = clients.push(connection) - 1;
+    var index = clients.push({playerId:-1, roomId: -1, client: connection}) - 1;
+
+    // roomId should be recorded
+    var playerId = false;
+    var roomId = -1;
+
     console.log((new Date()) + ' Connection accepted.');
     // user sent some message
     connection.on('message', function(message) {
-      console.log("message.type");
+console.log(index);
       if (message.type === 'utf8') { // accept only text
-        console.log((new Date()) + ' Received Message ' + ': ' + message.utf8Data);
+        //console.log(message.utf8Data);
+        //console.log(JSON.parse(message.utf8Data));
+        /*
+        if (playerId === false) { //  first message sent by clients is the roomId
+          playerId = Number(message.utf8Data);
+          //console.log("playerId: " + message.utf8Data);
+          console.log("playerId: " + playerId);
+          clients[index].playerId = playerId;
+        } else {
+          */
+          console.log((new Date()) + ' Received Message ' + ': ' + message.utf8Data);
 
-        // message object
-        var obj = {
-            time: (new Date()).getTime(),
-            text: message.utf8Data,
-            //author: userName,
-        };
+          // message object
+          var obj = {
+              time: (new Date()).getTime(),
+              text: message.utf8Data,
+              //author: userName,
+          };
 
-        // broadcast message to all connected clients
-        var json = JSON.stringify({ type:'message', data: obj });
-        for (var i=0; i < clients.length; i++) {
-            clients[i].sendUTF(json);
-        }
+          // broadcast message to all connected clients
+          var json = JSON.stringify({ type:'message', data: obj });
+          for (var i=0; i < clients.length; i++) {
+            if(clients[i].roomId == roomId) { // only send message to clients in the same room
+              clients[i].client.sendUTF(json);
+            }
+          }
+        //}
+      } else {
+          console.log(JSON.parse(message.binaryData));
+          var dic = JSON.parse(message.binaryData);
+          switch (dic.type)
+          {
+            case "signIn":
+              playerId = dic.playerId;
+              clients[index].playerId = playerId;
+              console.log("webSocketServer: player signIn with id: " + playerId);
+
+              break;
+            case "joinGameRoom":
+              console.log("joinGameRoom");
+              console.log(clients[index].playerId);
+              roomId = dic.roomId;
+              clients[index].roomId = roomId;
+              console.log(clients[index].roomId);
+              console.log(roomId);
+              for (var i=0; i < clients.length; i++) {
+                if(i != index && clients[i].roomId == roomId) { // only send message to clients in the same room
+                  clients[i].client.sendUTF(JSON.stringify(dic));
+                  console.log(dic);
+                }
+              }
+              break;
+              case "exitGameRoom":
+                console.log("exitGameRoom");
+                console.log(clients[index].playerId);
+                roomId = dic.roomId;
+                clients[index].roomId = -1;
+                console.log(clients[index].roomId);
+                console.log(roomId);
+                for (var i=0; i < clients.length; i++) {
+                  if(i != index && clients[i].roomId == roomId) { // only send message to clients in the same room
+                    clients[i].client.sendUTF(JSON.stringify(dic));
+                    console.log(dic);
+                  }
+                }
+                break;
+
+          }
       }
     });
 
@@ -81,20 +142,8 @@ wsServer.on('request', function(request) {
       // remove user from the list of connected clients
       clients.splice(index, 1);
     });
+});
 
-  });
-/*
-app.use(express.static('./static'));
-app.ws('/ws', function(ws, req) {
-  util.inspect(ws);
-  ws.on('message', function(msg) {
-    console.log('_message');
-    console.log(msg);
-    ws.send('echo:' + msg);
-  });
-})
-app.listen(9090);
-*/
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

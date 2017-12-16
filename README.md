@@ -58,7 +58,21 @@ viewDidUnload－当内存过低，释放一些不需要的视图时调用。<br>
 发送{roomid:1001}<br>
 变成{'{\n "roomId" : 1001\n}': ''}<br>
 暂时把参数都放在URL里，但是没法传中文、空格等特殊字符<br>
-可以采用Alamofire，传参数很方便。
+可以采用Alamofire，传参数很方便。<br>
+将字典转为data，在后台解析：<br>
+客户端：
+>let parameters:[String: Any] = [
+"tt": "ss",
+"aa": "bb"
+]
+let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+socket.write(data: data!)
+
+后台：
+>var dic = JSON.parse(message.binaryData);
+console.log(dic.aa);
+
+
 ***
 8. **OperationQueue中的operation无法取消**<br>
 其实该operation的isCancelled已经为true，但是不知道什么原因还在运行。<br>
@@ -67,4 +81,9 @@ viewDidUnload－当内存过低，释放一些不需要的视图时调用。<br>
 [Documentation-operation](https://developer.apple.com/documentation/foundation/operation#1661262)
 >Canceling an operation does not actively stop the receiver’s code from executing. An operation object is responsible for calling this method periodically and stopping itself if the method returns true.
 
+***
+9. **Web Socket**<br>
+心跳包：调试的时候发现，如果客户端程序停在断点处，大约30秒后socket连接会自动断开，但是如果在运行时，哪怕长时间无任何操作也不会断开。<br>
+connect，write等socket操作，并不是在语句处立即执行的，或者说相应的事件不会立即收到。<br>
+可能与使用的web socket框架（Starscream）的实现方式有关。<br>
 ***

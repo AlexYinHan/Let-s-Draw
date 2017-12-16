@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Starscream
 
 class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -19,9 +20,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
     @IBOutlet weak var userPhotoImageView: UIImageView!
     @IBOutlet weak var userNameTextField: UITextField!
     
+    var socket = WebSocket(url: URL(string: "ws://localhost:9090/")!, protocols: [])
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         userNameTextField.delegate = self
         enterGameButton.isEnabled = false
     }
@@ -50,7 +53,13 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
             // signIn and get a user ID from server
             me?.id = signIn()
             
+            socket.connect()
+            
+            //socket.write(string: "\(self.me!.id)")
+            //按理说应该在这里发送id，但是实际上这样做会使得webSocket服务器收不到这条消息
+            //改为在下一场景的viewDidLoad发送
             choosingGameRoomViewController.me = self.me
+            choosingGameRoomViewController.socket = self.socket
             
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
@@ -163,6 +172,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         guard let resultUserId = userId else {
             fatalError("No user Id returned from server.")
         }
+        
+        
         return resultUserId;
     }
+    
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Starscream
 
 class ChoosingGameRoomSceneViewController: UIViewController {
 
@@ -17,6 +18,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
     @IBOutlet weak var userName: UILabel!
     var me: User?
     var selectedRoomId: Int?
+    var socket: WebSocket!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,14 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        let parameters:[String: Any] = [
+            "type": "signIn",
+            "playerId": me!.id
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -50,6 +60,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             prepareSceneViewController.me = self.me
+            prepareSceneViewController.socket = self.socket
             // create a new room and join it
             self.selectedRoomId = createGameRoom()
             prepareSceneViewController.roomNumber = self.selectedRoomId
@@ -59,6 +70,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             prepareSceneViewController.me = self.me
+            prepareSceneViewController.socket = self.socket
             // join the selected room
             prepareSceneViewController.roomNumber = self.selectedRoomId
             joinGameRoom(roomId: self.selectedRoomId!)
@@ -85,7 +97,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
         let confirmAction = UIAlertAction(title: "加入", style: UIAlertActionStyle.default, handler: {
             (UIAlertAction) in
-            // 提交答案
+            // 提交
             if let searchContent =  (searchRoomAlertController.textFields!.first as UITextField?)?.text, let roomId = Int(searchContent) {
                 let isGameRoomExist = self.searchGameRoom(roomId: roomId)
                 if isGameRoomExist {
@@ -174,6 +186,15 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 
+        // socket
+        let parameters:[String: Any] = [
+            "type": "joinGameRoom",
+            "roomId": roomId,
+            "playerId": self.me!.id
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+        
         me!.roomId = roomId
     }
     
@@ -208,6 +229,15 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         }
         
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        // socket
+        let parameters:[String: Any] = [
+            "type": "exitGameRoom",
+            "roomId": roomId,
+            "playerId": self.me!.id
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
         
         me!.roomId = -1
     }
