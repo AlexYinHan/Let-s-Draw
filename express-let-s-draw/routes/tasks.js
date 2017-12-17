@@ -59,10 +59,11 @@ router.delete('/deleteAllPlayers', function(req, res, next) {
 
 router.post('/signIn', function(req, res, next) {
   var playerName = req.query.userName;
-
+  
+  var randomId = -1;
   var isThisIdExist = 0;
   do {
-    var randomId = 1 + Math.round(Math.random()*1000); // 1 ~ 1001
+    randomId = 1 + Math.round(Math.random()*1000); // 1 ~ 1001
     PlayerList.find({Id: randomId}, function(err, players) {
         if (players.length > 0) {
           isThisIdExist = 1;
@@ -92,12 +93,26 @@ router.delete('/signOut', function(req, res, next) {
     }
   });
 });
+router.get('/getRoomWithId', function(req, res, next) {
+  var roomId = req.query.roomId;
+  GameRoom.find({roomId: roomId}, function(err, tasks){
+		if(err){
+			return res.status(400).send("err in get /getAllRooms");
+		}else{
+			console.log(tasks);
+			return res.status(200).json(tasks.length);
+		}
+	});
+
+});
+
 
 router.post('/createRoom', function(req, res, next) {
 
   var isThisIdExist = 0;
+  var randomId = -1;
   do {
-    var randomId = 1000 + Math.round(Math.random()*999); // 1000 ~ 1999
+    randomId = 1000 + Math.round(Math.random()*999); // 1000 ~ 1999
     GameRoom.find({roomId: randomId}, function(err, players) {
         if (players.length > 0) {
           isThisIdExist = 1;

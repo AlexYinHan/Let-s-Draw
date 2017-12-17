@@ -25,6 +25,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        socket.delegate = nil
     }
 
     override func didReceiveMemoryWarning() {
