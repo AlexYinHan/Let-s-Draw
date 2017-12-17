@@ -11,7 +11,7 @@
 [1][使用URLSession同步获取数据（通过添加信号量）](http://www.hangge.com/blog/cache/detail_816.html)<br>
 [2][[MongoDB]Update更新数据](http://blog.csdn.net/sunnyyoona/article/details/52420210)<br>
 [3][Swift - HTTP网络操作库Alamofire使用详解1](http://www.hangge.com/blog/cache/detail_970.html)<br>
-[4][WebSockets on iOS with Starscream]https://www.raywenderlich.com/143874/websockets-ios-starscream)
+[4][WebSockets on iOS with Starscream](https://www.raywenderlich.com/143874/websockets-ios-starscream)
 # iOS学习笔记
 1. **GCD队列的优先级**<br>
 iOS上：[Energy Efficiency Guide for iOS Apps - Prioritize Work with Quality of Service Classes](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39-SW1)<br>
