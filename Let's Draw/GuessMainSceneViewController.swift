@@ -24,9 +24,6 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
     
     var socket: WebSocket!
     
-    var isOperationQueueCancelled = false
-    var queue = OperationQueue()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,29 +43,6 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        /*
-         while true {
-         self.sendDrawingBoard()
-         sleep(1)
-         }
-         */
-        
-        // getDrawingBoardOperation
-        let getDrawingBoardOperation = BlockOperation(block: {
-            //print("updateChattingArea")
-            while true {
-                if self.isOperationQueueCancelled {
-                    break
-                }
-                
-                self.updateRenderingBoard()
-                //sleep(1)
-            }
-        })
-        getDrawingBoardOperation.completionBlock = {
-            print("getDrawingBoardOperation completed.")
-        }
-        //self.queue.addOperation(getDrawingBoardOperation)
         
     }
     
@@ -122,56 +96,6 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
         answerAlertController.addAction(cancelAction)
         answerAlertController.addAction(confirmAction)
         self.present(answerAlertController, animated: true, completion: nil)
-    }
-    
-    private func updateRenderingBoard() {
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Alamofire.request("http://localhost:3000/tasks/getDrawingBoard?roomId=\(me!.roomId!)")
-            .responseJSON { response in
-                switch response.result.isSuccess {
-                case true:
-                    //把得到的JSON数据转为数组
-                    //print(response.result.value)
-                    if let items = response.result.value as? Dictionary<String , Any>{
-                        //print(items["brushColor"] as! String)
-                        // 画笔颜色
-                        if let colorName = items["brushColor"] as? String, let color = DrawingTools.drawingColors[colorName] {
-                            self.renderingBoardArea.strokeColor = color
-                        }
-                        // 画笔种类
-                        if let brushName = items["brushKind"] as? String {
-                            self.renderingBoardArea.brush = DrawingTools.brushes[brushName]
-                            if brushName == "Eraser" {
-                                self.renderingBoardArea.strokeWidth = 15
-                            } else {
-                                self.renderingBoardArea.strokeWidth = 1
-                            }
-                        }
-                        
-                        // 画
-                        if let brushState = items["brushState"] as? String, let x = items["brushPositionX"] as? CGFloat, let y = items["brushPositionY"] as? CGFloat {
-                            switch  brushState{
-                            case "Began":
-                                self.renderingBoardArea.drawWhenTouchBegins(x: x, y: y)
-                            case "Moved":
-                                self.renderingBoardArea.drawWhenTouchMoves(x: x, y: y)
-                            case "Ended":
-                                //print("ended brush state.")
-                                self.renderingBoardArea.drawWhenTouchEnds(x: x, y: y)
-                            default:
-                                print("Unknown brush state.")
-                            }
-                        }
-                    }
-                case false:
-                    print(response.result.error as Any)
-                }
-                
-               semaphore.signal()
-        }
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
     
     // MARK: - WebSocketDelegate

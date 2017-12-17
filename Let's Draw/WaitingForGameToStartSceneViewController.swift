@@ -25,7 +25,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        socket.delegate = nil
+        socket.delegate = nil // 这个场景中不需要代理socket
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,10 +48,6 @@ class WaitingForGameToStartSceneViewController: UIViewController {
                 os_log("Entering guess scene.", log: OSLog.default, type: .debug)
                 Subject = getHint()
                 performSegue(withIdentifier: "EnterGuessScene", sender: self)
-                /*
-                 default:
-                 fatalError("Unexpected Player Role; \(String(describing: playerRole))")
-                 */
             }
         }
     }

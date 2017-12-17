@@ -89,3 +89,7 @@ console.log(dic.aa);
 connect，write等socket操作，并不是在语句处立即执行的，或者说相应的事件不会立即收到。<br>
 可能与使用的web socket框架（Starscream）的实现方式有关。<br>
 ***
+10. **delegate**<br>
+问题：在场景1中，设置socket收到message后perform segue到场景2，并且把socket传值给场景2中的socket，但是没有重新设置socket.delegate。结果perform segue被调用了两次，在present场景2的过程中出现了错误。
+
+解决：把场景2中的socket的delegate设置为nil或者self即可。问题原因暂时不清楚。

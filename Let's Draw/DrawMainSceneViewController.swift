@@ -22,9 +22,6 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     
     var socket: WebSocket!
     
-    var isOperationQueueCancelled = false
-    var queue = OperationQueue()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,30 +35,7 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        /*
-        while true {
-            self.sendDrawingBoard()
-            sleep(1)
-        }
-         */
         
-        // sendDrawingBoardOperation
-        let sendDrawingBoardOperation = BlockOperation(block: {
-            //print("updateChattingArea")
-            while true {
-                if self.isOperationQueueCancelled {
-                    break
-                }
-                
-                self.sendDrawingBoard()
-                //sleep(1)
-            }
-        })
-        sendDrawingBoardOperation.completionBlock = {
-            print("sendDrawingBoardOperation completed.")
-        }
-        //self.queue.addOperation(sendDrawingBoardOperation)
-         
     }
     
     override func didReceiveMemoryWarning() {

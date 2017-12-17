@@ -26,20 +26,13 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     var me: User!
     var roomNumber: Int?
     
-    var queue = OperationQueue()
-    
     var socket:WebSocket!
-    //var webSocket = WebSocket(url: URL(string: "ws://localhost:9090/")!, protocols: [])
-    
-    var isOperationQueueCancelled = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // web socket
         socket.delegate = self
-        //webSocket.delegate = self
-        //socket.connect()
         
         // players
         playerList.delegate = self
@@ -62,91 +55,13 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         playerList.backgroundColor = UIColor.clear  //  要在这里设置透明，在storyboard 中设置的话运行时会变成黑色。
         
     }
-/*
-    deinit {
-        // 当 View Controller 被销毁时，强制关闭 WebSocket 连接。
-        socket.disconnect(forceTimeout: 0)
-        socket.delegate = nil
-    }
-*/
+
     override func viewDidAppear(_ animated: Bool) {
         //socket.write(string: "\(self.me.roomId!)")
         // updatePlayerListOperation
         self.getAllPlayers()
         self.playerList.reloadData()
-        let updatePlayerListOperation = BlockOperation(block: {
-            print("updatePlayerList")
-            while true {
-                if self.isOperationQueueCancelled {
-                    break
-                }
-                self.getAllPlayers()
-                OperationQueue.main.addOperation {
-                    self.playerList.reloadData()
-                }
-                sleep(1)
-            }
-        })
-        updatePlayerListOperation.completionBlock = {
-            print("updatePlayerListOperation completed.")
-        }
         
-        // updateChattingAreaOperation
-        let updateChattingAreaOperation = BlockOperation(block: {
-            //print("updateChattingArea")
-            while true {
-                if self.isOperationQueueCancelled {
-                    break
-                }
-                
-                let newMessage = self.getChattingMessage()
-                
-                OperationQueue.main.addOperation {
-                    // 更新聊天区
-                    self.chattingDisplayAreaTextView.text.append("\(newMessage)")
-                    let allStrCount = self.chattingDisplayAreaTextView.text.count //获取总文字个数
-                    self.chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
-                }
-                sleep(1)
-            }
-        })
-        updateChattingAreaOperation.completionBlock = {
-            print("updateChattingAreaOperation completed.")
-        }
-        
-        // getGameStateOperation
-        let getGameStateOperation = BlockOperation(block: {
-            //print("updateChattingArea")
-            while true {
-                if self.isOperationQueueCancelled {
-                    break
-                }
-                
-                let gameState = self.getGameState()
-                switch gameState {
-                    /*
-                     0: ended
-                     1: readyToBegin
-                     2: onGoing
-                     */
-                case 0:
-                    sleep(1)
-                case 1:
-                    sleep(1)
-                case 2:
-                    self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
-                default:
-                    fatalError("Unknown game state.")
-                }
-                
-            }
-        })
-        getGameStateOperation.completionBlock = {
-            print("getGameStateOperation completed.")
-        }
-        //queue.addOperation(updatePlayerListOperation)
-        //queue.addOperation(updateChattingAreaOperation)
-        //queue.addOperation(getGameStateOperation)
     }
     
     override func didReceiveMemoryWarning() {
@@ -191,15 +106,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     
     // MARK: Actions
     @IBAction func exitButtonPressed(_ sender: UIButton) {
-        // socket
-        /*let parameters:[String: Any] = [
-            "type": "exitGameRoom",
-            "roomId": self.me!.roomId!,
-            "playerId": self.me!.id
-        ]
-        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-        webSocket.write(data: data!)
- */
+        
     }
     @IBAction func readyButtonPressed(_ sender: UIButton) {
         // inform server that the game has begun in this room.
@@ -211,8 +118,8 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         super.prepare(for: segue, sender: sender)
         
         // 在转移之前取消用于与服务器通信的线程
-        self.queue.cancelAllOperations()
-        isOperationQueueCancelled = true
+        //self.queue.cancelAllOperations()
+        //isOperationQueueCancelled = true
         
         switch segue.identifier ?? "" {
         case "WaitingForGameToStart":
@@ -249,13 +156,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         } catch {
             fatalError("Wrong post params when trying to creat game room.")
         }
-        /*
-        struct PlayerInfo {
-            var name: String
-            var photo = 0   //  暂时是Int，应该是image
-        }
-        */
-        // Use semaphore to send Synchronous request
+        
         let semaphore = DispatchSemaphore(value: 0)
         
         ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
@@ -293,12 +194,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         } catch {
             fatalError("Wrong post params when trying to creat game room.")
         }
-        /*
-         struct PlayerInfo {
-         var name: String
-         var photo = 0   //  暂时是Int，应该是image
-         }
-         */
+
         // Use semaphore to send Synchronous request
         let semaphore = DispatchSemaphore(value: 0)
         
@@ -307,9 +203,6 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             if error != nil {
                 print(error!)
             } else {
-                //print("test")
-                //print((data as! [NSDictionary]).count)
-                //let userId = (data as! [NSDictionary])[0]["Id"] as? Int
                 userName = (data as! [NSDictionary])[0]["name"] as? String
             }
             
@@ -337,109 +230,6 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
         socket.write(data: data!)
         
-        //let str = String(data:data!, encoding: String.Encoding.utf8)
-        
-        //socket.write(string: "\(self.me.name): \(message)\n")
-        //socket.write(string: str!)
-        
-        /*
-        // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/sendChattingMessageInRoom?roomId=\(roomNumber ?? -1)&playerName=\(me!.name)&content=\(message)"
-        let params = NSMutableDictionary()
-        var jsonData:Data? = nil
-        do {
-            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            fatalError("Wrong post params when trying to creat game room.")
-        }
-        
-        // Use semaphore to send Synchronous request
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
-            (data, error) -> Void in
-            if error != nil {
-                print(error!)
-            } else {
-                if let ok = (data as! [NSDictionary])[0]["ok"] {
-                    print("sendChattingMessage: ok : \(ok)")
-                } else {
-                    os_log("sendChattingMessage: unexpected response from server.", log: OSLog.default, type: .debug)
-                }
-            }
-            
-            semaphore.signal()
-        }
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-         */
-    }
-    
-    private func getChattingMessage() ->String {
-        var result = ""
-        // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/getChattingMessageInRoom?roomId=\(roomNumber ?? -1)&playerId=\(me!.id)"
-        let params = NSMutableDictionary()
-        var jsonData:Data? = nil
-        do {
-            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            fatalError("Wrong post params when trying to creat game room.")
-        }
-        
-        // Use semaphore to send Synchronous request
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
-            (data, error) -> Void in
-            if error != nil {
-                print(error!)
-            } else {
-                for message in (data as! [String]) {
-                    result += message
-                }
-            }
-            
-            semaphore.signal()
-        }
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        if result == "" {
-            return ""
-        } else {
-            return "\n\(result)"
-        }
-        
-    }
-    
-    private func getGameState() -> Int {
-        var state:Int?
-        // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/getGameStateInRoom?roomId=\(me!.roomId!)"
-        let params = NSMutableDictionary()
-        var jsonData:Data? = nil
-        do {
-            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            fatalError("Wrong post params when trying to get ready.")
-        }
-        
-        // Use semaphore to send Synchronous request
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
-            (data, error) -> Void in
-            if error != nil {
-                print(error!)
-            } else {
-                state = (data as! [Int])[0]
-            }
-            
-            semaphore.signal()
-        }
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        guard let realState = state else {
-            fatalError("Unknown game state returned from server.")
-        }
-        return realState
     }
     
     private func beginGame() {
@@ -482,71 +272,6 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         }
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
-    
-    /*
-    private func getReady() {
-        // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/playerGetReady?playerId=\(me!.id)"
-        let params = NSMutableDictionary()
-        var jsonData:Data? = nil
-        do {
-            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            fatalError("Wrong post params when trying to get ready.")
-        }
-        
-        // Use semaphore to send Synchronous request
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
-            (data, error) -> Void in
-            if error != nil {
-                print(error!)
-            } else {
-                if let ok = (data as! [NSDictionary])[0]["ok"] {
-                    print("getReady: ok : \(ok)")
-                } else {
-                    os_log("getReady: unexpected response from server.", log: OSLog.default, type: .debug)
-                }
-            }
-            
-            semaphore.signal()
-        }
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-    }
-    */
-    /*
-    private func resetReady() {
-        // Connect the server
-        let urlPath: String = "http://localhost:3000/tasks/playerResetReady?playerId=\(me!.id)"
-        let params = NSMutableDictionary()
-        var jsonData:Data? = nil
-        do {
-            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            fatalError("Wrong post params when trying to get ready.")
-        }
-        
-        // Use semaphore to send Synchronous request
-        //let semaphore = DispatchSemaphore(value: 0)
-        
-        ServerConnectionDelegator.httpPost(urlPath: urlPath, httpBody: jsonData!) {
-            (data, error) -> Void in
-            if error != nil {
-                print(error!)
-            } else {
-                if let ok = (data as! [NSDictionary])[0]["ok"] {
-                    print("resetReady: ok : \(ok)")
-                } else {
-                    os_log("resetReady: unexpected response from server.", log: OSLog.default, type: .debug)
-                }
-            }
-            
-            //semaphore.signal()
-        }
-        //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
-    }
-     */
     
     // MARK: - WebSocketDelegate
     func websocketDidConnect(socket: WebSocketClient) {

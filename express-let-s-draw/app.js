@@ -96,7 +96,7 @@ wsServer.on('request', function(request) {
 
         //console.log(JSON.parse(message.binaryData));
         var dic = JSON.parse(message.binaryData);
-        console.log(dic);
+
         switch (dic.type)
         {
           case "signIn": {
@@ -155,10 +155,13 @@ wsServer.on('request', function(request) {
             break;
           }
         }
-        console.log(dic.type);
-        console.log("sender socket playerId: " + clients[index].playerId);
-        console.log("sender socket roomId: " + clients[index].roomId);
-        console.log("sender socket current roomId: " + roomId);
+        if (dic.type != "sendDrawingBoard") { // we don't want too many sendDrawingBoard messages occupying the screen.
+          console.log(dic);
+          console.log(dic.type);
+          console.log("sender socket playerId: " + clients[index].playerId);
+          console.log("sender socket roomId: " + clients[index].roomId);
+          console.log("sender socket current roomId: " + roomId);
+        }
       }
     });
 
