@@ -62,7 +62,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
         getDrawingBoardOperation.completionBlock = {
             print("getDrawingBoardOperation completed.")
         }
-        self.queue.addOperation(getDrawingBoardOperation)
+        //self.queue.addOperation(getDrawingBoardOperation)
         
     }
     

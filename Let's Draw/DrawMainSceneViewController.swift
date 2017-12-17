@@ -52,7 +52,7 @@ class DrawMainSceneViewController: UIViewController {
         sendDrawingBoardOperation.completionBlock = {
             print("sendDrawingBoardOperation completed.")
         }
-        self.queue.addOperation(sendDrawingBoardOperation)
+        //self.queue.addOperation(sendDrawingBoardOperation)
          
     }
     

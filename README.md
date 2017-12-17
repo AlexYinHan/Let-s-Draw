@@ -11,6 +11,7 @@
 [1][使用URLSession同步获取数据（通过添加信号量）](http://www.hangge.com/blog/cache/detail_816.html)<br>
 [2][[MongoDB]Update更新数据](http://blog.csdn.net/sunnyyoona/article/details/52420210)<br>
 [3][Swift - HTTP网络操作库Alamofire使用详解1](http://www.hangge.com/blog/cache/detail_970.html)
+[4][WebSockets on iOS with Starscream]https://www.raywenderlich.com/143874/websockets-ios-starscream)
 # iOS学习笔记
 1. **GCD队列的优先级**<br>
 iOS上：[Energy Efficiency Guide for iOS Apps - Prioritize Work with Quality of Service Classes](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39-SW1)<br>
@@ -60,6 +61,7 @@ viewDidUnload－当内存过低，释放一些不需要的视图时调用。<br>
 暂时把参数都放在URL里，但是没法传中文、空格等特殊字符<br>
 可以采用Alamofire，传参数很方便。<br>
 将字典转为data，在后台解析：<br>
+
 客户端：
 >let parameters:[String: Any] = [
 "tt": "ss",

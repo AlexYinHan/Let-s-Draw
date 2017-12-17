@@ -324,20 +324,25 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         return resultPlayerInfo;
     }
     private func sendChattingMessage(message: String) {
-        // Connect the server
         
+        // web socket
         let parameters:[String: Any] = [
-            "tt": "ss",
-            "aa": "bb"
+            "type": "chattingMessage",
+            "playerId": self.me!.id,
+            "playerName": self.me!.name,
+            "roomId": self.me!.roomId!,
+            "messageContent": message
         ]
         let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
         socket.write(data: data!)
+        
         //let str = String(data:data!, encoding: String.Encoding.utf8)
         
         //socket.write(string: "\(self.me.name): \(message)\n")
         //socket.write(string: str!)
         
         /*
+        // Connect the server
         let urlPath: String = "http://localhost:3000/tasks/sendChattingMessageInRoom?roomId=\(roomNumber ?? -1)&playerName=\(me!.name)&content=\(message)"
         let params = NSMutableDictionary()
         var jsonData:Data? = nil
@@ -437,6 +442,16 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     }
     
     private func beginGame() {
+        // web socket
+        let parameters:[String: Any] = [
+            "type": "changeGameState",
+            "playerId": self.me!.id,
+            "roomId": self.me!.roomId!,
+            "newGameState": "onGoing"
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+        
         // Connect the server
         let urlPath: String = "http://localhost:3000/tasks/beginGameInRoom?roomId=\(me!.roomId!)"
         let params = NSMutableDictionary()
@@ -546,17 +561,17 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         guard let data = text.data(using: .utf16),
             let jsonData = try? JSONSerialization.jsonObject(with: data),
             let jsonDict = jsonData as? [String: Any],
-            let messageType = jsonDict["type"] as? String else {
+            let messageType = jsonDict["type"] as? String
+            else {
                 return
         }
         
         // 2
         switch messageType {
-        case "message":
-            if let messageData = jsonDict["data"] as? [String: Any],
-            let messageText = messageData["text"] as? String {
+        case "chattingMessage":
+            if let messageText = jsonDict["messageContent"] as? String, let messageSenderName = jsonDict["playerName"] as? String{
                 
-                self.chattingDisplayAreaTextView.text.append("\(messageText)")
+                self.chattingDisplayAreaTextView.text.append("\(messageSenderName): \(messageText)\n")
                 let allStrCount = self.chattingDisplayAreaTextView.text.count //获取总文字个数
                 self.chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
                 //print("webSocket receive message \(messageText)")
@@ -570,6 +585,20 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         case "exitGameRoom":
             self.getAllPlayers()
             self.playerList.reloadData()
+        case "changeGameState":
+            if let newGameState = jsonDict["newGameState"] as? String {
+                switch newGameState {
+                    /*
+                     0: ended
+                     1: readyToBegin
+                     2: onGoing
+                     */
+                case "onGoing":
+                    self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
+                default:
+                    print("newGameState should be \(newGameState)")
+                }
+            }
         default:
             os_log("Unknown message type.", log: OSLog.default, type: .debug)
         }

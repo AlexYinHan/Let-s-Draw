@@ -63,7 +63,7 @@ wsServer.on('request', function(request) {
     console.log((new Date()) + ' Connection accepted.');
     // user sent some message
     connection.on('message', function(message) {
-console.log(index);
+      //console.log(index);
       if (message.type === 'utf8') { // accept only text
         //console.log(message.utf8Data);
         //console.log(JSON.parse(message.utf8Data));
@@ -93,46 +93,60 @@ console.log(index);
           }
         //}
       } else {
-          console.log(JSON.parse(message.binaryData));
-          var dic = JSON.parse(message.binaryData);
-          switch (dic.type)
-          {
-            case "signIn":
-              playerId = dic.playerId;
-              clients[index].playerId = playerId;
-              console.log("webSocketServer: player signIn with id: " + playerId);
 
-              break;
-            case "joinGameRoom":
-              console.log("joinGameRoom");
-              console.log(clients[index].playerId);
-              roomId = dic.roomId;
-              clients[index].roomId = roomId;
-              console.log(clients[index].roomId);
-              console.log(roomId);
-              for (var i=0; i < clients.length; i++) {
-                if(i != index && clients[i].roomId == roomId) { // only send message to clients in the same room
-                  clients[i].client.sendUTF(JSON.stringify(dic));
-                  console.log(dic);
-                }
-              }
-              break;
-              case "exitGameRoom":
-                console.log("exitGameRoom");
-                console.log(clients[index].playerId);
-                roomId = dic.roomId;
-                clients[index].roomId = -1;
-                console.log(clients[index].roomId);
-                console.log(roomId);
-                for (var i=0; i < clients.length; i++) {
-                  if(i != index && clients[i].roomId == roomId) { // only send message to clients in the same room
-                    clients[i].client.sendUTF(JSON.stringify(dic));
-                    console.log(dic);
-                  }
-                }
-                break;
-
+        //console.log(JSON.parse(message.binaryData));
+        var dic = JSON.parse(message.binaryData);
+        console.log(dic);
+        switch (dic.type)
+        {
+          case "signIn": {
+            playerId = dic.playerId;
+            clients[index].playerId = playerId;
+            console.log("webSocketServer: player signIn with id: " + playerId);
+            break;
           }
+          case "joinGameRoom": {
+            roomId = dic.roomId;
+            clients[index].roomId = roomId;
+            for (var i=0; i < clients.length; i++) {
+              if(i != index && clients[i].roomId == roomId) { // only send message to other clients in the same room
+                clients[i].client.sendUTF(JSON.stringify(dic));
+              }
+            }
+            break;
+          }
+          case "exitGameRoom": {
+            roomId = dic.roomId;
+            clients[index].roomId = -1;
+            for (var i=0; i < clients.length; i++) {
+              if(i != index && clients[i].roomId == roomId) { // only send message to other clients in the same room
+                clients[i].client.sendUTF(JSON.stringify(dic));
+              }
+            }
+            break;
+          }
+          case "chattingMessage": {
+            for (var i=0; i < clients.length; i++) {
+              if(clients[i].roomId == roomId) { // only send message to clients in the same room
+                clients[i].client.sendUTF(JSON.stringify(dic));
+              }
+            }
+            break;
+          }
+          case "changeGameState": {
+            for (var i=0; i < clients.length; i++) {
+              if(clients[i].roomId == roomId) { // only send message to clients in the same room
+                console.log("send changeGameState message to player with index: " + i);
+                clients[i].client.sendUTF(JSON.stringify(dic));
+              }
+            }
+            break;
+          }
+        }
+        console.log(dic.type);
+        console.log("sender socket playerId: " + clients[index].playerId);
+        console.log("sender socket roomId: " + clients[index].roomId);
+        console.log("sender socket current roomId: " + roomId);
       }
     });
 
