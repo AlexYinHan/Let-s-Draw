@@ -9,8 +9,9 @@
 import UIKit
 import os.log
 import Alamofire
+import Starscream
 
-class DrawMainSceneViewController: UIViewController {
+class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDrawingBoardDelegate {
 
     // MARK: Properties
     
@@ -18,6 +19,8 @@ class DrawMainSceneViewController: UIViewController {
 
     var me: User?
     var KeyWord: String!
+    
+    var socket: WebSocket!
     
     var isOperationQueueCancelled = false
     var queue = OperationQueue()
@@ -27,6 +30,11 @@ class DrawMainSceneViewController: UIViewController {
         
         self.DrawingBoardArea.brush = DrawingTools.brushes["Pencil"]
         navigationItem.title = "题目：" + KeyWord!
+        
+        // web socket
+        socket.delegate = self
+        
+        self.DrawingBoardArea.sendDrawingBoardDelegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -83,22 +91,46 @@ class DrawMainSceneViewController: UIViewController {
     
     // MARK: Private methods
     
-    private func sendDrawingBoard() {
+    public func sendDrawingBoard() {
         
-            let semaphore = DispatchSemaphore(value: 0)
+        //let semaphore = DispatchSemaphore(value: 0)
             
-            let parameters:[String: Any] = [
-                "brushState": self.DrawingBoardArea.drawingState,
-                "brushPositionX": self.DrawingBoardArea.brushPositionX,
-                "brushPositionY": self.DrawingBoardArea.brushPositionY,
-                "brushKind": self.DrawingBoardArea.brush?.brushName() ?? "default",
-                "brushColor": self.DrawingBoardArea.colorName
-            ]
+        let parameters:[String: Any] = [
+            "type": "sendDrawingBoard",
+            "brushState": self.DrawingBoardArea.drawingState.toString(),
+            "brushPositionX": self.DrawingBoardArea.brushPositionX,
+            "brushPositionY": self.DrawingBoardArea.brushPositionY,
+            "brushKind": self.DrawingBoardArea.brush?.brushName() ?? "default",
+            "brushColor": self.DrawingBoardArea.colorName
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+        
+        /*
             Alamofire.request("http://localhost:3000/tasks/sendDrawingBoard?roomId=\(me!.roomId!)", method: .post, parameters: parameters).responseJSON { response in
                 semaphore.signal()
             }
             _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+         */
         
+        
+    }
+    
+    // MARK: - WebSocketDelegate
+    
+    func websocketDidConnect(socket: WebSocketClient) {
+        
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         
     }
     

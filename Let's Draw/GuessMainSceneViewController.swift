@@ -9,8 +9,9 @@
 import UIKit
 import os.log
 import Alamofire
+import Starscream
 
-class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
+class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSocketDelegate {
 
     //MARK: Properties
     @IBOutlet weak var chattingInputBoxTextField: UITextField!
@@ -20,6 +21,8 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
     
     var Hint: String!
     var me: User?
+    
+    var socket: WebSocket!
     
     var isOperationQueueCancelled = false
     var queue = OperationQueue()
@@ -37,6 +40,9 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
         
         // answer button
         answerButton.layer.cornerRadius = 5 //  设置为圆角按钮
+        
+        // web socket
+        socket.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -166,6 +172,72 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate {
                semaphore.signal()
         }
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+    
+    // MARK: - WebSocketDelegate
+    
+    func websocketDidConnect(socket: WebSocketClient) {
+        
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        // 1
+        guard let data = text.data(using: .utf16),
+            let jsonData = try? JSONSerialization.jsonObject(with: data),
+            let jsonDict = jsonData as? [String: Any],
+            let messageType = jsonDict["type"] as? String
+            else {
+                return
+        }
+        
+        // 2
+        switch messageType {
+        case "sendDrawingBoard":
+            // 画笔颜色
+            if let colorName = jsonDict["brushColor"] as? String, let color = DrawingTools.drawingColors[colorName] {
+                self.renderingBoardArea.strokeColor = color
+            } else {
+                os_log("Failed to get brush color.", log: OSLog.default, type: .debug)
+            }
+            // 画笔种类
+            if let brushName = jsonDict["brushKind"] as? String {
+                self.renderingBoardArea.brush = DrawingTools.brushes[brushName]
+                if brushName == "Eraser" {
+                    self.renderingBoardArea.strokeWidth = 15
+                } else {
+                    self.renderingBoardArea.strokeWidth = 1
+                }
+            } else {
+                os_log("Failed to get brush name.", log: OSLog.default, type: .debug)
+            }
+            
+            // 画
+            if let brushState = jsonDict["brushState"] as? String, let x = jsonDict["brushPositionX"] as? CGFloat, let y = jsonDict["brushPositionY"] as? CGFloat {
+                switch  brushState{
+                case "Began":
+                    self.renderingBoardArea.drawWhenTouchBegins(x: x, y: y)
+                case "Moved":
+                    self.renderingBoardArea.drawWhenTouchMoves(x: x, y: y)
+                case "Ended":
+                    //print("ended brush state.")
+                    self.renderingBoardArea.drawWhenTouchEnds(x: x, y: y)
+                default:
+                    print("Unknown brush state.")
+                }
+            } else {
+                os_log("Failed to get brush state or position.", log: OSLog.default, type: .debug)
+            }
+        default:
+            os_log("Unknown message type.", log: OSLog.default, type: .debug)
+        }
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        
     }
 
 }

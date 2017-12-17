@@ -29,7 +29,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     var queue = OperationQueue()
     
     var socket:WebSocket!
-    var webSocket = WebSocket(url: URL(string: "ws://localhost:9090/")!, protocols: [])
+    //var webSocket = WebSocket(url: URL(string: "ws://localhost:9090/")!, protocols: [])
     
     var isOperationQueueCancelled = false
     
@@ -38,7 +38,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
 
         // web socket
         socket.delegate = self
-        webSocket.delegate = self
+        //webSocket.delegate = self
         //socket.connect()
         
         // players
@@ -222,6 +222,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
             }
             waitingForGameToStartViewController.me = self.me
             waitingForGameToStartViewController.players = self.players
+            waitingForGameToStartViewController.socket = self.socket
             
         default:
             // exitButton triggles an unwind segue

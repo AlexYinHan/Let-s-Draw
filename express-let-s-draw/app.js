@@ -136,10 +136,22 @@ wsServer.on('request', function(request) {
           case "changeGameState": {
             for (var i=0; i < clients.length; i++) {
               if(clients[i].roomId == roomId) { // only send message to clients in the same room
-                console.log("send changeGameState message to player with index: " + i);
+                //console.log("send changeGameState message to player with index: " + i);
                 clients[i].client.sendUTF(JSON.stringify(dic));
               }
             }
+            break;
+          }
+          case "sendDrawingBoard": {
+            for (var i=0; i < clients.length; i++) {
+              if(i != index && clients[i].roomId == roomId) { // only send message to other clients in the same room
+                clients[i].client.sendUTF(JSON.stringify(dic));
+              }
+            }
+            break;
+          }
+          default: {
+            console.log("unknown message type received by WebSocketServer.");
             break;
           }
         }

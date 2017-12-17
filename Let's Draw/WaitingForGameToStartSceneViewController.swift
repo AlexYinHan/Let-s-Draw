@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Starscream
 
 enum PlayerRole {
     case Drawer
@@ -19,6 +20,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     var players = [User]()
     var me: User?
     var Subject:String!
+    var socket: WebSocket!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
             }
             guessMainSceneViewController.me = self.me
             guessMainSceneViewController.Hint = self.Subject
+            guessMainSceneViewController.socket = self.socket
             
         case "EnterDrawScene":
             guard let drawMainSceneNavigationController = segue.destination as? UINavigationController else {
@@ -78,6 +81,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
             }
             drawMainSceneViewController.me = self.me
             drawMainSceneViewController.KeyWord = self.Subject
+            drawMainSceneViewController.socket = self.socket
             
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")

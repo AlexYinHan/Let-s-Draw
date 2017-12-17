@@ -9,6 +9,19 @@
 import UIKit
 enum DrawingState {
     case Began, Moved, Ended
+    func toString() -> String {
+        switch self {
+        case .Began:
+            return "Began"
+        case .Moved:
+            return "Moved"
+        case .Ended:
+            return "Ended"
+        }
+    }
+}
+protocol SendDrawingBoardDelegate {
+    func sendDrawingBoard()
 }
 
 class DrawingBoard: UIImageView {
@@ -24,6 +37,8 @@ class DrawingBoard: UIImageView {
     
     var brushPositionX: CGFloat
     var brushPositionY: CGFloat
+    
+    var sendDrawingBoardDelegate: SendDrawingBoardDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         self.strokeColor = UIColor.white
@@ -52,6 +67,8 @@ class DrawingBoard: UIImageView {
             self.drawingState = .Began
             
             self.drawImage()
+            
+            self.sendDrawingBoardDelegate?.sendDrawingBoard()
         }
     }
     
@@ -67,6 +84,8 @@ class DrawingBoard: UIImageView {
             self.drawingState = .Moved
             
             self.drawImage()
+            
+            self.sendDrawingBoardDelegate?.sendDrawingBoard()
         }
     }
     
@@ -82,6 +101,8 @@ class DrawingBoard: UIImageView {
             self.drawingState = .Ended
             
             self.drawImage()
+            
+            self.sendDrawingBoardDelegate?.sendDrawingBoard()
         }
     }
     
@@ -135,5 +156,6 @@ class DrawingBoard: UIImageView {
         // Drawing code
     }
     */
+    
 
 }
