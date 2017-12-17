@@ -10,7 +10,7 @@
 
 [1][使用URLSession同步获取数据（通过添加信号量）](http://www.hangge.com/blog/cache/detail_816.html)<br>
 [2][[MongoDB]Update更新数据](http://blog.csdn.net/sunnyyoona/article/details/52420210)<br>
-[3][Swift - HTTP网络操作库Alamofire使用详解1](http://www.hangge.com/blog/cache/detail_970.html)
+[3][Swift - HTTP网络操作库Alamofire使用详解1](http://www.hangge.com/blog/cache/detail_970.html)<br>
 [4][WebSockets on iOS with Starscream]https://www.raywenderlich.com/143874/websockets-ios-starscream)
 # iOS学习笔记
 1. **GCD队列的优先级**<br>
