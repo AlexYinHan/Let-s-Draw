@@ -22,6 +22,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     var keyWord: String!
     var hint: String!
     var socket: WebSocket!
+    var isFirst = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,11 @@ class WaitingForGameToStartSceneViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        if self.isFirst {
+            isFirst = false
+        } else {
+            return
+        }
         // segue to Draw/Guess scene according to player role.
         if let myPlayerInfo = me {
             let playerRole = getPlayerRole(Player: myPlayerInfo)
@@ -53,7 +58,10 @@ class WaitingForGameToStartSceneViewController: UIViewController {
         }
     }
     
-
+    // unwind navigation
+    @IBAction func unwindToWaitingForGameToStartScene(sender: UIStoryboardSegue) {
+        performSegue(withIdentifier: "unwindToChoosingGameRoomScene", sender: self)
+    }
     
     // MARK: - Navigation
 
@@ -84,6 +92,8 @@ class WaitingForGameToStartSceneViewController: UIViewController {
             drawMainSceneViewController.keyWord = self.keyWord
             drawMainSceneViewController.socket = self.socket
             
+        case "unwindToChoosingGameRoomScene":
+            break
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }

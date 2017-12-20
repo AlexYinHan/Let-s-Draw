@@ -13,6 +13,9 @@ router.get('/playerRole', function(req, res, next) {
   var playerID = Number(req.query.playerId);
   var questionNumber;
   GameRoom.find({roomId: roomID}, function(err, tasks) {
+    if(tasks.length < 1) {
+      res.send("error when getting playerRole");
+    }
     if (tasks[0].players[tasks[0].drawerNumber].id == playerID) {
       res.send("Drawer");
     } else {
@@ -59,7 +62,7 @@ router.delete('/deleteAllPlayers', function(req, res, next) {
 
 router.post('/signIn', function(req, res, next) {
   var playerName = req.query.userName;
-  
+
   var randomId = -1;
   var isThisIdExist = 0;
   do {

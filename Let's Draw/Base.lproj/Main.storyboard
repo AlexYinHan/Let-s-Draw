@@ -187,7 +187,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Va-8Q-MEp"/>
                     </view>
-                    <navigationItem key="navigationItem" title="提示：" id="7TC-In-9la"/>
+                    <navigationItem key="navigationItem" title="提示：" id="7TC-In-9la">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="Exit" id="5fq-wR-9qW">
+                            <connections>
+                                <action selector="exitbuttonPressed:" destination="98p-Bt-ySm" id="VEo-r3-aZX"/>
+                                <segue destination="LwS-dZ-JjD" kind="unwind" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="AGz-F1-N5E"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="时间：" id="Chd-hD-Rt9"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="answerButton" destination="W0z-rk-1vv" id="T0B-0W-yGe"/>
                         <outlet property="chattingDisplayAreaTextView" destination="ye3-6y-mkA" id="sXx-Re-6Uo"/>
@@ -197,6 +205,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fI5-6i-olp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="LwS-dZ-JjD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2184.057971014493" y="833.96739130434787"/>
         </scene>
@@ -222,7 +231,7 @@
                                 <state key="normal" title="进入游戏"/>
                                 <connections>
                                     <action selector="enterGameButtonPressed:" destination="egt-Dx-IKF" eventType="touchUpInside" id="vV5-al-P3V"/>
-                                    <segue destination="TUW-ab-X7M" kind="presentation" identifier="EnterGame" modalTransitionStyle="crossDissolve" id="6On-P6-vWb"/>
+                                    <segue destination="TUW-ab-X7M" kind="showDetail" identifier="EnterGame" action="showViewController:sender:" id="6On-P6-vWb"/>
                                 </connections>
                             </button>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="People" translatesAutoresizingMaskIntoConstraints="NO" id="BEt-MT-Vyk" userLabel="UserPhoto">
@@ -306,7 +315,7 @@
                                 <state key="normal" backgroundImage="Ready"/>
                                 <connections>
                                     <action selector="readyButtonPressed:" destination="oRY-jV-NAz" eventType="touchUpInside" id="bYt-S8-0As"/>
-                                    <segue destination="Glv-eT-rKS" kind="showDetail" identifier="WaitingForGameToStart" id="eId-1l-ybD"/>
+                                    <segue destination="Glv-eT-rKS" kind="show" identifier="WaitingForGameToStart" id="eId-1l-ybD"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4AZ-Tl-iFB" userLabel="Player List">
@@ -400,6 +409,7 @@
         <!--Navigation Controller-->
         <scene sceneID="qGq-ih-cFC">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oqa-Uk-9Iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3ri-bZ-9VY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tPC-IZ-6jy">
@@ -411,7 +421,6 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="GZx-G8-CqI"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oqa-Uk-9Iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1334" y="106"/>
         </scene>
@@ -440,11 +449,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="K81-fN-Edj"/>
                     <connections>
-                        <segue destination="3ri-bZ-9VY" kind="showDetail" identifier="EnterDrawScene" id="ySD-Oa-C0h"/>
-                        <segue destination="blu-hL-BNx" kind="showDetail" identifier="EnterGuessScene" id="wOi-RG-hia"/>
+                        <segue destination="3ri-bZ-9VY" kind="presentation" identifier="EnterDrawScene" id="ySD-Oa-C0h"/>
+                        <segue destination="blu-hL-BNx" kind="show" identifier="EnterGuessScene" id="wOi-RG-hia"/>
+                        <segue destination="J0p-NJ-lgw" kind="unwind" identifier="unwindToChoosingGameRoomScene" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="ZPv-kr-kBE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gma-Hn-y6A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="J0p-NJ-lgw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="84" y="599"/>
         </scene>
@@ -461,7 +472,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="创建"/>
                                 <connections>
-                                    <segue destination="nuc-i6-oRb" kind="showDetail" identifier="CreateGameRoom" id="nme-6e-OCX"/>
+                                    <segue destination="nuc-i6-oRb" kind="show" identifier="CreateGameRoom" action="showDetailViewController:sender:" id="nme-6e-OCX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iE4-ZF-h82">
@@ -491,7 +502,7 @@
                     <connections>
                         <outlet property="userName" destination="kee-sn-XAb" id="9M8-2O-Nd5"/>
                         <outlet property="userPhoto" destination="Ivn-LE-rgK" id="ysv-YJ-0JI"/>
-                        <segue destination="nuc-i6-oRb" kind="showDetail" identifier="JoinGameRoom" id="lWj-3v-gxC"/>
+                        <segue destination="nuc-i6-oRb" kind="show" identifier="JoinGameRoom" action="showDetailViewController:sender:" id="lWj-3v-gxC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8O-Iu-I65" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -501,6 +512,7 @@
         <!--Navigation Controller-->
         <scene sceneID="bCn-D1-bc6">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fdc-06-Jcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="blu-hL-BNx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fts-qq-mhi">
@@ -512,7 +524,6 @@
                         <segue destination="98p-Bt-ySm" kind="relationship" relationship="rootViewController" id="4cI-Da-ofd"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fdc-06-Jcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1333" y="834"/>
         </scene>
@@ -554,10 +565,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Exit" width="30" height="30"/>
         <image name="People" width="30" height="30"/>
         <image name="Ready" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lWj-3v-gxC"/>
+        <segue reference="nme-6e-OCX"/>
     </inferredMetricsTieBreakers>
 </document>

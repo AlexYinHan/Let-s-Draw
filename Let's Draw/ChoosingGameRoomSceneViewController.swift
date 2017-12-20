@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Alamofire
 import Starscream
 
 class ChoosingGameRoomSceneViewController: UIViewController {
@@ -98,13 +99,34 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         let confirmAction = UIAlertAction(title: "加入", style: UIAlertActionStyle.default, handler: {
             (UIAlertAction) in
             // 提交
-            if let searchContent =  (searchRoomAlertController.textFields!.first as UITextField?)?.text, let roomId = Int(searchContent) {
+            if
+                let searchTextField = (searchRoomAlertController.textFields!.first as UITextField?),
+                let searchContent = searchTextField.text,
+                let roomId = Int(searchContent) {
+                
                 let isGameRoomExist = self.searchGameRoom(roomId: roomId)
                 if isGameRoomExist {
                     // enter the room
                     self.selectedRoomId = roomId
                     self.performSegue(withIdentifier: "JoinGameRoom", sender: self)
                 } else {
+                    //self.present(searchRoomAlertController, animated: true, completion: nil)
+                    //let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+                    let textFieldRect = searchTextField.frame
+                    /*let roomNotExistLabel = UILabel(frame: CGRect(
+                        x: textFieldRect.minX,
+                        y: textFieldRect.minY,
+                        width: textFieldRect.width,
+                        height: textFieldRect.height))
+ */
+                    let roomNotExistLabel = UILabel(frame: textFieldRect)
+                    roomNotExistLabel.textAlignment = NSTextAlignment.center
+                    roomNotExistLabel.textColor = UIColor.red
+                    roomNotExistLabel.text = "该游戏房间不存在!"
+                    searchRoomAlertController.view.addSubview(roomNotExistLabel)
+                    
+ 
+                    self.present(searchRoomAlertController, animated: true, completion: nil)
                     
                 }
             }
@@ -243,6 +265,41 @@ class ChoosingGameRoomSceneViewController: UIViewController {
     }
     
     private func searchGameRoom(roomId: Int) -> Bool {
-        return true
+        var isRoomExist  = false
+        /*
+        //let semaphore = DispatchSemaphore(value: 0)
+        Alamofire.request("http://localhost:3000/tasks/getRoomWithId?roomId=\(roomId)").response {
+            response in
+            if let data = response.data,
+                let roomNumberString = String(data: data, encoding: .utf8),
+                let roomNumber = Int.init(roomNumberString) {
+                isRoomExist = roomNumber >= 1
+            }
+            //semaphore.signal()
+        }
+        //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        return isRoomExist
+        */
+        let urlPath: String = "http://localhost:3000/tasks/getRoomWithId?roomId=\(roomId)"
+        let url = URL(string: urlPath)!
+        let request = URLRequest(url: url)
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpGet(request: request){
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                if let roomNumber = Int.init(data) {
+                    isRoomExist = roomNumber >= 1
+                }
+            semaphore.signal()
+            }
+        }
+        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        return isRoomExist
     }
 }

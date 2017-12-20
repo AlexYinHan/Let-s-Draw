@@ -68,9 +68,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let newChattingRecord = textField.text {
-            chattingDisplayAreaTextView.text.append("\n\(newChattingRecord)")
-            let allStrCount = chattingDisplayAreaTextView.text.count //获取总文字个数
-            chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
+            sendChattingMessage(message: newChattingRecord)
         }
         // text field归还FirstResponser地位
         // Hide the keyboard.
@@ -155,6 +153,71 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
         
     }
     
+    @IBAction func exitbuttonPressed(_ sender: UIBarButtonItem) {
+        exitGameRoom(roomId: self.me!.roomId!)
+    }
+    
+    // MARK: Private Methods
+    
+    private func exitGameRoom(roomId: Int) {
+        
+        // Connect the server
+        let urlPath: String = "http://localhost:3000/tasks/removePlayerFromRoom?roomId=\(roomId)&playerId=\(self.me?.id ?? -1)"
+        let params = NSMutableDictionary()
+        
+        var jsonData:Data? = nil
+        do {
+            jsonData  = try JSONSerialization.data(withJSONObject: params, options:JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            fatalError("Wrong post params when trying to creat game room.")
+        }
+        
+        // Use semaphore to send Synchronous request
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        ServerConnectionDelegator.httpPut(urlPath: urlPath, httpBody: jsonData!) {
+            (data, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                if let ok = (data as! [NSDictionary])[0]["ok"] {
+                    print("removePlayer: ok : \(ok)")
+                } else {
+                    os_log("removePlayer: unexpected response from server.", log: OSLog.default, type: .debug)
+                }
+            }
+            semaphore.signal()
+        }
+        
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        // socket
+        let parameters:[String: Any] = [
+            "type": "exitGameRoom",
+            "roomId": roomId,
+            "playerId": self.me!.id
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+        
+        me!.roomId = -1
+    }
+    
+    private func sendChattingMessage(message: String) {
+        
+        // web socket
+        let parameters:[String: Any] = [
+            "type": "chattingMessage",
+            "playerId": self.me!.id,
+            "playerName": self.me!.name,
+            "roomId": self.me!.roomId!,
+            "messageContent": message
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+        
+    }
+    
     // MARK: - WebSocketDelegate
     
     func websocketDidConnect(socket: WebSocketClient) {
@@ -177,6 +240,14 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
         
         // 2
         switch messageType {
+        case "chattingMessage":
+            if let messageText = jsonDict["messageContent"] as? String, let messageSenderName = jsonDict["playerName"] as? String{
+                
+                self.chattingDisplayAreaTextView.text.append("\(messageSenderName): \(messageText)\n")
+                let allStrCount = self.chattingDisplayAreaTextView.text.count //获取总文字个数
+                self.chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
+                //print("webSocket receive message \(messageText)")
+            }
         case "sendAnswer":
             if let senderId = jsonDict["playerId"] as? Int,
                 let sender = findPlayer(withId: senderId),
