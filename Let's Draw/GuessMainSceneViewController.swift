@@ -240,6 +240,12 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
         
         // 2
         switch messageType {
+        case "exitGameRoom":
+            if let removedPlayerId = jsonDict["playerId"] as? Int {
+                let updatedPlayers = players.filter{ $0.id != removedPlayerId }
+                players = updatedPlayers
+                self.playerList.reloadData()
+            }
         case "chattingMessage":
             if let messageText = jsonDict["messageContent"] as? String, let messageSenderName = jsonDict["playerName"] as? String{
                 

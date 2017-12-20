@@ -310,8 +310,11 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
                 self.playerList.reloadData()
             }
         case "exitGameRoom":
-            self.getAllPlayers()
-            self.playerList.reloadData()
+            if let removedPlayerId = jsonDict["playerId"] as? Int {
+                let updatedPlayers = players.filter{ $0.id != removedPlayerId }
+                players = updatedPlayers
+                self.playerList.reloadData()
+            }
         case "changeGameState":
             if let newGameState = jsonDict["newGameState"] as? String {
                 switch newGameState {

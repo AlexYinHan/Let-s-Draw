@@ -93,3 +93,8 @@ connect，write等socket操作，并不是在语句处立即执行的，或者�
 问题：在场景1中，设置socket收到message后perform segue到场景2，并且把socket传值给场景2中的socket，但是没有重新设置socket.delegate。结果perform segue被调用了两次，在present场景2的过程中出现了错误。
 
 解决：把场景2中的socket的delegate设置为nil或者self即可。问题原因暂时不清楚。
+***
+11. **unwind segue** <br>
+哪怕起点和目标view controller在不同的navigation controller里，也是可以直接用unwind来跳转的，只要目标view controller中实现了目标action。<br>
+一个confusing的事情是，在向上找目标view controller的过程中，途径的view也会被加载，甚至写在viewDidAppear中的方法也会被调用一遍，但是实际运行时看不到这些view（来不及看到？），但最终还是会跳转到目标view上。<br>
+**

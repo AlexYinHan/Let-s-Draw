@@ -72,12 +72,19 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="题目：" id="EHH-uI-ayS"/>
+                    <navigationItem key="navigationItem" title="题目：" id="EHH-uI-ayS">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="Exit" id="LAT-LY-HGk">
+                            <connections>
+                                <segue destination="zdX-p5-8pK" kind="unwind" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="SmL-Th-O40"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="DrawingBoardArea" destination="edy-7z-To0" id="6Ft-HU-A9r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="zdX-p5-8pK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2185" y="106"/>
         </scene>
@@ -194,7 +201,6 @@
                                 <segue destination="LwS-dZ-JjD" kind="unwind" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="AGz-F1-N5E"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="时间：" id="Chd-hD-Rt9"/>
                     </navigationItem>
                     <connections>
                         <outlet property="answerButton" destination="W0z-rk-1vv" id="T0B-0W-yGe"/>
@@ -315,7 +321,7 @@
                                 <state key="normal" backgroundImage="Ready"/>
                                 <connections>
                                     <action selector="readyButtonPressed:" destination="oRY-jV-NAz" eventType="touchUpInside" id="bYt-S8-0As"/>
-                                    <segue destination="Glv-eT-rKS" kind="show" identifier="WaitingForGameToStart" id="eId-1l-ybD"/>
+                                    <segue destination="Glv-eT-rKS" kind="presentation" identifier="WaitingForGameToStart" id="eId-1l-ybD"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4AZ-Tl-iFB" userLabel="Player List">
@@ -450,7 +456,7 @@
                     <navigationItem key="navigationItem" id="K81-fN-Edj"/>
                     <connections>
                         <segue destination="3ri-bZ-9VY" kind="presentation" identifier="EnterDrawScene" id="ySD-Oa-C0h"/>
-                        <segue destination="blu-hL-BNx" kind="show" identifier="EnterGuessScene" id="wOi-RG-hia"/>
+                        <segue destination="blu-hL-BNx" kind="presentation" identifier="EnterGuessScene" id="wOi-RG-hia"/>
                         <segue destination="J0p-NJ-lgw" kind="unwind" identifier="unwindToChoosingGameRoomScene" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="ZPv-kr-kBE"/>
                     </connections>
                 </viewController>
