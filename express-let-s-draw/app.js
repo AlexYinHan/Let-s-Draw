@@ -150,6 +150,14 @@ wsServer.on('request', function(request) {
             }
             break;
           }
+          case "sendAnswer": {
+            for (var i=0; i < clients.length; i++) {
+              if(clients[i].roomId == roomId) { // only send message to clients in the same room
+                clients[i].client.sendUTF(JSON.stringify(dic));
+              }
+            }
+            break;
+          }
           default: {
             console.log("unknown message type received by WebSocketServer.");
             break;

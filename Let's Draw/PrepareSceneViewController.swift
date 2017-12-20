@@ -215,6 +215,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         guard let resultPlayerInfo = User(name: resultUserName, photo: nil) else {
             fatalError("Unrecognized user info returned from server.")
         }
+        resultPlayerInfo.id = playerId
         return resultPlayerInfo;
     }
     private func sendChattingMessage(message: String) {

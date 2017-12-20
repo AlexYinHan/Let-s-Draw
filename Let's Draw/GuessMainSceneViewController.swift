@@ -11,16 +11,20 @@ import os.log
 import Alamofire
 import Starscream
 
-class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSocketDelegate {
+class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WebSocketDelegate {
+    
 
     //MARK: Properties
     @IBOutlet weak var chattingInputBoxTextField: UITextField!
     @IBOutlet weak var chattingDisplayAreaTextView: UITextView!
     @IBOutlet weak var answerButton: UIButton!
     @IBOutlet weak var renderingBoardArea: RenderingBoard!
+    @IBOutlet weak var playerList: UICollectionView!
     
-    var Hint: String!
+    var hint: String!
+    var keyWord: String!
     var me: User?
+    var players: [User]!
     
     var socket: WebSocket!
     
@@ -28,7 +32,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
         super.viewDidLoad()
         
         // navigation bar
-        navigationItem.title = "提示：" + Hint!
+        navigationItem.title = "提示：" + hint!
         
         // chatting area
         chattingInputBoxTextField.delegate = self
@@ -37,6 +41,15 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
         
         // answer button
         answerButton.layer.cornerRadius = 5 //  设置为圆角按钮
+        
+        // player list
+        playerList.delegate = self
+        playerList.dataSource = self
+        let playerListLayout = UICollectionViewFlowLayout.init()
+        playerListLayout.itemSize = CGSize(width: 50, height: 70)
+        playerListLayout.minimumInteritemSpacing = 10
+        playerListLayout.minimumLineSpacing = 10
+        playerList.collectionViewLayout = playerListLayout
         
         // web socket
         socket.delegate = self
@@ -66,6 +79,36 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
         return true
     }
     
+    //MARK: UICollectionViewDataSource
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return players.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellIdentifier = "PlayerListCollectionViewCellInGuessScene"
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? PlayerListCellInGuessScene else {
+            fatalError("The dequeued cell is not an instance of PlayerListCollectionViewCell.")
+        }
+        
+        let playerInfo = players[indexPath.row]
+        cell.playerName.text = playerInfo.name
+        cell.playerPhoto.image = playerInfo.photo
+        if let answerText = playerInfo.answerContent {
+            cell.answerBubble.isHidden = false
+            cell.answerLabel.isHidden = false
+            //cell.answerLabel
+            cell.answerLabel.text = answerText
+        } else {
+            cell.answerBubble.isHidden = true
+            cell.answerLabel.isHidden = true
+        }
+        return cell
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -80,22 +123,36 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         // 按下回答按钮后，弹出一个对话框用于输入答案
         let answerAlertController = UIAlertController(title: "回答", message: "", preferredStyle: UIAlertControllerStyle.alert)
-        answerAlertController.addTextField(configurationHandler: {
+        answerAlertController.addTextField{
             (textField:UITextField) -> Void in
                 textField.placeholder = "请输入你的答案"
-            })
+        }
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
-        let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: {
+        let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default){
             (UIAlertAction) in
                 // 提交答案
             if let answer = (answerAlertController.textFields!.first as UITextField?)?.text
             {
                 print("[GuessMainScene]Confirm answer:\(answer).")
+                self.sendAnswer(content: answer)
             }
-            })
+        }
         answerAlertController.addAction(cancelAction)
         answerAlertController.addAction(confirmAction)
         self.present(answerAlertController, animated: true, completion: nil)
+    }
+    
+    private func sendAnswer(content answer: String) {
+        let parameters:[String: Any] = [
+            "type": "sendAnswer",
+            "roomId": self.me!.roomId!,
+            "playerId": self.me!.id,
+            "content": answer,
+            "isCorrect": answer == self.keyWord
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+        
     }
     
     // MARK: - WebSocketDelegate
@@ -120,6 +177,16 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
         
         // 2
         switch messageType {
+        case "sendAnswer":
+            if let senderId = jsonDict["playerId"] as? Int,
+                let sender = findPlayer(withId: senderId),
+                let isAnswerCorrect = jsonDict["isCorrect"] as? Bool,
+                let answerContent = jsonDict["content"] as? String
+            {
+                sender.isAnswerCorrect = isAnswerCorrect
+                sender.answerContent = answerContent
+                self.playerList.reloadData()
+            }
         case "sendDrawingBoard":
             // 画笔颜色
             if let colorName = jsonDict["brushColor"] as? String, let color = DrawingTools.drawingColors[colorName] {
@@ -164,4 +231,12 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, WebSo
         
     }
 
+    private func findPlayer(withId id: Int) -> User? {
+        for player in players {
+            if player.id == id {
+                return player
+            }
+        }
+        return nil
+    }
 }

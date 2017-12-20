@@ -19,15 +19,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edy-7z-To0" userLabel="DrawingBoardArea" customClass="DrawingBoard" customModule="Let_s_Draw" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="414" height="462"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="432"/>
                                 <color key="backgroundColor" red="0.89804714919999995" green="0.8767719262" blue="0.64143090670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <gestureRecognizers/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3oT-Xa-5Mo">
-                                <rect key="frame" x="0.0" y="526" width="414" height="210"/>
+                                <rect key="frame" x="0.0" y="496" width="414" height="240"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQw-UE-xtB">
-                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="210"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="240"/>
                                         <state key="normal" title="Red">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -36,21 +36,21 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjd-pi-ySy">
-                                        <rect key="frame" x="103.66666666666669" y="0.0" width="103.33333333333331" height="210"/>
+                                        <rect key="frame" x="103.66666666666669" y="0.0" width="103.33333333333331" height="240"/>
                                         <state key="normal" title="White"/>
                                         <connections>
                                             <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CIa-Bi-qD2"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUI-8b-SG1">
-                                        <rect key="frame" x="206.99999999999997" y="0.0" width="103.66666666666666" height="210"/>
+                                        <rect key="frame" x="206.99999999999997" y="0.0" width="103.66666666666666" height="240"/>
                                         <state key="normal" title="Pencil"/>
                                         <connections>
                                             <action selector="BrushButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="seL-Ea-AG2"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P78-hf-jMv">
-                                        <rect key="frame" x="310.66666666666669" y="0.0" width="103.33333333333331" height="210"/>
+                                        <rect key="frame" x="310.66666666666669" y="0.0" width="103.33333333333331" height="240"/>
                                         <state key="normal" title="Eraser"/>
                                         <connections>
                                             <action selector="BrushButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UpU-e2-rRp"/>
@@ -67,7 +67,7 @@
                             <constraint firstItem="edy-7z-To0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aTm-EV-OEP"/>
                             <constraint firstItem="3oT-Xa-5Mo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bod-b7-5VR"/>
                             <constraint firstItem="3oT-Xa-5Mo" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="c3l-fT-R98"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="edy-7z-To0" secondAttribute="bottom" constant="210" id="t0i-xr-zgu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="edy-7z-To0" secondAttribute="bottom" constant="240" id="t0i-xr-zgu"/>
                             <constraint firstItem="edy-7z-To0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vG0-0I-pGW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -90,39 +90,67 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pZC-yx-ptC" userLabel="DrawingBoardArea" customClass="RenderingBoard" customModule="Let_s_Draw" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="414" height="462"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="432"/>
                                 <color key="backgroundColor" red="0.89804714918136597" green="0.8767719261612118" blue="0.64143090674029479" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ook-gT-dbB">
-                                <rect key="frame" x="0.0" y="526" width="414" height="210"/>
+                                <rect key="frame" x="0.0" y="496" width="414" height="240"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="6N1-Iq-Q0c">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUg-sM-kMR">
-                                                <rect key="frame" x="0.0" y="0.0" width="84" height="30"/>
-                                                <state key="normal" title="Button" image="People"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5z-5B-Oqm">
-                                                <rect key="frame" x="165" y="0.0" width="84" height="30"/>
-                                                <state key="normal" title="Button" image="People"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Rn-T6-iw0">
-                                                <rect key="frame" x="330" y="0.0" width="84" height="30"/>
-                                                <state key="normal" title="Button" image="People"/>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ahu-0d-faS">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                        <color key="backgroundColor" red="0.95936033477637972" green="0.95655039871480352" blue="0.62334794611812583" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="8tv-G8-4jg"/>
+                                        </constraints>
+                                        <collectionViewLayout key="collectionViewLayout" id="qR8-gL-HuZ"/>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerListCollectionViewCellInGuessScene" id="61C-CG-LaU" customClass="PlayerListCellInGuessScene" customModule="Let_s_Draw" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="70"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="People" translatesAutoresizingMaskIntoConstraints="NO" id="GkD-hN-ijN" userLabel="photo">
+                                                            <rect key="frame" x="0.0" y="5" width="50" height="50"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="50" id="PU6-Ue-xCa"/>
+                                                                <constraint firstAttribute="width" constant="50" id="UJ6-Be-1Vb"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzk-Fb-EWG" userLabel="name">
+                                                            <rect key="frame" x="0.0" y="49" width="50" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstItem="GkD-hN-ijN" firstAttribute="top" secondItem="61C-CG-LaU" secondAttribute="top" constant="5" id="FYS-8J-jKT"/>
+                                                    <constraint firstItem="Nzk-Fb-EWG" firstAttribute="leading" secondItem="61C-CG-LaU" secondAttribute="leading" id="G74-Ql-ATL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Nzk-Fb-EWG" secondAttribute="bottom" id="Let-9L-TLo"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Nzk-Fb-EWG" secondAttribute="trailing" id="bMn-1w-uMo"/>
+                                                    <constraint firstItem="GkD-hN-ijN" firstAttribute="centerX" secondItem="61C-CG-LaU" secondAttribute="centerX" id="wFI-qO-OVk"/>
+                                                </constraints>
+                                                <size key="customSize" width="50" height="70"/>
+                                                <connections>
+                                                    <outlet property="playerName" destination="Nzk-Fb-EWG" id="w3d-3c-ugI"/>
+                                                    <outlet property="playerPhoto" destination="GkD-hN-ijN" id="Pgm-W0-PUZ"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="聊天区：" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ye3-6y-mkA">
-                                        <rect key="frame" x="0.0" y="30" width="414" height="130"/>
+                                        <rect key="frame" x="0.0" y="70" width="414" height="140"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="发言" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wFg-gg-fow" userLabel="ChattingInputBox">
-                                        <rect key="frame" x="0.0" y="160" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="210" width="414" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="dn1-XQ-uns"/>
+                                            <constraint firstAttribute="height" constant="30" id="dn1-XQ-uns"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -131,7 +159,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0z-rk-1vv" userLabel="AnswerButton">
-                                <rect key="frame" x="167" y="486" width="80" height="30"/>
+                                <rect key="frame" x="167" y="456" width="80" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="OgG-ds-Waa"/>
@@ -150,7 +178,7 @@
                             <constraint firstItem="W0z-rk-1vv" firstAttribute="bottom" secondItem="pZC-yx-ptC" secondAttribute="bottom" constant="-10" id="1us-gi-GaX"/>
                             <constraint firstItem="pZC-yx-ptC" firstAttribute="trailing" secondItem="6Va-8Q-MEp" secondAttribute="trailing" id="6h7-jH-L6L"/>
                             <constraint firstItem="Ook-gT-dbB" firstAttribute="trailing" secondItem="6Va-8Q-MEp" secondAttribute="trailing" id="90D-5P-e8C"/>
-                            <constraint firstItem="6Va-8Q-MEp" firstAttribute="bottom" secondItem="pZC-yx-ptC" secondAttribute="bottom" constant="210" id="CQB-Y9-Il0"/>
+                            <constraint firstItem="6Va-8Q-MEp" firstAttribute="bottom" secondItem="pZC-yx-ptC" secondAttribute="bottom" constant="240" id="CQB-Y9-Il0"/>
                             <constraint firstItem="Ook-gT-dbB" firstAttribute="leading" secondItem="6Va-8Q-MEp" secondAttribute="leading" id="NSb-Ep-TNN"/>
                             <constraint firstItem="pZC-yx-ptC" firstAttribute="top" secondItem="6Va-8Q-MEp" secondAttribute="top" id="NfV-zh-XvZ"/>
                             <constraint firstItem="Ook-gT-dbB" firstAttribute="bottom" secondItem="6Va-8Q-MEp" secondAttribute="bottom" id="X0r-ct-BQr"/>
@@ -164,12 +192,13 @@
                         <outlet property="answerButton" destination="W0z-rk-1vv" id="T0B-0W-yGe"/>
                         <outlet property="chattingDisplayAreaTextView" destination="ye3-6y-mkA" id="sXx-Re-6Uo"/>
                         <outlet property="chattingInputBoxTextField" destination="wFg-gg-fow" id="cHl-a6-Fsw"/>
+                        <outlet property="playerList" destination="ahu-0d-faS" id="goX-fQ-HOQ"/>
                         <outlet property="renderingBoardArea" destination="pZC-yx-ptC" id="Fc6-ch-6Ez"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fI5-6i-olp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2185" y="834"/>
+            <point key="canvasLocation" x="2184.057971014493" y="833.96739130434787"/>
         </scene>
         <!--登录-->
         <scene sceneID="17e-Td-zRi">

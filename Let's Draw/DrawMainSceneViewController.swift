@@ -18,7 +18,8 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     @IBOutlet weak var DrawingBoardArea: DrawingBoard!
 
     var me: User?
-    var KeyWord: String!
+    var hint: String!
+    var keyWord: String!
     
     var socket: WebSocket!
     
@@ -26,7 +27,7 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
         super.viewDidLoad()
         
         self.DrawingBoardArea.brush = DrawingTools.brushes["Pencil"]
-        navigationItem.title = "题目：" + KeyWord!
+        navigationItem.title = "题目：" + keyWord!
         
         // web socket
         socket.delegate = self

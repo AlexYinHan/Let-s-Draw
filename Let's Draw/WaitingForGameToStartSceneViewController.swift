@@ -17,9 +17,10 @@ enum PlayerRole {
 class WaitingForGameToStartSceneViewController: UIViewController {
 
     // MARK: Properties
-    var players = [User]()
+    var players: [User]!
     var me: User?
-    var Subject:String!
+    var keyWord: String!
+    var hint: String!
     var socket: WebSocket!
     
     override func viewDidLoad() {
@@ -39,14 +40,14 @@ class WaitingForGameToStartSceneViewController: UIViewController {
         // segue to Draw/Guess scene according to player role.
         if let myPlayerInfo = me {
             let playerRole = getPlayerRole(Player: myPlayerInfo)
+            self.hint = getHint()
+            self.keyWord = getKeyWord()
             switch playerRole {
             case .Drawer:
                 os_log("Entering draw scene.", log: OSLog.default, type: .debug)
-                Subject = getKeyWord()
                 performSegue(withIdentifier: "EnterDrawScene", sender: self)
             case .Guesser:
                 os_log("Entering guess scene.", log: OSLog.default, type: .debug)
-                Subject = getHint()
                 performSegue(withIdentifier: "EnterGuessScene", sender: self)
             }
         }
@@ -66,7 +67,9 @@ class WaitingForGameToStartSceneViewController: UIViewController {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             guessMainSceneViewController.me = self.me
-            guessMainSceneViewController.Hint = self.Subject
+            guessMainSceneViewController.players = self.players
+            guessMainSceneViewController.hint = self.hint
+            guessMainSceneViewController.keyWord = self.keyWord
             guessMainSceneViewController.socket = self.socket
             
         case "EnterDrawScene":
@@ -77,7 +80,8 @@ class WaitingForGameToStartSceneViewController: UIViewController {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             drawMainSceneViewController.me = self.me
-            drawMainSceneViewController.KeyWord = self.Subject
+            drawMainSceneViewController.hint = self.hint
+            drawMainSceneViewController.keyWord = self.keyWord
             drawMainSceneViewController.socket = self.socket
             
         default:

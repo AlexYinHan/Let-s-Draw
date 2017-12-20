@@ -17,6 +17,10 @@ class User: NSObject {
     var photo: UIImage?
     var roomId: Int?
     
+    // only useful when actually gaming
+    var isAnswerCorrect: Bool?
+    var answerContent: String?
+    
     //MARK: Initialization
     init?(name: String, photo: UIImage?) {
         

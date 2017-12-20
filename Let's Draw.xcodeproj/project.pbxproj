@@ -22,6 +22,7 @@
 		18F49D8A1FDD32F700CC7549 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 18F49D861FDD328D00CC7549 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18F49D8C1FDD3C4A00CC7549 /* RenderingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F49D8B1FDD3C4A00CC7549 /* RenderingBoard.swift */; };
 		18F49D8E1FDD59F200CC7549 /* DrawingTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F49D8D1FDD59F200CC7549 /* DrawingTools.swift */; };
+		18F721501FEA3519002B853B /* PlayerListCellInGuessScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F7214F1FEA3519002B853B /* PlayerListCellInGuessScene.swift */; };
 		18FD8E1A1FB315BE00A89954 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E191FB315BE00A89954 /* AppDelegate.swift */; };
 		18FD8E1C1FB315BE00A89954 /* DrawMainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */; };
 		18FD8E211FB315BE00A89954 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E201FB315BE00A89954 /* Assets.xcassets */; };
@@ -80,6 +81,7 @@
 		18F49D861FDD328D00CC7549 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		18F49D8B1FDD3C4A00CC7549 /* RenderingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderingBoard.swift; sourceTree = "<group>"; };
 		18F49D8D1FDD59F200CC7549 /* DrawingTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingTools.swift; sourceTree = "<group>"; };
+		18F7214F1FEA3519002B853B /* PlayerListCellInGuessScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCellInGuessScene.swift; sourceTree = "<group>"; };
 		18FD8E161FB315BE00A89954 /* Let's Draw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let's Draw.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FD8E191FB315BE00A89954 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawMainSceneViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				18F49D8D1FDD59F200CC7549 /* DrawingTools.swift */,
 				181026741FD0007D00401583 /* User.swift */,
 				1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */,
+				18F7214F1FEA3519002B853B /* PlayerListCellInGuessScene.swift */,
 				18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */,
 			);
 			path = "Let's Draw";
@@ -293,6 +296,7 @@
 				1814DF391FD3E97200125291 /* PlayerListCollectionViewCell.swift in Sources */,
 				18FD8E421FB341D900A89954 /* EraserBrush.swift in Sources */,
 				18FD8E3A1FB31EC700A89954 /* DrawingBoard.swift in Sources */,
+				18F721501FEA3519002B853B /* PlayerListCellInGuessScene.swift in Sources */,
 				18FD8E3C1FB328DC00A89954 /* Brush.swift in Sources */,
 				180957211FC99A7C00146E7B /* PrepareSceneViewController.swift in Sources */,
 				18F49D8E1FDD59F200CC7549 /* DrawingTools.swift in Sources */,
