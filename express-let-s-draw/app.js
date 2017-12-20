@@ -13,8 +13,6 @@ var app = express();
 var mongoose = require('mongoose');
 var webSocketServer = require('websocket').server;
 var http = require('http');
-//var expressWs = require('express-ws')(app);
-//var util = require('util');
 
 mongoose.connect('mongodb://localhost/express-app', {useMongoClient: true},
 function(err) {
@@ -25,9 +23,10 @@ function(err) {
   }
 });
 
+
 // WebSocket
-var GameRoom = require('./models/GameRoom');
-var PlayerList = require('./models/Player');
+var GameRoom = require('../models/GameRoom');
+var PlayerList = require('../models/Player');
 
 var webSocketsServerPort = 9090;
 
