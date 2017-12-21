@@ -60,6 +60,20 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
         self.present(endGameAlertController, animated: true, completion: nil)
     }
     
+    @IBAction func exitGameRoomButtonPressed(_ sender: UIBarButtonItem) {
+        // 按下退出房间按钮后，弹出对话框询问是否确认退出
+        let exitGameRoomAlertController = UIAlertController(title: "退出房间", message: "你现在是画手，你的退出将导致本局游戏结束，确定吗？", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "再玩一会儿", style: UIAlertActionStyle.cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default){
+            (UIAlertAction) in
+            self.endGame()
+            self.performSegue(withIdentifier: "unwindToChoosingGameRoomScene", sender: self)
+        }
+        exitGameRoomAlertController.addAction(cancelAction)
+        exitGameRoomAlertController.addAction(confirmAction)
+        self.present(exitGameRoomAlertController, animated: true, completion: nil)
+    }
+    
     @IBAction func BrushButtonTapped(_ sender: UIButton) {
         if let brushName = sender.currentTitle {
             self.DrawingBoardArea.brush = DrawingTools.brushes[brushName]

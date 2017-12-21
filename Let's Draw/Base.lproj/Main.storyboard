@@ -75,7 +75,7 @@
                     <navigationItem key="navigationItem" title="题目：" id="EHH-uI-ayS">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="Exit" id="LAT-LY-HGk">
                             <connections>
-                                <segue destination="zdX-p5-8pK" kind="unwind" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="SmL-Th-O40"/>
+                                <action selector="exitGameRoomButtonPressed:" destination="BYZ-38-t0r" id="5Gc-9l-nkS"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="结束游戏" id="dYB-w8-1tc">
@@ -87,6 +87,7 @@
                     <connections>
                         <outlet property="DrawingBoardArea" destination="edy-7z-To0" id="6Ft-HU-A9r"/>
                         <segue destination="zdX-p5-8pK" kind="unwind" identifier="unwindToPrepareScene" unwindAction="unwindToPrepareSceneWithSender:" id="Dj5-YV-oJr"/>
+                        <segue destination="zdX-p5-8pK" kind="unwind" identifier="unwindToChoosingGameRoomScene" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="qIi-aI-RBD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
