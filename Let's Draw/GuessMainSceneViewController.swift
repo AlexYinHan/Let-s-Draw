@@ -322,9 +322,16 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
                      2: onGoing
                      */
                 case "ended":
-                    performSegue(withIdentifier: "unwindToPrepareScene", sender: self)
+                    // 游戏被结束后，弹出对话框公布正确答案
+                    let endGameAlertController = UIAlertController(title: "本局游戏已经结束", message: "正确答案是： \(self.keyWord!)", preferredStyle: UIAlertControllerStyle.alert)
+                    let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default){
+                        (UIAlertAction) in
+                        self.performSegue(withIdentifier: "unwindToPrepareScene", sender: self)
+                    }
+                    endGameAlertController.addAction(confirmAction)
+                    self.present(endGameAlertController, animated: true, completion: nil)
+                    
                     //print("game is ended")
-                    //self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
                 default:
                     print("newGameState should be \(newGameState)")
                 }

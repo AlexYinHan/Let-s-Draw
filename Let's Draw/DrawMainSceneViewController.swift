@@ -48,7 +48,16 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     // MARK: Actions
 
     @IBAction func endGameButtonPressed(_ sender: UIBarButtonItem) {
-        endGame()
+        // 按下结束游戏按钮后，弹出对话框询问是否确认结束
+        let endGameAlertController = UIAlertController(title: "结束游戏", message: "确定要结束本局游戏吗？", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "再玩一会儿", style: UIAlertActionStyle.cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default){
+            (UIAlertAction) in
+            self.endGame()
+        }
+        endGameAlertController.addAction(cancelAction)
+        endGameAlertController.addAction(confirmAction)
+        self.present(endGameAlertController, animated: true, completion: nil)
     }
     
     @IBAction func BrushButtonTapped(_ sender: UIButton) {
