@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.857343"
+            timestampString = "535552697.160808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "161"
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.857482"
+            timestampString = "535552697.160922"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "getAllPlayers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.857804"
+            timestampString = "535552697.161327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.858029"
+            timestampString = "535552697.161602"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
             <Locations>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.858273"
+            timestampString = "535552697.161826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "getAllPlayers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.858506"
+            timestampString = "535552697.162042"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "getAllPlayers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.858727"
+            timestampString = "535552697.162245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "getAllPlayers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.858946"
+            timestampString = "535552697.162444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "getAllPlayers()"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/DrawMainSceneViewController.swift"
-            timestampString = "535470379.859208"
+            timestampString = "535552697.16269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "sendDrawingBoard()"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,7 +330,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.859279"
+            timestampString = "535552697.162754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
@@ -346,27 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.859329"
+            timestampString = "535552697.162792"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.859557"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "websocketDidReceiveMessage(socket:text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.859791"
+            timestampString = "535552697.163086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
             landmarkName = "websocketDidReceiveMessage(socket:text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -394,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.86001"
+            timestampString = "535552697.163315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.860222"
+            timestampString = "535552697.163522"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "sendChattingMessage(message:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -426,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.860437"
+            timestampString = "535552697.163734"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
             landmarkName = "websocketDidReceiveMessage(socket:text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.860679"
+            timestampString = "535552697.163941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
             landmarkName = "websocketDidReceiveMessage(socket:text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -458,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.86091"
+            timestampString = "535552697.164148"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "311"
-            endingLineNumber = "311"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
             landmarkName = "websocketDidReceiveMessage(socket:text:)"
             landmarkType = "7">
             <Locations>
@@ -506,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.861284"
+            timestampString = "535552697.164353"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -538,11 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/DrawMainSceneViewController.swift"
-            timestampString = "535470379.861765"
+            timestampString = "535552697.164572"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "sendDrawingBoard()"
             landmarkType = "7">
          </BreakpointContent>
@@ -554,11 +538,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/DrawMainSceneViewController.swift"
-            timestampString = "535470379.861824"
+            timestampString = "535552697.164612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "sendDrawingBoard()"
             landmarkType = "7">
          </BreakpointContent>
@@ -570,7 +554,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883333"
+            timestampString = "535552697.16467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "256"
@@ -582,15 +566,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883392"
+            timestampString = "535552697.164714"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "317"
-            endingLineNumber = "317"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "websocketDidReceiveMessage(socket:text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -602,7 +586,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883434"
+            timestampString = "535552697.164752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "245"
@@ -618,7 +602,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883472"
+            timestampString = "535552697.164791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
@@ -634,7 +618,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883508"
+            timestampString = "535552697.164828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "281"
@@ -650,7 +634,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.862171"
+            timestampString = "535552697.164866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "69"
@@ -666,7 +650,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.862219"
+            timestampString = "535552697.164901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -682,7 +666,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.862265"
+            timestampString = "535552697.164933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
@@ -698,7 +682,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.86231"
+            timestampString = "535552697.164966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -714,7 +698,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.862358"
+            timestampString = "535552697.164998"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "77"
@@ -730,7 +714,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883593"
+            timestampString = "535552697.165033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
@@ -746,7 +730,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.862461"
+            timestampString = "535552697.16507"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
@@ -762,7 +746,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.862506"
+            timestampString = "535552697.165103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
@@ -778,11 +762,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470379.862553"
+            timestampString = "535552697.165143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
             landmarkName = "websocketDidReceiveMessage(socket:text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -794,7 +778,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883662"
+            timestampString = "535552697.165388"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
@@ -810,7 +794,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.8837"
+            timestampString = "535552697.16543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "278"
@@ -826,7 +810,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883736"
+            timestampString = "535552697.165468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "272"
@@ -842,7 +826,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883771"
+            timestampString = "535552697.165506"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "273"
@@ -858,7 +842,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883806"
+            timestampString = "535552697.165543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "274"
@@ -874,7 +858,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883841"
+            timestampString = "535552697.16558"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "275"
@@ -890,11 +874,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.883875"
+            timestampString = "535552697.165616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "findPlayer(withId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1098,7 +1082,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.863663"
+            timestampString = "535552697.165767"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
@@ -1114,7 +1098,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.863714"
+            timestampString = "535552697.165804"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
@@ -1130,7 +1114,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/WaitingForGameToStartSceneViewController.swift"
-            timestampString = "535470379.863757"
+            timestampString = "535552697.165839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -1146,7 +1130,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.884027"
+            timestampString = "535552697.165872"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "258"
@@ -1162,11 +1146,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
-            timestampString = "535470604.924363"
+            timestampString = "535552697.165921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "websocketDidReceiveMessage(socket:text:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1178,12 +1162,124 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Let&apos;s Draw/GuessMainSceneViewController.swift"
-            timestampString = "535549007.884078"
+            timestampString = "535552697.166142"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "99"
             endingLineNumber = "99"
             landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
+            timestampString = "535552697.166183"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "websocketDidReceiveMessage(socket:text:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
+            timestampString = "535552697.166387"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
+            landmarkName = "websocketDidReceiveMessage(socket:text:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Let&apos;s Draw/DrawMainSceneViewController.swift"
+            timestampString = "535552697.166616"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "websocketDidReceiveMessage(socket:text:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
+            timestampString = "535552697.166657"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "textFieldShouldReturn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
+            timestampString = "535552697.166851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "sendChattingMessage(message:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
+            timestampString = "535552697.167048"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Let&apos;s Draw/PrepareSceneViewController.swift"
+            timestampString = "535552697.167251"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

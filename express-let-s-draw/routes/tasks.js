@@ -344,7 +344,21 @@ router.post('/beginGameInRoom', function(req, res, next) {
   GameRoom.update({roomId: roomID}, {gameState: 2}, function(err, tasks) {
     if(err) {
       console.log(err);
-      return res.status(400).send("err in post /getGameStateInRoom");
+      return res.status(400).send("err in post /beginGameInRoom");
+    } else {
+      console.log(tasks);
+      return res.status(200).send([tasks]);
+    }
+  });
+});
+
+router.post('/endGameInRoom', function(req, res, next) {
+  var roomID = req.query.roomId;
+  var randomQuestionId = 1 + Math.round(Math.random()*(questionBank.length-2)); // 1 ~ (questionBank.length-1)
+  GameRoom.update({roomId: roomID}, {gameState: 0, questionNumber: randomQuestionId}, function(err, tasks) {
+    if(err) {
+      console.log(err);
+      return res.status(400).send("err in post /endGameInRoom");
     } else {
       console.log(tasks);
       return res.status(200).send([tasks]);

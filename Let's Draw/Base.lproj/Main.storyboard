@@ -78,9 +78,15 @@
                                 <segue destination="zdX-p5-8pK" kind="unwind" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="SmL-Th-O40"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="结束游戏" id="dYB-w8-1tc">
+                            <connections>
+                                <action selector="endGameButtonPressed:" destination="BYZ-38-t0r" id="Tpz-xP-IqI"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="DrawingBoardArea" destination="edy-7z-To0" id="6Ft-HU-A9r"/>
+                        <segue destination="zdX-p5-8pK" kind="unwind" identifier="unwindToPrepareScene" unwindAction="unwindToPrepareSceneWithSender:" id="Dj5-YV-oJr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -208,6 +214,7 @@
                         <outlet property="chattingInputBoxTextField" destination="wFg-gg-fow" id="cHl-a6-Fsw"/>
                         <outlet property="playerList" destination="ahu-0d-faS" id="goX-fQ-HOQ"/>
                         <outlet property="renderingBoardArea" destination="pZC-yx-ptC" id="Fc6-ch-6Ez"/>
+                        <segue destination="LwS-dZ-JjD" kind="unwind" identifier="unwindToPrepareScene" unwindAction="unwindToPrepareSceneWithSender:" id="gSb-YV-F71"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fI5-6i-olp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -415,7 +422,6 @@
         <!--Navigation Controller-->
         <scene sceneID="qGq-ih-cFC">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oqa-Uk-9Iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3ri-bZ-9VY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tPC-IZ-6jy">
@@ -427,6 +433,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="GZx-G8-CqI"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oqa-Uk-9Iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1334" y="106"/>
         </scene>
@@ -518,7 +525,6 @@
         <!--Navigation Controller-->
         <scene sceneID="bCn-D1-bc6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fdc-06-Jcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="blu-hL-BNx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fts-qq-mhi">
@@ -530,6 +536,7 @@
                         <segue destination="98p-Bt-ySm" kind="relationship" relationship="rootViewController" id="4cI-Da-ofd"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fdc-06-Jcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1333" y="834"/>
         </scene>

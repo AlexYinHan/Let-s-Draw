@@ -313,6 +313,22 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
             } else {
                 os_log("Failed to get brush state or position.", log: OSLog.default, type: .debug)
             }
+        case "changeGameState":
+            if let newGameState = jsonDict["newGameState"] as? String {
+                switch newGameState {
+                    /*
+                     0: ended
+                     1: readyToBegin
+                     2: onGoing
+                     */
+                case "ended":
+                    performSegue(withIdentifier: "unwindToPrepareScene", sender: self)
+                    //print("game is ended")
+                    //self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
+                default:
+                    print("newGameState should be \(newGameState)")
+                }
+            }
         default:
             os_log("Unknown message type.", log: OSLog.default, type: .debug)
         }

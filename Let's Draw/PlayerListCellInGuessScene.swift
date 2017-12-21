@@ -28,6 +28,7 @@ class PlayerListCellInGuessScene: UICollectionViewCell {
         answerBubble.image = #imageLiteral(resourceName: "Bubble-Red")
         answerLabel = UILabel(frame: answerBubble.frame)
         answerLabel.textAlignment = NSTextAlignment.center
+        answerLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         // correct answer
         //answerCheck = UIImageView(frame: answerBubble.frame)

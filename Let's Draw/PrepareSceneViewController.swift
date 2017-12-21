@@ -31,19 +31,11 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // web socket
-        socket.delegate = self
-        
-        // players
-        playerList.delegate = self
-        playerList.dataSource = self
-        
         guard me != nil else {
             fatalError("No information about this player.")
         }
         
         // chatting area
-        chattingInputBoxTextField.delegate = self
         chattingDisplayAreaTextView.text.append("在这里讨论吧\n")
         chattingDisplayAreaTextView.layoutManager.allowsNonContiguousLayout = false
         
@@ -57,6 +49,16 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        // web socket
+        socket.delegate = self
+        
+        // players
+        playerList.delegate = self
+        playerList.dataSource = self
+        
+        // chatting area
+        chattingInputBoxTextField.delegate = self
+        
         //socket.write(string: "\(self.me.roomId!)")
         // updatePlayerListOperation
         self.getAllPlayers()
@@ -112,6 +114,11 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         // inform server that the game has begun in this room.
         beginGame()
     }
+    
+    // MARK: Unwind navigation
+    @IBAction func unwindToPrepareScene(sender: UIStoryboardSegue) {
+    }
+    
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
