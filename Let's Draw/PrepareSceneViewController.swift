@@ -46,8 +46,21 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         navigationItem.title = "房间号：\(roomNum)"
         playerList.backgroundColor = UIColor.clear  //  要在这里设置透明，在storyboard 中设置的话运行时会变成黑色。
         
+        // 设置键盘出现时页面上移
+        NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
+        
     }
 
+    // 设置键盘出现时页面上移
+    @objc private func kbFrameChanged(_ notification : Notification){
+        let info = notification.userInfo
+        let kbRect = (info?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let offsetY = kbRect.origin.y - UIScreen.main.bounds.height
+        UIView.animate(withDuration: 0.3) {
+            self.view.transform = CGAffineTransform(translationX: 0, y: offsetY)
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         // web socket
         socket.delegate = self
