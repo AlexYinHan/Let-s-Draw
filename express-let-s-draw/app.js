@@ -25,8 +25,8 @@ function(err) {
 
 
 // WebSocket
-var GameRoom = require('../models/GameRoom');
-var PlayerList = require('../models/Player');
+var GameRoom = require('./models/GameRoom');
+var PlayerList = require('./models/Player');
 
 var webSocketsServerPort = 9090;
 

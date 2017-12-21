@@ -17,17 +17,30 @@ class PlayerListCellInGuessScene: UICollectionViewCell {
     
     var answerBubble: UIImageView!
     var answerLabel: UILabel!
+    var answerCheck: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        answerBubble = UIImageView(frame: CGRect(x: 0, y: 0, width: self.bounds.maxX, height: 20))
-        answerBubble.image = #imageLiteral(resourceName: "Bubble")
-        answerLabel = UILabel(frame: answerBubble.bounds)
+        let imageFrame = self.playerPhoto.frame
+        // wrong answer
+        answerBubble = UIImageView(frame: CGRect(x: imageFrame.minX + imageFrame.width*0.25*0.5, y: imageFrame.minY, width: imageFrame.width*0.75, height: 20))
+        answerBubble.image = #imageLiteral(resourceName: "Bubble-Red")
+        answerLabel = UILabel(frame: answerBubble.frame)
         answerLabel.textAlignment = NSTextAlignment.center
+        
+        // correct answer
+        //answerCheck = UIImageView(frame: answerBubble.frame)
+        answerCheck = UIImageView(frame: CGRect(x:answerBubble.frame.midX - 7.5, y: answerBubble.frame.minY, width: 15, height: 15))
+        answerCheck.image = #imageLiteral(resourceName: "Check")
+        
+        answerCheck.isHidden = true
+        answerBubble.isHidden = true
         answerLabel.isHidden = true
+        
         self.addSubview(answerBubble)
         self.addSubview(answerLabel)
+        self.addSubview(answerCheck)
     }
     
 }

@@ -480,19 +480,19 @@ var questionBank = [
     hint: "测试"
   },
   {
-    keyWord: "铅笔",
+    keyWord: "Pencil",
     hint: "一种文具"
   },
   {
-    keyWord: "三长两短",
-    hint: "四字成语"
+    keyWord: "Apple",
+    hint: "水果"
   },
   {
-    keyWord: "日本",
+    keyWord: "Japan",
     hint: "一个国家"
   },
   {
-    keyWord: "钻石",
+    keyWord: "Diamond",
     hint: "奢侈品"
   },
   {

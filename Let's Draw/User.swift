@@ -20,6 +20,7 @@ class User: NSObject {
     // only useful when actually gaming
     var isAnswerCorrect: Bool?
     var answerContent: String?
+    //var score: Int?
     
     //MARK: Initialization
     init?(name: String, photo: UIImage?) {
