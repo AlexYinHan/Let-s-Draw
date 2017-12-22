@@ -18,5 +18,8 @@ class DrawingTools: NSObject {
     static var drawingColors = [
         "Red": UIColor.red,
         "White": UIColor.white,
+        "Blue": UIColor.blue,
+        "Green": UIColor.green,
+        "Yellow": UIColor.yellow,
         ]
 }

@@ -30,6 +30,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         
         // 设置键盘出现时页面上移
         NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
+        
     }
 
     // 设置键盘出现时页面上移

@@ -16,26 +16,31 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     // MARK: Properties
     
     @IBOutlet weak var DrawingBoardArea: DrawingBoard!
-
+    @IBOutlet weak var drawingToolMenu: UIView!
+    
     var me: User?
     var hint: String!
     var keyWord: String!
     
     var socket: WebSocket!
     
+    var isDrawingToolMenuDisplayed = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.DrawingBoardArea.brush = DrawingTools.brushes["Pencil"]
-        navigationItem.title = "题目：" + keyWord!
+//        navigationItem.title = "题目：" + keyWord!
         
         // web socket
-        socket.delegate = self
+//        socket.delegate = self
         
         self.DrawingBoardArea.sendDrawingBoardDelegate = self
         
         // 设置键盘出现时页面上移
         NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
+ 
+        //self.drawingToolMenu.
     }
 
     // 设置键盘出现时页面上移
@@ -85,6 +90,21 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
         exitGameRoomAlertController.addAction(cancelAction)
         exitGameRoomAlertController.addAction(confirmAction)
         self.present(exitGameRoomAlertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func menuShowButtonPressed(_ sender: UIButton) {
+        if isDrawingToolMenuDisplayed {
+            UIView.animate(withDuration: 0.3) {
+                self.drawingToolMenu.transform = CGAffineTransform(translationX: self.drawingToolMenu.bounds.width - 10, y: 0)
+            }
+            
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.drawingToolMenu.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+        }
+        isDrawingToolMenuDisplayed = !isDrawingToolMenuDisplayed
+        
     }
     
     @IBAction func BrushButtonTapped(_ sender: UIButton) {
