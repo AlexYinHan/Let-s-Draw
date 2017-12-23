@@ -8,14 +8,20 @@
 
 ### 网络通信
 
-[1][使用URLSession同步获取数据（通过添加信号量）](http://www.hangge.com/blog/cache/detail_816.html)<br>
-[2][[MongoDB]Update更新数据](http://blog.csdn.net/sunnyyoona/article/details/52420210)<br>
-[3][Swift - HTTP网络操作库Alamofire使用详解1](http://www.hangge.com/blog/cache/detail_970.html)<br>
-[4][WebSockets on iOS with Starscream](https://www.raywenderlich.com/143874/websockets-ios-starscream)
+[1] [使用URLSession同步获取数据（通过添加信号量）](http://www.hangge.com/blog/cache/detail_816.html)<br>
+[2] [[MongoDB]Update更新数据](http://blog.csdn.net/sunnyyoona/article/details/52420210)<br>
+[3] [Swift - HTTP网络操作库Alamofire使用详解1](http://www.hangge.com/blog/cache/detail_970.html)<br>
+[4] [WebSockets on iOS with Starscream](https://www.raywenderlich.com/143874/websockets-ios-starscream)
 
 ### UI&动画效果
 
-[1][swift3 实现键盘弹出视图上移](http://blog.csdn.net/eiamor/article/details/71515300)
+[1] [swift3 实现键盘弹出视图上移](http://blog.csdn.net/eiamor/article/details/71515300)
+
+### 开源框架
+
+[1] [Alamofire](https://github.com/Alamofire/Alamofire)<br>
+[2] [Starscream](https://github.com/daltoniam/Starscream)<br>
+[3] [TextFieldEffects](https://github.com/raulriera/TextFieldEffects)
 
 # iOS学习笔记
 1. **GCD队列的优先级**<br>
