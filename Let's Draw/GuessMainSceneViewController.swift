@@ -245,6 +245,15 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
         
     }
     
+    private func findPlayer(withId id: Int) -> User? {
+        for player in players {
+            if player.id == id {
+                return player
+            }
+        }
+        return nil
+    }
+    
     // MARK: - WebSocketDelegate
     
     func websocketDidConnect(socket: WebSocketClient) {
@@ -358,12 +367,5 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
         
     }
 
-    private func findPlayer(withId id: Int) -> User? {
-        for player in players {
-            if player.id == id {
-                return player
-            }
-        }
-        return nil
-    }
+    
 }

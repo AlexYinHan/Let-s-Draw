@@ -11,7 +11,7 @@ import os.log
 import Alamofire
 import Starscream
 
-class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDrawingBoardDelegate {
+class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WebSocketDelegate, SendDrawingBoardDelegate {
 
     // MARK: Properties
     
@@ -19,7 +19,12 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     @IBOutlet weak var drawingToolMenu: UIView!
     @IBOutlet weak var drawingToolMenuShowButton: UIButton!
     
+    @IBOutlet weak var chattingInputBoxTextField: UITextField!
+    @IBOutlet weak var chattingDisplayAreaTextView: UITextView!
+    @IBOutlet weak var playerList: UICollectionView!
+    
     var me: User?
+    var players: [User]!
     var hint: String!
     var keyWord: String!
     
@@ -32,6 +37,20 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
         
         self.DrawingBoardArea.brush = DrawingTools.brushes["Pencil"]
         navigationItem.title = "题目：" + keyWord!
+        
+        // chatting area
+        chattingInputBoxTextField.delegate = self
+        chattingDisplayAreaTextView.text.append("在这里讨论吧\n")
+        chattingDisplayAreaTextView.layoutManager.allowsNonContiguousLayout = false
+        
+        // player list
+        playerList.delegate = self
+        playerList.dataSource = self
+        let playerListLayout = UICollectionViewFlowLayout.init()
+        playerListLayout.itemSize = CGSize(width: 50, height: 70)
+        playerListLayout.minimumInteritemSpacing = 10
+        playerListLayout.minimumLineSpacing = 10
+        playerList.collectionViewLayout = playerListLayout
         
         // web socket
         socket.delegate = self
@@ -63,6 +82,62 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     }
 
 
+    //MARK: UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let newChattingRecord = textField.text {
+            sendChattingMessage(message: newChattingRecord)
+        }
+        // text field归还FirstResponser地位
+        // Hide the keyboard.
+        textField.resignFirstResponder()
+        textField.text = ""
+        return true
+    }
+    
+    //MARK: UICollectionViewDataSource
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return players.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellIdentifier = "PlayerListCollectionViewCellInGuessScene"
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? PlayerListCellInGuessScene else {
+            fatalError("The dequeued cell is not an instance of PlayerListCollectionViewCell.")
+        }
+        
+        let playerInfo = players[indexPath.row]
+        cell.playerName.text = playerInfo.name
+        cell.playerPhoto.image = playerInfo.photo
+        if let answerText = playerInfo.answerContent, let isCorrect = playerInfo.isAnswerCorrect {
+            if isCorrect { // correct answer
+                cell.answerBubble.image = #imageLiteral(resourceName: "Bubble-Yellow")
+                cell.answerBubble.isHidden = false
+                
+                cell.answerCheck.isHidden = false
+                
+                cell.answerLabel.isHidden = true
+                
+            } else { // wrong answer
+                cell.answerBubble.image = #imageLiteral(resourceName: "Bubble-Red")
+                cell.answerBubble.isHidden = false
+                
+                cell.answerCheck.isHidden = true
+                
+                cell.answerLabel.isHidden = false
+                cell.answerLabel.text = answerText
+            }
+        } else {
+            cell.answerBubble.isHidden = true
+            cell.answerLabel.isHidden = true
+            cell.answerCheck.isHidden = true
+        }
+        return cell
+    }
+    
     // MARK: Actions
 
     @IBAction func endGameButtonPressed(_ sender: UIBarButtonItem) {
@@ -196,6 +271,30 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
         
     }
     
+    private func sendChattingMessage(message: String) {
+        
+        // web socket
+        let parameters:[String: Any] = [
+            "type": "chattingMessage",
+            "playerId": self.me!.id,
+            "playerName": self.me!.name,
+            "roomId": self.me!.roomId!,
+            "messageContent": message
+        ]
+        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        socket.write(data: data!)
+        
+    }
+    
+    private func findPlayer(withId id: Int) -> User? {
+        for player in players {
+            if player.id == id {
+                return player
+            }
+        }
+        return nil
+    }
+    
     // MARK: - WebSocketDelegate
     
     func websocketDidConnect(socket: WebSocketClient) {
@@ -234,6 +333,24 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
                     print("newGameState should be \(newGameState)")
                 }
             }
+        case "chattingMessage":
+            if let messageText = jsonDict["messageContent"] as? String, let messageSenderName = jsonDict["playerName"] as? String{
+                
+                self.chattingDisplayAreaTextView.text.append("\(messageSenderName): \(messageText)\n")
+                let allStrCount = self.chattingDisplayAreaTextView.text.count //获取总文字个数
+                self.chattingDisplayAreaTextView.scrollRangeToVisible(NSMakeRange(0, allStrCount))//把光标位置移到最后
+                //print("webSocket receive message \(messageText)")
+            }
+        case "sendAnswer":
+            if let senderId = jsonDict["playerId"] as? Int,
+                let sender = findPlayer(withId: senderId),
+                let isAnswerCorrect = jsonDict["isCorrect"] as? Bool,
+                let answerContent = jsonDict["content"] as? String
+            {
+                sender.isAnswerCorrect = isAnswerCorrect
+                sender.answerContent = answerContent
+                self.playerList.reloadData()
+            }
         default:
             os_log("Unknown message type.", log: OSLog.default, type: .debug)
         }
@@ -242,6 +359,8 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         
     }
+    
+    
     
     
 }

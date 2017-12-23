@@ -88,6 +88,7 @@ class WaitingForGameToStartSceneViewController: UIViewController {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             drawMainSceneViewController.me = self.me
+            drawMainSceneViewController.players = self.players
             drawMainSceneViewController.hint = self.hint
             drawMainSceneViewController.keyWord = self.keyWord
             drawMainSceneViewController.socket = self.socket
