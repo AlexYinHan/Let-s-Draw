@@ -32,20 +32,20 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="i56-DR-PyW">
                                         <rect key="frame" x="50" y="20" width="240" height="70"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="5hb-mr-1CH">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="5hb-mr-1CH">
                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="35"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9U-s7-YJk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="36.666666666666664" height="35"/>
-                                                        <state key="normal" title="Blue" image="BrushColor-Blue">
-                                                            <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwO-UV-05m">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46.666666666666664" height="35"/>
+                                                        <state key="normal" title="Eraser" image="Eraser">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sV5-61-8oL"/>
+                                                            <action selector="BrushButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EHo-UK-H1b"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aox-yT-Ar1">
-                                                        <rect key="frame" x="50.666666666666657" y="0.0" width="37" height="35"/>
+                                                        <rect key="frame" x="64.666666666666657" y="0.0" width="46.333333333333343" height="35"/>
                                                         <state key="normal" title="White" image="BrushColor-White">
                                                             <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="0.0" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -54,7 +54,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcm-ec-Mtk">
-                                                        <rect key="frame" x="101.66666666666669" y="0.0" width="36.666666666666657" height="35"/>
+                                                        <rect key="frame" x="129" y="0.0" width="46.666666666666657" height="35"/>
                                                         <state key="normal" title="Red" image="BrushColor-Red">
                                                             <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="0.0" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -62,17 +62,8 @@
                                                             <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bfD-jc-inx"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wei-b2-LzC">
-                                                        <rect key="frame" x="152.33333333333331" y="0.0" width="37" height="35"/>
-                                                        <state key="normal" title="Green" image="BrushColor-Green">
-                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xFc-3t-4kG"/>
-                                                        </connections>
-                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uyg-MP-O9W">
-                                                        <rect key="frame" x="203.33333333333331" y="0.0" width="36.666666666666657" height="35"/>
+                                                        <rect key="frame" x="193.66666666666669" y="0.0" width="46.333333333333343" height="35"/>
                                                         <state key="normal" title="Yellow" image="BrushColor-Yellow">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -82,15 +73,52 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xKt-hB-BRl">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="xKt-hB-BRl">
                                                 <rect key="frame" x="0.0" y="35" width="240" height="35"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9U-s7-YJk">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46.666666666666664" height="35"/>
+                                                        <state key="normal" title="Blue" image="BrushColor-Blue">
+                                                            <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sV5-61-8oL"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7A-gb-dW8">
+                                                        <rect key="frame" x="64.666666666666657" y="0.0" width="46.333333333333343" height="35"/>
+                                                        <state key="normal" title="Balck" image="BrushColor-Black">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NyM-9S-v2m"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPk-a7-DMw">
+                                                        <rect key="frame" x="129" y="0.0" width="46.666666666666657" height="35"/>
+                                                        <state key="normal" title="Purple" image="BrushColor-Purple">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZSO-Ky-ApD"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wei-b2-LzC">
+                                                        <rect key="frame" x="193.66666666666669" y="0.0" width="46.333333333333343" height="35"/>
+                                                        <state key="normal" title="Green" image="BrushColor-Green">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="ColorButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xFc-3t-4kG"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RA1-3E-dDr">
-                                        <rect key="frame" x="0.0" y="40" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RA1-3E-dDr">
+                                        <rect key="frame" x="0.0" y="35" width="30" height="30"/>
+                                        <state key="normal" image="Arrow"/>
                                         <connections>
                                             <action selector="menuShowButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wzj-3Q-3NN"/>
                                         </connections>
@@ -104,9 +132,11 @@
                                     <constraint firstAttribute="bottom" secondItem="ffv-Mq-K4Z" secondAttribute="bottom" id="MjX-cW-HSb"/>
                                     <constraint firstAttribute="trailing" secondItem="ffv-Mq-K4Z" secondAttribute="trailing" id="SO4-xO-jB4"/>
                                     <constraint firstItem="i56-DR-PyW" firstAttribute="leading" secondItem="psW-5I-gnM" secondAttribute="leading" constant="50" id="T1O-c6-kp3"/>
+                                    <constraint firstItem="RA1-3E-dDr" firstAttribute="centerY" secondItem="ffv-Mq-K4Z" secondAttribute="centerY" id="cje-xN-bi3"/>
                                     <constraint firstAttribute="trailing" secondItem="i56-DR-PyW" secondAttribute="trailing" constant="10" id="md5-5y-FN2"/>
                                     <constraint firstItem="ffv-Mq-K4Z" firstAttribute="leading" secondItem="psW-5I-gnM" secondAttribute="leading" id="rWv-Jt-Wv1"/>
                                     <constraint firstItem="ffv-Mq-K4Z" firstAttribute="top" secondItem="psW-5I-gnM" secondAttribute="top" id="rhX-NK-WiP"/>
+                                    <constraint firstItem="RA1-3E-dDr" firstAttribute="leading" secondItem="psW-5I-gnM" secondAttribute="leading" id="ydz-M6-hne"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -136,6 +166,7 @@
                     <connections>
                         <outlet property="DrawingBoardArea" destination="edy-7z-To0" id="6Ft-HU-A9r"/>
                         <outlet property="drawingToolMenu" destination="psW-5I-gnM" id="6xI-K5-x47"/>
+                        <outlet property="drawingToolMenuShowButton" destination="RA1-3E-dDr" id="MgQ-p7-p5y"/>
                         <segue destination="zdX-p5-8pK" kind="unwind" identifier="unwindToPrepareScene" unwindAction="unwindToPrepareSceneWithSender:" id="Dj5-YV-oJr"/>
                         <segue destination="zdX-p5-8pK" kind="unwind" identifier="unwindToChoosingGameRoomScene" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="qIi-aI-RBD"/>
                     </connections>
@@ -629,11 +660,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Arrow" width="30" height="30"/>
+        <image name="BrushColor-Black" width="30" height="30"/>
         <image name="BrushColor-Blue" width="30" height="30"/>
         <image name="BrushColor-Green" width="30" height="30"/>
+        <image name="BrushColor-Purple" width="30" height="30"/>
         <image name="BrushColor-Red" width="30" height="30"/>
         <image name="BrushColor-White" width="30" height="30"/>
         <image name="BrushColor-Yellow" width="30" height="30"/>
+        <image name="Eraser" width="30" height="28"/>
         <image name="Exit" width="30" height="30"/>
         <image name="MenuFrame" width="100" height="72"/>
         <image name="People" width="30" height="30"/>

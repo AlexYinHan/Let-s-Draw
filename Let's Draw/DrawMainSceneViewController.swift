@@ -17,6 +17,7 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     
     @IBOutlet weak var DrawingBoardArea: DrawingBoard!
     @IBOutlet weak var drawingToolMenu: UIView!
+    @IBOutlet weak var drawingToolMenuShowButton: UIButton!
     
     var me: User?
     var hint: String!
@@ -30,17 +31,16 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
         super.viewDidLoad()
         
         self.DrawingBoardArea.brush = DrawingTools.brushes["Pencil"]
-//        navigationItem.title = "题目：" + keyWord!
+        navigationItem.title = "题目：" + keyWord!
         
         // web socket
-//        socket.delegate = self
+        socket.delegate = self
         
         self.DrawingBoardArea.sendDrawingBoardDelegate = self
         
         // 设置键盘出现时页面上移
         NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
  
-        //self.drawingToolMenu.
     }
 
     // 设置键盘出现时页面上移
@@ -95,12 +95,14 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
     @IBAction func menuShowButtonPressed(_ sender: UIButton) {
         if isDrawingToolMenuDisplayed {
             UIView.animate(withDuration: 0.3) {
-                self.drawingToolMenu.transform = CGAffineTransform(translationX: self.drawingToolMenu.bounds.width - 10, y: 0)
+                self.drawingToolMenu.transform = CGAffineTransform(translationX: self.drawingToolMenu.bounds.width - 20, y: 0)
+                self.drawingToolMenuShowButton.transform = self.drawingToolMenuShowButton.transform.rotated(by: .pi)
             }
             
         } else {
             UIView.animate(withDuration: 0.3) {
                 self.drawingToolMenu.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.drawingToolMenuShowButton.transform = self.drawingToolMenuShowButton.transform.rotated(by: .pi)
             }
         }
         isDrawingToolMenuDisplayed = !isDrawingToolMenuDisplayed
@@ -121,6 +123,8 @@ class DrawMainSceneViewController: UIViewController, WebSocketDelegate, SendDraw
         if let colorName = sender.currentTitle, let color = DrawingTools.drawingColors[colorName] {
             self.DrawingBoardArea.strokeColor = color
             self.DrawingBoardArea.colorName = colorName
+            self.DrawingBoardArea.brush = DrawingTools.brushes["Pencil"]
+            self.DrawingBoardArea.strokeWidth = 1
         }
     }
     
