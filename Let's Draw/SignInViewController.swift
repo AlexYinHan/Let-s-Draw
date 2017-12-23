@@ -9,6 +9,7 @@
 import UIKit
 import os.log
 import Starscream
+import TextFieldEffects
 
 class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -31,8 +32,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         // 设置键盘出现时页面上移
         NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
         
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        updateEnterGameButtonState()
+    }
     // 设置键盘出现时页面上移
     @objc private func kbFrameChanged(_ notification : Notification){
         let info = notification.userInfo
@@ -120,8 +127,24 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // 当编辑或者键盘显示在屏幕上时，调用这个函数
+        //updateEnterGameButtonState()
         // Disable the save button while editing
-        enterGameButton.isEnabled = false
+        //enterGameButton.isEnabled = false
+        //enterGameButton.backgroundColor = #colorLiteral(red: 0.4078193307, green: 0.4078193307, blue: 0.4078193307, alpha: 0.09262628425)
+    }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        enterGameButton.isEnabled = !newText.isEmpty
+        if enterGameButton.isEnabled {
+            enterGameButton.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0.6515946062)
+        } else {
+            enterGameButton.backgroundColor = #colorLiteral(red: 0.4078193307, green: 0.4078193307, blue: 0.4078193307, alpha: 0.09262628425)
+        }
+        return true
     }
     
     // MARK: Action
@@ -150,6 +173,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         // Disable the enterGame button if the userName text field is empty.
         let text = userNameTextField.text ?? ""
         enterGameButton.isEnabled = !text.isEmpty
+        if enterGameButton.isEnabled {
+            enterGameButton.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0.6515946062)
+        } else {
+            enterGameButton.backgroundColor = #colorLiteral(red: 0.4078193307, green: 0.4078193307, blue: 0.4078193307, alpha: 0.09262628425)
+        }
+        
     }
     
     private func signIn() -> Int{

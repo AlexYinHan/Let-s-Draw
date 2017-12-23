@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1809571D1FC97D6900146E7B /* GuessMainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809571C1FC97D6900146E7B /* GuessMainSceneViewController.swift */; };
 		180957211FC99A7C00146E7B /* PrepareSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180957201FC99A7C00146E7B /* PrepareSceneViewController.swift */; };
+		1809F1ED1FEE720100A112DD /* TextFieldEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1809F1EC1FEE720100A112DD /* TextFieldEffects.framework */; };
+		1809F1EE1FEE720D00A112DD /* TextFieldEffects.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1809F1EC1FEE720100A112DD /* TextFieldEffects.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		180FF0041FD2C3110026DCD1 /* ChoosingGameRoomSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FF0031FD2C3100026DCD1 /* ChoosingGameRoomSceneViewController.swift */; };
 		180FF0061FD2EC690026DCD1 /* WaitingForGameToStartSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180FF0051FD2EC690026DCD1 /* WaitingForGameToStartSceneViewController.swift */; };
 		181026751FD0007D00401583 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181026741FD0007D00401583 /* User.swift */; };
@@ -62,6 +64,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				1809F1EE1FEE720D00A112DD /* TextFieldEffects.framework in CopyFiles */,
 				182635C01FE50D2E00B5E83A /* Starscream.framework in CopyFiles */,
 				18F49D8A1FDD32F700CC7549 /* Alamofire.framework in CopyFiles */,
 			);
@@ -72,6 +75,7 @@
 /* Begin PBXFileReference section */
 		1809571C1FC97D6900146E7B /* GuessMainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessMainSceneViewController.swift; sourceTree = "<group>"; };
 		180957201FC99A7C00146E7B /* PrepareSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareSceneViewController.swift; sourceTree = "<group>"; };
+		1809F1EC1FEE720100A112DD /* TextFieldEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TextFieldEffects.framework; path = Carthage/Build/iOS/TextFieldEffects.framework; sourceTree = "<group>"; };
 		180FF0031FD2C3100026DCD1 /* ChoosingGameRoomSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingGameRoomSceneViewController.swift; sourceTree = "<group>"; };
 		180FF0051FD2EC690026DCD1 /* WaitingForGameToStartSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingForGameToStartSceneViewController.swift; sourceTree = "<group>"; };
 		181026741FD0007D00401583 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18F49D871FDD328D00CC7549 /* Alamofire.framework in Frameworks */,
+				1809F1ED1FEE720100A112DD /* TextFieldEffects.framework in Frameworks */,
 				182635BF1FE507FC00B5E83A /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +128,7 @@
 		18FD8E0D1FB315BE00A89954 = {
 			isa = PBXGroup;
 			children = (
+				1809F1EC1FEE720100A112DD /* TextFieldEffects.framework */,
 				182635BE1FE507FC00B5E83A /* Starscream.framework */,
 				18F49D861FDD328D00CC7549 /* Alamofire.framework */,
 				18FD8E181FB315BE00A89954 /* Let's Draw */,

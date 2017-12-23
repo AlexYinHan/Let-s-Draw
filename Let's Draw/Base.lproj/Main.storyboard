@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-DemiBold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Draw-MainScene-->
         <scene sceneID="tne-QT-ifu">
@@ -385,39 +390,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QP5-ne-3mr" userLabel="UserName">
-                                <rect key="frame" x="159" y="442" width="97" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginBackground" translatesAutoresizingMaskIntoConstraints="NO" id="ky2-Pe-Ugt">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="People" translatesAutoresizingMaskIntoConstraints="NO" id="BEt-MT-Vyk" userLabel="UserPhoto">
+                                <rect key="frame" x="157" y="244" width="100" height="100"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="LTo-gj-8YU"/>
+                                    <constraint firstAttribute="height" constant="100" id="qkc-Ed-At3"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ADZ-Uy-s32" appends="YES" id="HhK-Uy-AYr"/>
+                                </connections>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="agd-d5-AMK" customClass="YokoTextField" customModule="TextFieldEffects">
+                                <rect key="frame" x="28" y="428" width="359" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" red="0.3422979712" green="0.39760923390000003" blue="0.46281796689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
+                                        <color key="value" red="0.9046555757522583" green="0.5533021092414856" blue="0.35940951108932495" alpha="0.46024186643835618" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyL-1K-8wY">
-                                <rect key="frame" x="155" y="530" width="104" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyL-1K-8wY">
+                                <rect key="frame" x="131" y="536" width="152" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="进入游戏"/>
+                                <color key="backgroundColor" red="1" green="0.45448688279732086" blue="0.25528905824184533" alpha="0.55626605308219179" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="进入游戏">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="enterGameButtonPressed:" destination="egt-Dx-IKF" eventType="touchUpInside" id="vV5-al-P3V"/>
                                     <segue destination="TUW-ab-X7M" kind="showDetail" identifier="EnterGame" action="showViewController:sender:" id="6On-P6-vWb"/>
                                 </connections>
                             </button>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="People" translatesAutoresizingMaskIntoConstraints="NO" id="BEt-MT-Vyk" userLabel="UserPhoto">
-                                <rect key="frame" x="168" y="329" width="78" height="79"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="ADZ-Uy-s32" appends="YES" id="HhK-Uy-AYr"/>
-                                </connections>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BEt-MT-Vyk" firstAttribute="top" secondItem="SBK-Kd-zz7" secondAttribute="top" constant="180" id="Ard-J8-KjD"/>
+                            <constraint firstItem="SBK-Kd-zz7" firstAttribute="trailing" secondItem="ky2-Pe-Ugt" secondAttribute="trailing" id="Edg-8w-FDH"/>
+                            <constraint firstItem="ky2-Pe-Ugt" firstAttribute="top" secondItem="G9h-ZV-h9O" secondAttribute="top" id="PwC-FV-3De"/>
+                            <constraint firstItem="SBK-Kd-zz7" firstAttribute="bottom" secondItem="ky2-Pe-Ugt" secondAttribute="bottom" id="eal-Hp-PWQ"/>
+                            <constraint firstItem="BEt-MT-Vyk" firstAttribute="centerX" secondItem="SBK-Kd-zz7" secondAttribute="centerX" id="fVs-bl-d0Z"/>
+                            <constraint firstItem="ky2-Pe-Ugt" firstAttribute="leading" secondItem="SBK-Kd-zz7" secondAttribute="leading" id="t6n-kd-Xdz"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="SBK-Kd-zz7"/>
                     </view>
                     <navigationItem key="navigationItem" title="登录" id="0L1-6p-Nbj"/>
                     <connections>
                         <outlet property="enterGameButton" destination="jyL-1K-8wY" id="Zwb-KQ-aRr"/>
-                        <outlet property="userNameTextField" destination="QP5-ne-3mr" id="Ddb-rJ-paM"/>
+                        <outlet property="userNameTextField" destination="agd-d5-AMK" id="pJd-VV-VhI"/>
                         <outlet property="userPhotoImageView" destination="BEt-MT-Vyk" id="9tz-la-saf"/>
                     </connections>
                 </viewController>
@@ -428,7 +464,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-3143" y="-364"/>
+            <point key="canvasLocation" x="-3143.4782608695655" y="-364.4021739130435"/>
         </scene>
         <!--PrepareScene-->
         <scene sceneID="ng5-Ky-CzE">
@@ -743,6 +779,7 @@
         <image name="BrushColor-Yellow" width="30" height="30"/>
         <image name="Eraser" width="30" height="28"/>
         <image name="Exit" width="30" height="30"/>
+        <image name="LoginBackground" width="414" height="736"/>
         <image name="MenuFrame" width="100" height="72"/>
         <image name="People" width="30" height="30"/>
         <image name="Ready" width="30" height="30"/>
