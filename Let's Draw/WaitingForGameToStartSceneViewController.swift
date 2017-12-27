@@ -17,17 +17,21 @@ enum PlayerRole {
 class WaitingForGameToStartSceneViewController: UIViewController {
 
     // MARK: Properties
+    
+    @IBOutlet weak var pencilImage: UIImageView!
+    @IBOutlet weak var progressBar: UIProgressView!
+    
     var players: [User]!
     var me: User?
     var keyWord: String!
     var hint: String!
     var socket: WebSocket!
-    var isFirst = true
+    var isFirst = true // 第一次进入该场景，为了在unwind经过本页面时进行判断
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        socket.delegate = nil // 这个场景中不需要代理socket
+        socket?.delegate = nil // 这个场景中不需要代理socket
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,20 +46,65 @@ class WaitingForGameToStartSceneViewController: UIViewController {
         } else {
             return
         }
-        // segue to Draw/Guess scene according to player role.
-        if let myPlayerInfo = me {
-            let playerRole = getPlayerRole(Player: myPlayerInfo)
-            self.hint = getHint()
-            self.keyWord = getKeyWord()
-            switch playerRole {
-            case .Drawer:
-                os_log("Entering draw scene.", log: OSLog.default, type: .debug)
-                performSegue(withIdentifier: "EnterDrawScene", sender: self)
-            case .Guesser:
-                os_log("Entering guess scene.", log: OSLog.default, type: .debug)
-                performSegue(withIdentifier: "EnterGuessScene", sender: self)
+        
+        let pencilDx = self.progressBar.frame.minX - self.pencilImage.frame.midX
+        let pencilDy = self.progressBar.frame.minY - self.pencilImage.frame.maxY
+        UIView.transition(
+            with: self.view,
+            duration: 0.5,
+            options: [],
+            animations: {
+                [unowned  self] in
+                self.progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 5.0)
+                //self.pencilImage.transform = self.pencilImage.transform.rotated(by: -CGFloat.pi/4)
+                self.pencilImage.transform = self.pencilImage.transform.translatedBy(x: self.progressBar.frame.minX - self.pencilImage.frame.midX, y: self.progressBar.frame.minY - self.pencilImage.frame.maxY)
+                
+                
+            },
+            completion: nil
+        )
+        
+        
+        UIView.animate(
+            withDuration: 0.5,
+            animations: {
+                //self.pencilImage.transform = CGAffineTransform(translationX: 10, y: 0)
+                //self.progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 5.0)
+                //self.pencilImage.transform = self.pencilImage.transform.rotated(by: -CGFloat.pi/4)
+                },
+            completion: {
+               [unowned self] (finished:Bool) -> Void in
+                self.progressBar.setProgress(0.5, animated: true)
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.pencilImage.transform = self.pencilImage.transform.translatedBy(x: 100, y: 0)
+                    //print(self.pencilImage.transform.translatedBy(x: 100, y: 0))
+                })
+                 // segue to Draw/Guess scene according to player role.
+                if let myPlayerInfo = self.me {
+                    let playerRole = self.getPlayerRole(Player: myPlayerInfo)
+                    self.hint = self.getHint()
+                    self.progressBar.setProgress(0.5, animated: true)
+                    self.keyWord = self.getKeyWord()
+                    switch playerRole {
+                    case .Drawer:
+                        os_log("Entering draw scene.", log: OSLog.default, type: .debug)
+                        self.performSegue(withIdentifier: "EnterDrawScene", sender: self)
+                    case .Guesser:
+                        os_log("Entering guess scene.", log: OSLog.default, type: .debug)
+                        self.performSegue(withIdentifier: "EnterGuessScene", sender: self)
+                    }
+                 }
+                
+//                UIView.animate(
+//                    withDuration: 0.5,
+//                    animations: {
+//                        self.pencilImage.transform = CGAffineTransform(translationX: self.progressBar.frame.minX - self.pencilImage.frame.midX, y: self.progressBar.frame.minY - self.pencilImage.frame.maxY)
+//                        },
+//                    completion: nil)
             }
-        }
+        )
+        
+        
     }
     
     // MARK: Unwind navigation

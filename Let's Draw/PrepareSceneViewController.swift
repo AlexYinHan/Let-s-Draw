@@ -50,6 +50,9 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
         
         self.navigationController?.navigationBar.alpha = 0
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
     }
 
     // 设置键盘出现时页面上移
@@ -126,6 +129,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     }
     @IBAction func readyButtonPressed(_ sender: UIButton) {
         // inform server that the game has begun in this room.
+        
         beginGame()
     }
     
@@ -345,7 +349,8 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
                      2: onGoing
                      */
                 case "onGoing":
-                    self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
+                    break
+                    //self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
                 default:
                     print("newGameState should be \(newGameState)")
                 }

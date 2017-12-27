@@ -90,7 +90,8 @@ class ChoosingGameRoomSceneViewController: UIViewController {
             prepareSceneViewController.roomNumber = self.selectedRoomId
             joinGameRoom(roomId: self.selectedRoomId!)
         default:
-            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+            break
+            //fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
     }
     

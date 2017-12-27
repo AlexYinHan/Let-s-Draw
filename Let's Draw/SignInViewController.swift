@@ -62,6 +62,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
     
     // MARK: - Navigation
 
+    // unwind navigation
+    @IBAction func unwindToSignInScene(sender: UIStoryboardSegue) {
+       
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -221,5 +226,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         
         return resultUserId;
     }
+    
     
 }
