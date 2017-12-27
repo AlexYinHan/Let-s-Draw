@@ -32,12 +32,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         // 设置键盘出现时页面上移
         NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
         
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        // navigation bar 透明
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        
         updateEnterGameButtonState()
     }
     // 设置键盘出现时页面上移
@@ -66,7 +69,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         switch segue.identifier ?? "" {
         case "EnterGame":
             os_log("Entering game after signing in.", log: OSLog.default, type: .debug)
-            guard let choosingGameRoomViewController = segue.destination as? ChoosingGameRoomSceneViewController else {
+            guard let choosingGameRoomNavigationController = segue.destination as? UINavigationController, let choosingGameRoomViewController = choosingGameRoomNavigationController.topViewController as? ChoosingGameRoomSceneViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             

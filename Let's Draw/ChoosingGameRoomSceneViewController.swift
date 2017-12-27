@@ -32,9 +32,23 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         if let myPlayerPhoto = myPlayerInfo.photo {
             userPhoto.image = myPlayerPhoto
         }
+        
+        // navigation bar 透明
+        //self.navigationController?.navigationBar.alpha = 0
+        //navigationItem.titleView?.alpha = 0
+        
+        if let _ = self.navigationController {
+            print("s")
+        }
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+ 
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        
+        
         let parameters:[String: Any] = [
             "type": "signIn",
             "playerId": me!.id

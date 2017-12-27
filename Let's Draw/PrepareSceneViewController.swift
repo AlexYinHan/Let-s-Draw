@@ -49,6 +49,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         // 设置键盘出现时页面上移
         NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
         
+        self.navigationController?.navigationBar.alpha = 0
     }
 
     // 设置键盘出现时页面上移
