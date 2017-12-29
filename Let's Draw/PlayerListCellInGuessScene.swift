@@ -44,4 +44,34 @@ class PlayerListCellInGuessScene: UICollectionViewCell {
         self.addSubview(answerCheck)
     }
     
+    public func updateView(with playerInfo: User) {
+        playerName.text = playerInfo.name
+        playerPhoto.image = playerInfo.photo
+        if let answerText = playerInfo.answerContent, let isCorrect = playerInfo.isAnswerCorrect {
+            if isCorrect { // correct answer
+                answerBubble.image = #imageLiteral(resourceName: "Bubble-Yellow")
+                answerBubble.isHidden = false
+                
+                answerCheck.isHidden = false
+                
+                answerLabel.isHidden = true
+                
+            } else { // wrong answer
+                answerBubble.image = #imageLiteral(resourceName: "Bubble-Red")
+                answerBubble.isHidden = false
+                
+                answerCheck.isHidden = true
+                
+                answerLabel.isHidden = false
+                answerLabel.text = answerText
+            }
+        } else {
+            answerBubble.isHidden = true
+            answerLabel.isHidden = true
+            answerCheck.isHidden = true
+        }
+    }
+    
+    //override func did
+    
 }

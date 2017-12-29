@@ -47,8 +47,6 @@ class WaitingForGameToStartSceneViewController: UIViewController {
             return
         }
         
-        let pencilDx = self.progressBar.frame.minX - self.pencilImage.frame.midX
-        let pencilDy = self.progressBar.frame.minY - self.pencilImage.frame.maxY
         UIView.transition(
             with: self.view,
             duration: 0.5,
@@ -57,54 +55,63 @@ class WaitingForGameToStartSceneViewController: UIViewController {
                 [unowned  self] in
                 self.progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 5.0)
                 //self.pencilImage.transform = self.pencilImage.transform.rotated(by: -CGFloat.pi/4)
-                self.pencilImage.transform = self.pencilImage.transform.translatedBy(x: self.progressBar.frame.minX - self.pencilImage.frame.midX, y: self.progressBar.frame.minY - self.pencilImage.frame.maxY)
-                
-                
+                self.pencilImage.transform = self.pencilImage.transform.translatedBy(x: self.progressBar.frame.minX - self.pencilImage.frame.minX, y: self.progressBar.frame.minY - self.pencilImage.frame.maxY)
             },
-            completion: nil
-        )
-        
-        
-        UIView.animate(
-            withDuration: 0.5,
-            animations: {
-                //self.pencilImage.transform = CGAffineTransform(translationX: 10, y: 0)
-                //self.progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 5.0)
-                //self.pencilImage.transform = self.pencilImage.transform.rotated(by: -CGFloat.pi/4)
-                },
             completion: {
-               [unowned self] (finished:Bool) -> Void in
-                self.progressBar.setProgress(0.5, animated: true)
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.pencilImage.transform = self.pencilImage.transform.translatedBy(x: 100, y: 0)
-                    //print(self.pencilImage.transform.translatedBy(x: 100, y: 0))
-                })
-                 // segue to Draw/Guess scene according to player role.
-                if let myPlayerInfo = self.me {
-                    let playerRole = self.getPlayerRole(Player: myPlayerInfo)
-                    self.hint = self.getHint()
-                    self.progressBar.setProgress(0.5, animated: true)
-                    self.keyWord = self.getKeyWord()
-                    switch playerRole {
-                    case .Drawer:
-                        os_log("Entering draw scene.", log: OSLog.default, type: .debug)
-                        self.performSegue(withIdentifier: "EnterDrawScene", sender: self)
-                    case .Guesser:
-                        os_log("Entering guess scene.", log: OSLog.default, type: .debug)
-                        self.performSegue(withIdentifier: "EnterGuessScene", sender: self)
-                    }
-                 }
-                
-//                UIView.animate(
-//                    withDuration: 0.5,
-//                    animations: {
-//                        self.pencilImage.transform = CGAffineTransform(translationX: self.progressBar.frame.minX - self.pencilImage.frame.midX, y: self.progressBar.frame.minY - self.pencilImage.frame.maxY)
-//                        },
-//                    completion: nil)
+                [unowned self] (finished:Bool) -> Void in
+                self.connectProgress()
             }
         )
         
-        
+    }
+    
+    private func connectProgress() {
+        // ask server for info in game and update process bar
+        if let myPlayerInfo = self.me {
+            let playerRole = self.getPlayerRole(Player: myPlayerInfo)
+            self.progressBar.setProgress(0.3, animated: true)
+            UIView.animate(
+                withDuration: 0.3,
+                animations: { [unowned self] in
+                    self.pencilImage.transform = self.pencilImage.transform.translatedBy(x: 0.3*self.progressBar.frame.width, y: 0)
+                },
+                completion: {
+                    [unowned self] (finished:Bool) -> Void in
+                    self.hint = self.getHint()
+                    self.progressBar.setProgress(0.6, animated: true)
+                    UIView.animate(
+                        withDuration: 0.3,
+                        animations: { [unowned self] in
+                            self.pencilImage.transform = self.pencilImage.transform.translatedBy(x: 0.3*self.progressBar.frame.width, y: 0)
+                        },
+                        completion: {
+                            [unowned self] (finished:Bool) -> Void in
+                            self.keyWord = self.getKeyWord()
+                            self.progressBar.setProgress(1, animated: true)
+                            UIView.animate(
+                                withDuration: 0.3,
+                                animations: { [unowned self] in
+                                    self.pencilImage.transform = self.pencilImage.transform.translatedBy(x: 0.4*self.progressBar.frame.width, y: 0)
+                                },
+                                completion: {
+                                    [unowned self] (finished:Bool) -> Void in
+                                    //segue to Draw/Guess scene according to player role.
+                                    switch playerRole {
+                                    case .Drawer:
+                                        os_log("Entering draw scene.", log: OSLog.default, type: .debug)
+                                        self.performSegue(withIdentifier: "EnterDrawScene", sender: self)
+                                    case .Guesser:
+                                        os_log("Entering guess scene.", log: OSLog.default, type: .debug)
+                                        self.performSegue(withIdentifier: "EnterGuessScene", sender: self)
+                                    }
+                                }// completion for getKeyWord process
+                            )
+                        }// completion for getHintWord process
+                    )
+                }// completion for getPlayerRole process
+            )
+            
+        }
     }
     
     // MARK: Unwind navigation

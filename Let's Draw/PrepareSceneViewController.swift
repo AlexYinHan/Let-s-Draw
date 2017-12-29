@@ -349,8 +349,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
                      2: onGoing
                      */
                 case "onGoing":
-                    break
-                    //self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
+                    self.performSegue(withIdentifier: "WaitingForGameToStart", sender: self)
                 default:
                     print("newGameState should be \(newGameState)")
                 }

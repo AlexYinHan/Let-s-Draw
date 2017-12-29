@@ -110,31 +110,8 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
         }
         
         let playerInfo = players[indexPath.row]
-        cell.playerName.text = playerInfo.name
-        cell.playerPhoto.image = playerInfo.photo
-        if let answerText = playerInfo.answerContent, let isCorrect = playerInfo.isAnswerCorrect {
-            if isCorrect { // correct answer
-                cell.answerBubble.image = #imageLiteral(resourceName: "Bubble-Yellow")
-                cell.answerBubble.isHidden = false
-                
-                cell.answerCheck.isHidden = false
-                
-                cell.answerLabel.isHidden = true
-                
-            } else { // wrong answer
-                cell.answerBubble.image = #imageLiteral(resourceName: "Bubble-Red")
-                cell.answerBubble.isHidden = false
-                
-                cell.answerCheck.isHidden = true
-                
-                cell.answerLabel.isHidden = false
-                cell.answerLabel.text = answerText
-            }
-        } else {
-            cell.answerBubble.isHidden = true
-            cell.answerLabel.isHidden = true
-            cell.answerCheck.isHidden = true
-        }
+        cell.updateView(with: playerInfo)
+        
         return cell
     }
     
@@ -346,11 +323,11 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
                 let sender = findPlayer(withId: senderId),
                 let isAnswerCorrect = jsonDict["isCorrect"] as? Bool,
                 let answerContent = jsonDict["content"] as? String
-            {
-                sender.isAnswerCorrect = isAnswerCorrect
-                sender.answerContent = answerContent
-                self.playerList.reloadData()
-            }
+                {
+                    sender.isAnswerCorrect = isAnswerCorrect
+                    sender.answerContent = answerContent
+                    self.playerList.reloadData()
+                }
         default:
             os_log("Unknown message type.", log: OSLog.default, type: .debug)
         }
