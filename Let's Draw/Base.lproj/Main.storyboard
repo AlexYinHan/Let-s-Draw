@@ -503,7 +503,6 @@
                                 </state>
                                 <connections>
                                     <action selector="enterGameButtonPressed:" destination="egt-Dx-IKF" eventType="touchUpInside" id="vV5-al-P3V"/>
-                                    <segue destination="lMX-CE-AHK" kind="showDetail" identifier="EnterGame" action="showViewController:sender:" id="4Xi-c0-R84"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -523,6 +522,7 @@
                         <outlet property="enterGameButton" destination="jyL-1K-8wY" id="Zwb-KQ-aRr"/>
                         <outlet property="userNameTextField" destination="agd-d5-AMK" id="pJd-VV-VhI"/>
                         <outlet property="userPhotoImageView" destination="BEt-MT-Vyk" id="9tz-la-saf"/>
+                        <segue destination="lMX-CE-AHK" kind="showDetail" identifier="EnterGame" id="mgQ-eS-TvN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tv7-FE-7GQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -746,10 +746,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="iaK-fv-i9C">
-                                <rect key="frame" x="197" y="340" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressImage="Arrow" trackImage="Begin" translatesAutoresizingMaskIntoConstraints="NO" id="Zc3-mr-GE8">
                                 <rect key="frame" x="80" y="524" width="254" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

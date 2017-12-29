@@ -9,6 +9,7 @@
 import UIKit
 import os.log
 import Starscream
+import Alamofire
 import TextFieldEffects
 
 class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -78,8 +79,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            // signIn and get a user ID from server
-            me?.id = signIn()
             
             socket.connect()
             
@@ -160,6 +159,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         if let name = userNameTextField.text, let photo = userPhotoImageView.image {
             me = User(name: name, photo: photo)
         }
+        
+        // signIn and get a user ID from server
+        signIn()
     }
     @IBAction func selectUserPhotoFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
         //Hide the keyboard
@@ -189,9 +191,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         
     }
     
-    private func signIn() -> Int{
-        var userId: Int?
-        
+    private func signIn(){
+   /*
         // Connect the server
         let urlPath: String = "http://localhost:3000/tasks/signIn?userName=\(self.me?.name ?? "unknown")"
         let params = NSMutableDictionary()
@@ -218,13 +219,49 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
         }
         
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+*/
+        // 显示一个 activity indicator view
+        let indicator = UIActivityIndicatorView(frame: CGRect(x: self.view.bounds.midX - 25, y: self.view.bounds.midY - 25, width: 50, height: 50))
+        indicator.startAnimating()
+        self.view.addSubview(indicator)
         
-        guard let resultUserId = userId else {
-            fatalError("No user Id returned from server.")
+        // 在连接出错时弹出对话框
+        let failAlertController = UIAlertController(title: "连接错误", message: "未能获取玩家ID", preferredStyle: UIAlertControllerStyle.alert)
+        let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default){
+            (UIAlertAction) in
+            
         }
+        failAlertController.addAction(confirmAction)
         
+        let parameters:[String : Any] = [
+            "userName": self.me?.name ?? "unknown"
+        ]
+        Alamofire.request("http://localhost:3000/tasks/signIn", method: .post, parameters: parameters).responseJSON { response in
+            switch response.result.isSuccess {
+            case true:
+                //把得到的JSON数据转为数组
+                if let items = response.result.value as? Dictionary<String, Any> {
+                    if let resultUserId = items["playerId"] as? Int {
+                        self.me?.id = resultUserId
+                        self.performSegue(withIdentifier: "EnterGame", sender: self)
+                    }
+                } else {
+                    self.present(failAlertController, animated: true, completion: nil)
+                }
+            case false:
+                print(response.result.error as Any)
+                self.present(failAlertController, animated: true, completion: nil)
+            }
+            
+            // 去除activity indicator view
+            indicator.removeFromSuperview()
+        }
+            
+//        guard let resultUserId = userId else {
+//            fatalError("No user Id returned from server.")
+//        }
         
-        return resultUserId;
+ 
     }
     
     

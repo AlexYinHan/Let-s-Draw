@@ -61,7 +61,8 @@ router.delete('/deleteAllPlayers', function(req, res, next) {
 });
 
 router.post('/signIn', function(req, res, next) {
-  var playerName = req.query.userName;
+  //var playerName = req.query.userName;
+  var playerName = req.body.userName;
 
   var randomId = -1;
   var isThisIdExist = 0;
@@ -79,7 +80,7 @@ router.post('/signIn', function(req, res, next) {
       return res.status(400).send("err in post /signIn");
     } else {
 
-      return res.status(200).json([{playerId: randomId}]);
+      return res.status(200).json({playerId: randomId});
     }
   });
 });
