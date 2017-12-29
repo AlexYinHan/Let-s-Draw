@@ -591,6 +591,9 @@
                                 <state key="normal" title="邀请" backgroundImage="Button">
                                     <color key="titleColor" red="0.91236340999999999" green="0.5544109344" blue="0.2130621821" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="inviteBtnPressed:" destination="oRY-jV-NAz" eventType="touchUpInside" id="Y9g-H6-Sc2"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x54-4J-Erv" userLabel="准备">
                                 <rect key="frame" x="177" y="386" width="60" height="60"/>
@@ -813,17 +816,6 @@
                                     <action selector="searchButtonPressed:" destination="TUW-ab-X7M" eventType="touchUpInside" id="I6l-SI-Iv9"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ivn-LE-rgK">
-                                <rect key="frame" x="33" y="64" width="92" height="89"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kee-sn-XAb">
-                                <rect key="frame" x="58" y="173" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UgU-K5-27k">
                                 <rect key="frame" x="115" y="370" width="200" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -836,17 +828,49 @@
                                     <segue destination="nuc-i6-oRb" kind="show" identifier="CreateGameRoom" action="showDetailViewController:sender:" id="nme-6e-OCX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7AR-24-0cr">
-                                <rect key="frame" x="33" y="202" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="修改信息">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="N4O-yq-5fS" kind="unwind" unwindAction="unwindToSignInSceneWithSender:" id="BhU-bc-7Pa"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="t5w-Rc-8KP">
+                                <rect key="frame" x="30" y="84" width="100" height="170"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ivn-LE-rgK">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="9iJ-gv-Gxa"/>
+                                            <constraint firstAttribute="width" secondItem="Ivn-LE-rgK" secondAttribute="height" multiplier="1:1" id="f2W-mo-ucI"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7El-Le-q6U">
+                                        <rect key="frame" x="0.0" y="100" width="100" height="70"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kee-sn-XAb">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="23.333333333333332"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ExE-iB-2mV">
+                                                <rect key="frame" x="0.0" y="23.333333333333343" width="100" height="23.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7AR-24-0cr">
+                                                <rect key="frame" x="0.0" y="46.666666666666657" width="100" height="23.333333333333329"/>
+                                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="修改信息">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="N4O-yq-5fS" kind="unwind" unwindAction="unwindToSignInSceneWithSender:" id="BhU-bc-7Pa"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="t5w-Rc-8KP" secondAttribute="height" multiplier="1:1.7" id="E6E-V8-mIm"/>
+                                    <constraint firstAttribute="width" constant="100" id="Uox-qg-JZo"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -854,12 +878,15 @@
                             <constraint firstItem="udU-Vb-6s0" firstAttribute="top" secondItem="h7n-EH-b6X" secondAttribute="top" id="G6g-ue-cHQ"/>
                             <constraint firstItem="EQB-KU-P0Z" firstAttribute="trailing" secondItem="udU-Vb-6s0" secondAttribute="trailing" id="ZIz-s7-kFH"/>
                             <constraint firstItem="udU-Vb-6s0" firstAttribute="leading" secondItem="EQB-KU-P0Z" secondAttribute="leading" id="aDu-cV-Meh"/>
+                            <constraint firstItem="t5w-Rc-8KP" firstAttribute="top" secondItem="EQB-KU-P0Z" secondAttribute="top" constant="20" id="awN-Cw-2ce"/>
+                            <constraint firstItem="t5w-Rc-8KP" firstAttribute="leading" secondItem="EQB-KU-P0Z" secondAttribute="leading" constant="30" id="hrA-yd-wxH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EQB-KU-P0Z"/>
                     </view>
                     <navigationItem key="navigationItem" id="3cD-dc-o3t"/>
                     <connections>
-                        <outlet property="userName" destination="kee-sn-XAb" id="9M8-2O-Nd5"/>
+                        <outlet property="userId" destination="kee-sn-XAb" id="Pxz-bZ-Wmm"/>
+                        <outlet property="userName" destination="ExE-iB-2mV" id="k9S-Me-l2O"/>
                         <outlet property="userPhoto" destination="Ivn-LE-rgK" id="ysv-YJ-0JI"/>
                         <segue destination="nuc-i6-oRb" kind="show" identifier="JoinGameRoom" action="showDetailViewController:sender:" id="lWj-3v-gxC"/>
                     </connections>

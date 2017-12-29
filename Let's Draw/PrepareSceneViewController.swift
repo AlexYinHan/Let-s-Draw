@@ -125,6 +125,38 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     
     // MARK: Actions
     
+    @IBAction func inviteBtnPressed(_ sender: UIButton) {
+        // 按下邀请按钮后，弹出一个对话框用于输入邀请玩家的ID
+        let searchRoomAlertController = UIAlertController(title: "邀请", message: "请输入邀请玩家的ID", preferredStyle: UIAlertControllerStyle.alert)
+        searchRoomAlertController.addTextField {
+            (textField: UITextField) -> Void in
+            textField.placeholder = "玩家ID"
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "确认", style: UIAlertActionStyle.default, handler: {
+            (UIAlertAction) in
+            // 提交
+            if let searchTextField = (searchRoomAlertController.textFields!.first as UITextField?), let searchContent = searchTextField.text, let playerId = Int(searchContent) {
+                
+                let parameters:[String: Any] = [
+                    "type": "invite",
+                    "senderId": self.me!.id,
+                    "roomId": self.me!.roomId!,
+                    "receiverId": playerId,
+                    "isSuccess": false
+                ]
+                let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+                self.socket.write(data: data!)
+            }
+        })
+        
+        searchRoomAlertController.addAction(cancelAction)
+        searchRoomAlertController.addAction(confirmAction)
+        self.present(searchRoomAlertController, animated: true, completion: nil)
+        
+        
+    }
+    
     @IBAction func sendMessageBtnPressed(_ sender: UIButton) {
         if let newChattingRecord = chattingInputBoxTextField.text {
             ChattingAreaDelegator.sendChattingMessage(message: newChattingRecord, socket: self.socket, sender: self.me!)
@@ -314,6 +346,23 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         
         // 2
         switch messageType {
+        case "invite":
+            if let isSuccess = jsonDict["isSuccess"] as? Bool {
+                let inviteResultAlertController = UIAlertController(title: "邀请结果", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default){
+                    (UIAlertAction) in
+                    
+                }
+                inviteResultAlertController.addAction(confirmAction)
+                if isSuccess {
+                    inviteResultAlertController.title = "成功邀请玩家！"
+                } else {
+                    inviteResultAlertController.title = "邀请玩家失败！"
+                    inviteResultAlertController.message = "该玩家ID可能未连接或者已经在游戏中。"
+                }
+                
+                self.present(inviteResultAlertController, animated: true, completion: nil)
+            }
         case "chattingMessage":
             if let messageText = jsonDict["messageContent"] as? String, let messageSenderName = jsonDict["playerName"] as? String{
                 

@@ -11,12 +11,15 @@ import os.log
 import Alamofire
 import Starscream
 
-class ChoosingGameRoomSceneViewController: UIViewController {
+class ChoosingGameRoomSceneViewController: UIViewController, WebSocketDelegate {
+    
+    
 
     // MARK: Properties
     
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var userId: UILabel!
     var me: User?
     var selectedRoomId: Int?
     var socket: WebSocket!
@@ -28,7 +31,8 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         guard let myPlayerInfo = me else {
             fatalError("No information about this player.")
         }
-        userName.text = myPlayerInfo.name
+        userName.text = "昵称: \(myPlayerInfo.name)"
+        userId.text = "ID: \(myPlayerInfo.id)"
         if let myPlayerPhoto = myPlayerInfo.photo {
             userPhoto.image = myPlayerPhoto
         }
@@ -45,6 +49,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         
+        socket.delegate = self
         
         let parameters:[String: Any] = [
             "type": "signIn",
@@ -122,15 +127,7 @@ class ChoosingGameRoomSceneViewController: UIViewController {
                     self.selectedRoomId = roomId
                     self.performSegue(withIdentifier: "JoinGameRoom", sender: self)
                 } else {
-                    //self.present(searchRoomAlertController, animated: true, completion: nil)
-                    //let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
                     let textFieldRect = searchTextField.frame
-                    /*let roomNotExistLabel = UILabel(frame: CGRect(
-                        x: textFieldRect.minX,
-                        y: textFieldRect.minY,
-                        width: textFieldRect.width,
-                        height: textFieldRect.height))
- */
                     let roomNotExistLabel = UILabel(frame: textFieldRect)
                     roomNotExistLabel.textAlignment = NSTextAlignment.center
                     roomNotExistLabel.textColor = UIColor.red
@@ -313,5 +310,48 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         return isRoomExist
+    }
+    
+    // MARK: - WebSocketDelegate
+    func websocketDidConnect(socket: WebSocketClient) {
+        
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        // 1
+        guard let data = text.data(using: .utf16),
+            let jsonData = try? JSONSerialization.jsonObject(with: data),
+            let jsonDict = jsonData as? [String: Any],
+            let messageType = jsonDict["type"] as? String
+            else {
+                return
+        }
+        
+        // 2
+        switch messageType {
+        case "invite":
+            if let roomId = jsonDict["roomId"] as? Int{
+                let inviteResultAlertController = UIAlertController(title: "邀请", message: "收到来自\(roomId)号房间的邀请。", preferredStyle: UIAlertControllerStyle.alert)
+                let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default){
+                    (UIAlertAction) in
+                    
+                }
+                inviteResultAlertController.addAction(confirmAction)
+                
+                
+                self.present(inviteResultAlertController, animated: true, completion: nil)
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        
     }
 }

@@ -124,6 +124,20 @@ wsServer.on('request', function(request) {
             }
             break;
           }
+          case "invite": {
+            playerId = dic.receiverId;
+            dic.isSuccess = false
+            var i = 0;
+            for (; i < clients.length; i++) {
+              if(i!= index && clients[i].playerId == playerId) {
+                dic.isSuccess = true // only send message to target client
+                clients[i].client.sendUTF(JSON.stringify(dic));
+                break;
+              }
+            }  
+            clients[index].client.sendUTF(JSON.stringify(dic));
+            break;
+          }
           case "chattingMessage": {
             for (var i=0; i < clients.length; i++) {
               if(clients[i].roomId == roomId) { // only send message to clients in the same room
