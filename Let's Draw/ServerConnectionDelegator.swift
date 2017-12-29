@@ -9,7 +9,7 @@
 import UIKit
 
 // 用来完成与服务器通信有关的功能
-class ServerConnectionDelegator: NSObject {
+class ServerConnectionDelegator {
 
     static public func httpGet(request: URLRequest!, callback: @escaping (String, String?) -> Void) {
         let session = URLSession.shared

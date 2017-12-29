@@ -17,10 +17,10 @@
 		181026771FD0039500401583 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181026761FD0039500401583 /* SignInViewController.swift */; };
 		1814DF341FD3D6E900125291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E1D1FB315BE00A89954 /* Main.storyboard */; };
 		1814DF391FD3E97200125291 /* PlayerListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */; };
-		18204DEE1FED2899000C4475 /* DrawingToolMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18204DED1FED2899000C4475 /* DrawingToolMenuView.swift */; };
 		182635BF1FE507FC00B5E83A /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182635BE1FE507FC00B5E83A /* Starscream.framework */; };
 		182635C01FE50D2E00B5E83A /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 182635BE1FE507FC00B5E83A /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18CC887D1FD7C831007D6720 /* ServerConnectionDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */; };
+		18ED75801FF615FE0034D704 /* ChattingAreaDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED757F1FF615FE0034D704 /* ChattingAreaDelegator.swift */; };
 		18F49D871FDD328D00CC7549 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F49D861FDD328D00CC7549 /* Alamofire.framework */; };
 		18F49D8A1FDD32F700CC7549 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 18F49D861FDD328D00CC7549 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18F49D8C1FDD3C4A00CC7549 /* RenderingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F49D8B1FDD3C4A00CC7549 /* RenderingBoard.swift */; };
@@ -81,9 +81,9 @@
 		181026741FD0007D00401583 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		181026761FD0039500401583 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCollectionViewCell.swift; sourceTree = "<group>"; };
-		18204DED1FED2899000C4475 /* DrawingToolMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingToolMenuView.swift; sourceTree = "<group>"; };
 		182635BE1FE507FC00B5E83A /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionDelegator.swift; sourceTree = "<group>"; };
+		18ED757F1FF615FE0034D704 /* ChattingAreaDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingAreaDelegator.swift; sourceTree = "<group>"; };
 		18F49D861FDD328D00CC7549 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		18F49D8B1FDD3C4A00CC7549 /* RenderingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderingBoard.swift; sourceTree = "<group>"; };
 		18F49D8D1FDD59F200CC7549 /* DrawingTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingTools.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 				1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */,
 				18F7214F1FEA3519002B853B /* PlayerListCellInGuessScene.swift */,
 				18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */,
-				18204DED1FED2899000C4475 /* DrawingToolMenuView.swift */,
+				18ED757F1FF615FE0034D704 /* ChattingAreaDelegator.swift */,
 			);
 			path = "Let's Draw";
 			sourceTree = "<group>";
@@ -303,7 +303,6 @@
 				18FD8E1C1FB315BE00A89954 /* DrawMainSceneViewController.swift in Sources */,
 				18F49D8C1FDD3C4A00CC7549 /* RenderingBoard.swift in Sources */,
 				1814DF391FD3E97200125291 /* PlayerListCollectionViewCell.swift in Sources */,
-				18204DEE1FED2899000C4475 /* DrawingToolMenuView.swift in Sources */,
 				18FD8E421FB341D900A89954 /* EraserBrush.swift in Sources */,
 				18FD8E3A1FB31EC700A89954 /* DrawingBoard.swift in Sources */,
 				18F721501FEA3519002B853B /* PlayerListCellInGuessScene.swift in Sources */,
@@ -312,6 +311,7 @@
 				18F49D8E1FDD59F200CC7549 /* DrawingTools.swift in Sources */,
 				180FF0061FD2EC690026DCD1 /* WaitingForGameToStartSceneViewController.swift in Sources */,
 				181026751FD0007D00401583 /* User.swift in Sources */,
+				18ED75801FF615FE0034D704 /* ChattingAreaDelegator.swift in Sources */,
 				180FF0041FD2C3110026DCD1 /* ChoosingGameRoomSceneViewController.swift in Sources */,
 				181026771FD0039500401583 /* SignInViewController.swift in Sources */,
 				18FD8E1A1FB315BE00A89954 /* AppDelegate.swift in Sources */,

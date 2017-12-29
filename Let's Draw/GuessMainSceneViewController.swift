@@ -51,8 +51,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
         playerListLayout.minimumLineSpacing = 10
         playerList.collectionViewLayout = playerListLayout
         
-        // web socket
-        socket.delegate = self
+        
         
         // 设置键盘出现时页面上移
         NotificationCenter.default.addObserver(self, selector: #selector(self.kbFrameChanged(_:)), name: .UIKeyboardWillChangeFrame, object: nil)
@@ -69,7 +68,8 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        // web socket
+        socket.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,7 +81,7 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let newChattingRecord = textField.text {
-            sendChattingMessage(message: newChattingRecord)
+            ChattingAreaDelegator.sendChattingMessage(message: newChattingRecord, socket: self.socket, sender: self.me!)
         }
         // text field归还FirstResponser地位
         // Hide the keyboard.
@@ -123,6 +123,13 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
     */
     
     //MARK: Actions
+    @IBAction func sendMessageBtnPressed(_ sender: UIButton) {
+        if let newChattingRecord = chattingInputBoxTextField.text {
+            ChattingAreaDelegator.sendChattingMessage(message: newChattingRecord, socket: self.socket, sender: self.me!)
+            chattingInputBoxTextField.text = ""
+        }
+    }
+    
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         // 按下回答按钮后，弹出一个对话框用于输入答案
         let answerAlertController = UIAlertController(title: "回答", message: "", preferredStyle: UIAlertControllerStyle.alert)
@@ -159,7 +166,19 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
     }
     
     @IBAction func exitbuttonPressed(_ sender: UIBarButtonItem) {
-        exitGameRoom(roomId: self.me!.roomId!)
+        // 按下退出房间按钮后，弹出对话框询问是否确认退出
+        let exitGameRoomAlertController = UIAlertController(title: "退出房间", message: "确定要退出吗？", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "再玩一会儿", style: UIAlertActionStyle.cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default){
+            [unowned self] (UIAlertAction) in
+            self.exitGameRoom(roomId: self.me!.roomId!)
+            self.performSegue(withIdentifier: "unwindToChoosingGameRoomScene", sender: self)
+        }
+        exitGameRoomAlertController.addAction(cancelAction)
+        exitGameRoomAlertController.addAction(confirmAction)
+        self.present(exitGameRoomAlertController, animated: true, completion: nil)
+        
+        
     }
     
     // MARK: Private Methods
@@ -208,20 +227,6 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
         me!.roomId = -1
     }
     
-    private func sendChattingMessage(message: String) {
-        
-        // web socket
-        let parameters:[String: Any] = [
-            "type": "chattingMessage",
-            "playerId": self.me!.id,
-            "playerName": self.me!.name,
-            "roomId": self.me!.roomId!,
-            "messageContent": message
-        ]
-        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-        socket.write(data: data!)
-        
-    }
     
     private func findPlayer(withId id: Int) -> User? {
         for player in players {
@@ -344,6 +349,4 @@ class GuessMainSceneViewController: UIViewController, UITextFieldDelegate, UICol
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         
     }
-
-    
 }

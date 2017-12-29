@@ -114,7 +114,7 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let newChattingRecord = textField.text {
-            sendChattingMessage(message: newChattingRecord)
+            ChattingAreaDelegator.sendChattingMessage(message: newChattingRecord, socket: self.socket, sender: self.me!)
         }
         // text field归还FirstResponser地位
         // Hide the keyboard.
@@ -124,6 +124,14 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
     }
     
     // MARK: Actions
+    
+    @IBAction func sendMessageBtnPressed(_ sender: UIButton) {
+        if let newChattingRecord = chattingInputBoxTextField.text {
+            ChattingAreaDelegator.sendChattingMessage(message: newChattingRecord, socket: self.socket, sender: self.me!)
+            chattingInputBoxTextField.text = ""
+        }
+    }
+    
     @IBAction func exitButtonPressed(_ sender: UIButton) {
         
     }
@@ -243,20 +251,19 @@ class PrepareSceneViewController: UIViewController, UICollectionViewDelegate, UI
         resultPlayerInfo.id = playerId
         return resultPlayerInfo;
     }
-    private func sendChattingMessage(message: String) {
-        
-        // web socket
-        let parameters:[String: Any] = [
-            "type": "chattingMessage",
-            "playerId": self.me!.id,
-            "playerName": self.me!.name,
-            "roomId": self.me!.roomId!,
-            "messageContent": message
-        ]
-        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-        socket.write(data: data!)
-        
-    }
+//    private func sendChattingMessage(message: String) {
+//        
+//        // web socket
+//        let parameters:[String: Any] = [
+//            "type": "chattingMessage",
+//            "playerId": self.me!.id,
+//            "playerName": self.me!.name,
+//            "roomId": self.me!.roomId!,
+//            "messageContent": message
+//        ]
+//        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+//        socket.write(data: data!)
+//    }
     
     private func beginGame() {
         // web socket

@@ -37,9 +37,6 @@ class ChoosingGameRoomSceneViewController: UIViewController {
         //self.navigationController?.navigationBar.alpha = 0
         //navigationItem.titleView?.alpha = 0
         
-        if let _ = self.navigationController {
-            print("s")
-        }
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true

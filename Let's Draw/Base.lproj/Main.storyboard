@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -85,21 +86,38 @@
                                         </cells>
                                     </collectionView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="聊天区：" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMd-hY-fpR">
-                                        <rect key="frame" x="0.0" y="70" width="414" height="140"/>
+                                        <rect key="frame" x="0.0" y="70" width="414" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="发言" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mev-ZS-A23" userLabel="ChattingInputBox">
-                                        <rect key="frame" x="0.0" y="210" width="414" height="30"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMp-HD-gtR">
+                                        <rect key="frame" x="0.0" y="190" width="414" height="50"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="发言" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EaC-3A-tAd" userLabel="ChattingInputBox">
+                                                <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Sn-S3-7Kx">
+                                                <rect key="frame" x="364" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="9Sn-S3-7Kx" secondAttribute="height" multiplier="1:1" id="bl6-yJ-MEJ"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="SendButton"/>
+                                                <connections>
+                                                    <action selector="sendMessageBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jxI-g4-d9f"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="fq5-XG-tyC"/>
+                                            <constraint firstAttribute="height" constant="50" id="98h-F2-uzL"/>
                                         </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                        <viewLayoutGuide key="safeArea" id="Gdw-yv-Fgf"/>
+                                    </stackView>
                                 </subviews>
                                 <viewLayoutGuide key="safeArea" id="8uG-eZ-HZg"/>
                             </stackView>
@@ -258,7 +276,7 @@
                     <connections>
                         <outlet property="DrawingBoardArea" destination="edy-7z-To0" id="6Ft-HU-A9r"/>
                         <outlet property="chattingDisplayAreaTextView" destination="TMd-hY-fpR" id="7yx-nV-JnU"/>
-                        <outlet property="chattingInputBoxTextField" destination="mev-ZS-A23" id="Ntu-VB-gNR"/>
+                        <outlet property="chattingInputBoxTextField" destination="EaC-3A-tAd" id="Ubm-FS-bHC"/>
                         <outlet property="drawingToolMenu" destination="psW-5I-gnM" id="6xI-K5-x47"/>
                         <outlet property="drawingToolMenuShowButton" destination="RA1-3E-dDr" id="MgQ-p7-p5y"/>
                         <outlet property="playerList" destination="3By-RC-Tdw" id="rV4-je-hse"/>
@@ -339,21 +357,38 @@
                                         </cells>
                                     </collectionView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="聊天区：" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ye3-6y-mkA">
-                                        <rect key="frame" x="0.0" y="70" width="414" height="140"/>
+                                        <rect key="frame" x="0.0" y="70" width="414" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="发言" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wFg-gg-fow" userLabel="ChattingInputBox">
-                                        <rect key="frame" x="0.0" y="210" width="414" height="30"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WqK-oO-5KS">
+                                        <rect key="frame" x="0.0" y="190" width="414" height="50"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="发言" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ygx-Ie-BTl" userLabel="ChattingInputBox">
+                                                <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpM-xk-Qmi">
+                                                <rect key="frame" x="364" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="wpM-xk-Qmi" secondAttribute="height" multiplier="1:1" id="4cD-hI-Hrs"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="SendButton"/>
+                                                <connections>
+                                                    <action selector="sendMessageBtnPressed:" destination="98p-Bt-ySm" eventType="touchUpInside" id="BIh-De-U1V"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="dn1-XQ-uns"/>
+                                            <constraint firstAttribute="height" constant="50" id="0Zg-11-ZPa"/>
                                         </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                        <viewLayoutGuide key="safeArea" id="Rhp-6V-yUG"/>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0z-rk-1vv" userLabel="AnswerButton">
@@ -397,17 +432,17 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" image="Exit" id="5fq-wR-9qW">
                             <connections>
                                 <action selector="exitbuttonPressed:" destination="98p-Bt-ySm" id="VEo-r3-aZX"/>
-                                <segue destination="LwS-dZ-JjD" kind="unwind" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="AGz-F1-N5E"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="answerButton" destination="W0z-rk-1vv" id="T0B-0W-yGe"/>
                         <outlet property="chattingDisplayAreaTextView" destination="ye3-6y-mkA" id="sXx-Re-6Uo"/>
-                        <outlet property="chattingInputBoxTextField" destination="wFg-gg-fow" id="cHl-a6-Fsw"/>
+                        <outlet property="chattingInputBoxTextField" destination="Ygx-Ie-BTl" id="GIP-N2-bBW"/>
                         <outlet property="playerList" destination="ahu-0d-faS" id="goX-fQ-HOQ"/>
                         <outlet property="renderingBoardArea" destination="pZC-yx-ptC" id="Fc6-ch-6Ez"/>
                         <segue destination="LwS-dZ-JjD" kind="unwind" identifier="unwindToPrepareScene" unwindAction="unwindToPrepareSceneWithSender:" id="gSb-YV-F71"/>
+                        <segue destination="LwS-dZ-JjD" kind="unwind" identifier="unwindToChoosingGameRoomScene" unwindAction="unwindToChoosingGameRoomSceneWithSender:" id="3jn-jG-bzd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fI5-6i-olp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -517,21 +552,37 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Db2-Dr-K9f">
                                 <rect key="frame" x="0.0" y="526" width="414" height="210"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="聊天区" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPw-xk-k8h">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="聊天区：" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPw-xk-k8h">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="发言" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rjm-Hp-d5C" userLabel="ChattingInputBox">
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtH-hp-LtQ">
                                         <rect key="frame" x="0.0" y="160" width="414" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="发言" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rjm-Hp-d5C" userLabel="ChattingInputBox">
+                                                <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ng-x1-c8Z">
+                                                <rect key="frame" x="364" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="0ng-x1-c8Z" secondAttribute="height" multiplier="1:1" id="CaC-12-A5k"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="SendButton"/>
+                                                <connections>
+                                                    <action selector="sendMessageBtnPressed:" destination="oRY-jV-NAz" eventType="touchUpInside" id="xj8-q2-riD"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="XWH-Da-n6c"/>
+                                            <constraint firstAttribute="height" constant="50" id="AZ2-VK-mlr"/>
                                         </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lq-Vx-PUw">
@@ -915,6 +966,7 @@
         <image name="PrepareBackgroud-upper" width="639" height="232"/>
         <image name="PrepareBackground-lower" width="640" height="167"/>
         <image name="Ready" width="66" height="66"/>
+        <image name="SendButton" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nme-6e-OCX"/>

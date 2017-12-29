@@ -18,7 +18,6 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
     @IBOutlet weak var DrawingBoardArea: DrawingBoard!
     @IBOutlet weak var drawingToolMenu: UIView!
     @IBOutlet weak var drawingToolMenuShowButton: UIButton!
-    
     @IBOutlet weak var chattingInputBoxTextField: UITextField!
     @IBOutlet weak var chattingDisplayAreaTextView: UITextView!
     @IBOutlet weak var playerList: UICollectionView!
@@ -52,8 +51,7 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
         playerListLayout.minimumLineSpacing = 10
         playerList.collectionViewLayout = playerListLayout
         
-        // web socket
-        socket.delegate = self
+        
         
         self.DrawingBoardArea.sendDrawingBoardDelegate = self
         
@@ -73,7 +71,8 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        // web socket
+        socket.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,7 +84,7 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let newChattingRecord = textField.text {
-            sendChattingMessage(message: newChattingRecord)
+            ChattingAreaDelegator.sendChattingMessage(message: newChattingRecord, socket: self.socket, sender: self.me!)
         }
         // text field归还FirstResponser地位
         // Hide the keyboard.
@@ -117,6 +116,13 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
     
     // MARK: Actions
 
+    @IBAction func sendMessageBtnPressed(_ sender: UIButton) {
+        if let newChattingRecord = chattingInputBoxTextField.text {
+            ChattingAreaDelegator.sendChattingMessage(message: newChattingRecord, socket: self.socket, sender: self.me!)
+            chattingInputBoxTextField.text = ""
+        }
+    }
+    
     @IBAction func endGameButtonPressed(_ sender: UIBarButtonItem) {
         // 按下结束游戏按钮后，弹出对话框询问是否确认结束
         let endGameAlertController = UIAlertController(title: "结束游戏", message: "确定要结束本局游戏吗？", preferredStyle: UIAlertControllerStyle.alert)
@@ -248,21 +254,6 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
         
     }
     
-    private func sendChattingMessage(message: String) {
-        
-        // web socket
-        let parameters:[String: Any] = [
-            "type": "chattingMessage",
-            "playerId": self.me!.id,
-            "playerName": self.me!.name,
-            "roomId": self.me!.roomId!,
-            "messageContent": message
-        ]
-        let data = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-        socket.write(data: data!)
-        
-    }
-    
     private func findPlayer(withId id: Int) -> User? {
         for player in players {
             if player.id == id {
@@ -294,6 +285,12 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
         
         // 2
         switch messageType {
+        case "exitGameRoom":
+            if let removedPlayerId = jsonDict["playerId"] as? Int {
+                let updatedPlayers = players.filter{ $0.id != removedPlayerId }
+                players = updatedPlayers
+                self.playerList.reloadData()
+            }
         case "changeGameState":
             if let newGameState = jsonDict["newGameState"] as? String {
                 switch newGameState {
@@ -336,9 +333,5 @@ class DrawMainSceneViewController: UIViewController, UITextFieldDelegate, UIColl
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         
     }
-    
-    
-    
-    
 }
 

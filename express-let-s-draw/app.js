@@ -176,7 +176,7 @@ wsServer.on('request', function(request) {
     connection.on('close', function(connection) {
       console.log((new Date()) + " Peer " + connection.remoteAddress + " disconnected.");
       // remove user from the list of connected clients
-      clients.splice(index, 1);
+      // clients.splice(index, 1);
     });
 });
 

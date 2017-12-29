@@ -64,7 +64,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate,  UIImagePicke
 
     // unwind navigation
     @IBAction func unwindToSignInScene(sender: UIStoryboardSegue) {
-       
+       socket.disconnect()
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
