@@ -1,5 +1,75 @@
 # Let-s-Draw
 《移动互联网应用开发》课程大作业
+## 运行环境
+客户端代码使用XCode9+Swift4开发。<br>
+后端使用NodeJs+express框架开发了一个本地服务器。需要安装mongodb和websocket模块。<br>
+> brew install mongodb<br>
+npm install websocket<br>
+
+运行客户端前前需要先开启服务器：
+> npm start
+
+## 功能说明
+下面按照使用流程对各个场景进行说明。<br>
+注：以下的示意图是在真机上截图后使用Mockplus重新整理得到的。<br>
+
+### 登录
+一开始玩家输入昵称，“进入游戏”按钮只有当输入框中不为空时才为可用状态。<br>
+在这里可以点击头像后进入相册选择头像图片。<br>
+注：因为时间关系，服务器端没有实现图片服务器的功能，所以其他场景里，所有玩家的头像都是默认头像。<br>
+![image](ScreenShots/SingIn.png)<br>
+点击“进入游戏”按钮后，向服务器发送消息，得到该玩家的ID。若没有得到ID，则会弹出一个AlertView提示连接失败。
+
+### 选择游戏房间
+玩家的信息显示在左上角。可以选择创建一个房间或者搜索一个已有的房间。<br>
+![image](ScreenShots/ChoosingGameRoom.png)<br>
+搜索房间可能会失败。<br>
+![image](ScreenShots/SearchForRoom.png)<br>
+搜索成功或者创建房间后，即可进入该房间。
+
+### 准备
+房间里的当前玩家会即时显示在一个collectionView中.<br>
+![image](ScreenShots/Prepare.png)<br>
+并且下方有一个聊天区，玩家发送的信息会即时发送给该房间的玩家。
+![image](ScreenShots/Prepare-message.png)<br>
+点击退出按钮即可退出该房间。点击“邀请”可输入玩家ID发出邀请。<br>
+![image](ScreenShots/Invite.png)<br>
+![image](ScreenShots/GetInvited.png)<br>
+当任何一个玩家按下“准备”按钮后，该房间进入游戏。<br>
+
+### 等待游戏开始
+![image](ScreenShots/Waiting.png)<br>
+从服务器获取本局游戏相关的信息，有一个进度条动画。
+
+### 游戏场景
+一局游戏有一个画手，其余人负责猜。玩家列表与聊天区的功能和前面一样。<br>
+![image](ScreenShots/DrawAndGuess.png)<br>
+##### 画板
+画手可以在画板上作画。使用画笔工具栏可改变颜色或者选择橡皮擦，点击箭头可展开或收起画笔工具栏。<br>
+房间内玩家的画板是实时同步的。<br>
+![image](ScreenShots/DrawAndGuess-image.png)<br>
+##### 回答
+猜的人点击回答按钮，在弹出的alertView中作答。<br>
+![image](ScreenShots/Answer.png)<br>
+回答内容会在玩家列表中显示出来。若回答错误则显示回答的内容，正确则显示一个勾。<br>
+![image](ScreenShots/Draw-getAnswer.png)<br>
+![image](ScreenShots/Guess-getAnswer.png)<br>
+##### 退出
+想要退出时会弹出alertView询问是否确认退出。
+![image](ScreenShots/Draw-Exit.png)<br>
+![image](ScreenShots/Guess-Exit.png)<br>
+画手也可以选择结束本局游戏，这时其他玩家会收到游戏结束的信息。确认后会回到准备场景。<br>
+![image](ScreenShots/GuessAndDraw-Exited.png)<br>
+
+## 不足之处
+一开始选择这个项目的时候，主要是考虑到这个项目有一定的复杂度，可以把本课程上学到的东西大部分都用上。但是实际开发的时候，网络通信占据了大部分的时间和精力，所以有些方面还是有不足。
+1. 基础功能还可以更完善。主要是受限于后端，比如图片服务器等；
+2. UI可以更美观。一方面是时间原因，另一方面是不懂UI设计，在设计界面时实在有些头疼，以及选取背景图片时总是找不到合适的，结果开头背景图片是low poly风格的，后面的背景又是拟物的。
+3. 游戏性还有待提升。目前的游戏流程还比较单一。
+4. 玩家之间的交互不方便。玩家间的交流也只能使用聊天区的文字信息。以及，因为没有账号管理的系统，其实玩家之间通过系统随机ID交流是基本不可能的，就是说“准备”界面的“邀请”按钮其实实用性不高。
+5. 原本预期的社交小游戏合集框架，还有语音聊天系统，因为工作量的原因被放弃了。
+
+
 ## Reference
 ### 画板功能
 
@@ -13,9 +83,10 @@
 [3] [Swift - HTTP网络操作库Alamofire使用详解1](http://www.hangge.com/blog/cache/detail_970.html)<br>
 [4] [WebSockets on iOS with Starscream](https://www.raywenderlich.com/143874/websockets-ios-starscream)
 
-### UI&动画效果
+### UI
 
-[1] [swift3 实现键盘弹出视图上移](http://blog.csdn.net/eiamor/article/details/71515300)
+[1] [swift 实现键盘弹出视图上移](http://blog.csdn.net/eiamor/article/details/71515300)<br>
+[2] [UIAlertViewController的使用](https://www.jianshu.com/p/1e6b0830b50d)<br>
 
 ### 开源框架
 
@@ -23,7 +94,9 @@
 [2] [Starscream](https://github.com/daltoniam/Starscream)<br>
 [3] [TextFieldEffects](https://github.com/raulriera/TextFieldEffects)
 
-# iOS学习笔记
+## iOS学习笔记
+课程学习和开发过程中遇到的一些问题和思考，记录在这里。
+***
 1. **GCD队列的优先级**<br>
 iOS上：[Energy Efficiency Guide for iOS Apps - Prioritize Work with Quality of Service Classes](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39-SW1)<br>
 对于Mac上的说明跟iOS的基本一致：[Energy Efficiency Guide for Mac Apps - Prioritize Work at the Task Level](https://developer.apple.com/library/content/documentation/Performance/Conceptual/power_efficiency_guidelines_osx/PrioritizeWorkAtTheTaskLevel.html#//apple_ref/doc/uid/TP40013929-CH35-SW1)
@@ -108,4 +181,4 @@ connect，write等socket操作，并不是在语句处立即执行的，或者�
 11. **unwind segue** <br>
 哪怕起点和目标view controller在不同的navigation controller里，也是可以直接用unwind来跳转的，只要目标view controller中实现了目标action。<br>
 一个confusing的事情是，在向上找目标view controller的过程中，途径的view也会被加载，甚至写在viewDidAppear中的方法也会被调用一遍，但是实际运行时看不到这些view（来不及看到？），但最终还是会跳转到目标view上。<br>
-**
+***
