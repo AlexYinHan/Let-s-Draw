@@ -17,7 +17,7 @@ npm install websocket<br>
 一开始玩家输入昵称，“进入游戏”按钮只有当输入框中不为空时才为可用状态。<br>
 在这里可以点击头像后进入相册选择头像图片。<br>
 注：因为时间关系，服务器端没有实现图片服务器的功能，所以其他场景里，所有玩家的头像都是默认头像。<br>
-![image](ScreenShots/SingIn.png)<br>
+![image](ScreenShots/SignIn.png)<br>
 点击“进入游戏”按钮后，向服务器发送消息，得到该玩家的ID。若没有得到ID，则会弹出一个AlertView提示连接失败。
 
 ### 选择游戏房间
@@ -43,11 +43,11 @@ npm install websocket<br>
 
 ### 游戏场景
 一局游戏有一个画手，其余人负责猜。玩家列表与聊天区的功能和前面一样。<br>
-![image](ScreenShots/DrawAndGuess.png)<br>
+![image](ScreenShots/GuessAndDraw.png)<br>
 ##### 画板
 画手可以在画板上作画。使用画笔工具栏可改变颜色或者选择橡皮擦，点击箭头可展开或收起画笔工具栏。<br>
 房间内玩家的画板是实时同步的。<br>
-![image](ScreenShots/DrawAndGuess-image.png)<br>
+![image](ScreenShots/GuessAndDraw-image.png)<br>
 ##### 回答
 猜的人点击回答按钮，在弹出的alertView中作答。<br>
 ![image](ScreenShots/Answer.png)<br>
@@ -135,10 +135,10 @@ viewDidUnload－当内存过低，释放一些不需要的视图时调用。<br>
 如果在 viewDidLoad 时就启动 Segue 的话，依然会被后来填充的视图覆盖，要在视图载入完成以后的 viewDidAppear 中启动 Segue.
 ***
 6. **Any类型**<br>
-待解决<br>
+在斯坦福教程中有详细说明。<br>
 ***
 7. **json数据**<br>
-未解决<br>
+未完全解决<br>
 将字典类型转为json类型，作为post的参数<br>
 发送{roomid:1001}<br>
 变成{'{\n "roomId" : 1001\n}': ''}<br>
