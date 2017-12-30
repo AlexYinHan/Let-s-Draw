@@ -19,6 +19,7 @@
 		1814DF391FD3E97200125291 /* PlayerListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */; };
 		182635BF1FE507FC00B5E83A /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182635BE1FE507FC00B5E83A /* Starscream.framework */; };
 		182635C01FE50D2E00B5E83A /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 182635BE1FE507FC00B5E83A /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1858329B1FF7958D00C87EAE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1858329A1FF7958D00C87EAE /* Launch Screen.storyboard */; };
 		18CC887D1FD7C831007D6720 /* ServerConnectionDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */; };
 		18ED75801FF615FE0034D704 /* ChattingAreaDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ED757F1FF615FE0034D704 /* ChattingAreaDelegator.swift */; };
 		18F49D871FDD328D00CC7549 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F49D861FDD328D00CC7549 /* Alamofire.framework */; };
@@ -29,7 +30,6 @@
 		18FD8E1A1FB315BE00A89954 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E191FB315BE00A89954 /* AppDelegate.swift */; };
 		18FD8E1C1FB315BE00A89954 /* DrawMainSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */; };
 		18FD8E211FB315BE00A89954 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E201FB315BE00A89954 /* Assets.xcassets */; };
-		18FD8E241FB315BE00A89954 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FD8E221FB315BE00A89954 /* LaunchScreen.storyboard */; };
 		18FD8E2F1FB315BE00A89954 /* Let_s_DrawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E2E1FB315BE00A89954 /* Let_s_DrawTests.swift */; };
 		18FD8E3A1FB31EC700A89954 /* DrawingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E391FB31EC700A89954 /* DrawingBoard.swift */; };
 		18FD8E3C1FB328DC00A89954 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD8E3B1FB328DC00A89954 /* Brush.swift */; };
@@ -82,6 +82,7 @@
 		181026761FD0039500401583 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		1814DF371FD3E97200125291 /* PlayerListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCollectionViewCell.swift; sourceTree = "<group>"; };
 		182635BE1FE507FC00B5E83A /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
+		1858329A1FF7958D00C87EAE /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectionDelegator.swift; sourceTree = "<group>"; };
 		18ED757F1FF615FE0034D704 /* ChattingAreaDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingAreaDelegator.swift; sourceTree = "<group>"; };
 		18F49D861FDD328D00CC7549 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -93,7 +94,6 @@
 		18FD8E1B1FB315BE00A89954 /* DrawMainSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawMainSceneViewController.swift; sourceTree = "<group>"; };
 		18FD8E1E1FB315BE00A89954 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18FD8E201FB315BE00A89954 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		18FD8E231FB315BE00A89954 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18FD8E251FB315BE00A89954 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18FD8E2A1FB315BE00A89954 /* Let's DrawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Let's DrawTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FD8E2E1FB315BE00A89954 /* Let_s_DrawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Let_s_DrawTests.swift; sourceTree = "<group>"; };
@@ -159,7 +159,6 @@
 				1809571C1FC97D6900146E7B /* GuessMainSceneViewController.swift */,
 				18FD8E1D1FB315BE00A89954 /* Main.storyboard */,
 				18FD8E201FB315BE00A89954 /* Assets.xcassets */,
-				18FD8E221FB315BE00A89954 /* LaunchScreen.storyboard */,
 				18FD8E251FB315BE00A89954 /* Info.plist */,
 				18FD8E391FB31EC700A89954 /* DrawingBoard.swift */,
 				18F49D8B1FDD3C4A00CC7549 /* RenderingBoard.swift */,
@@ -169,6 +168,7 @@
 				18F7214F1FEA3519002B853B /* PlayerListCellInGuessScene.swift */,
 				18CC887C1FD7C831007D6720 /* ServerConnectionDelegator.swift */,
 				18ED757F1FF615FE0034D704 /* ChattingAreaDelegator.swift */,
+				1858329A1FF7958D00C87EAE /* Launch Screen.storyboard */,
 			);
 			path = "Let's Draw";
 			sourceTree = "<group>";
@@ -278,7 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1814DF341FD3D6E900125291 /* Main.storyboard in Resources */,
-				18FD8E241FB315BE00A89954 /* LaunchScreen.storyboard in Resources */,
+				1858329B1FF7958D00C87EAE /* Launch Screen.storyboard in Resources */,
 				18FD8E211FB315BE00A89954 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,14 +343,6 @@
 				18FD8E1E1FB315BE00A89954 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		18FD8E221FB315BE00A89954 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18FD8E231FB315BE00A89954 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

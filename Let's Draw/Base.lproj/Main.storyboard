@@ -287,7 +287,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="zdX-p5-8pK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2799" y="-44"/>
+            <point key="canvasLocation" x="-176" y="160"/>
         </scene>
         <!--Guess-MainScene-->
         <scene sceneID="gKQ-hh-CvE">
@@ -448,7 +448,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fI5-6i-olp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="LwS-dZ-JjD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2798.5507246376815" y="833.96739130434787"/>
+            <point key="canvasLocation" x="-176" y="1037"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="17e-Td-zRi">
@@ -719,7 +719,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kux-PP-2dt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BY6-1I-xl5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-610.14492753623188" y="597.554347826087"/>
+            <point key="canvasLocation" x="-2321" y="598"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qGq-ih-cFC">
@@ -737,7 +737,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oqa-Uk-9Iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1946" y="-44"/>
+            <point key="canvasLocation" x="-1029" y="160"/>
         </scene>
         <!--WaintingForGameToStart Scene-->
         <scene sceneID="UI9-Ii-gbb">
@@ -807,7 +807,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gma-Hn-y6A" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="J0p-NJ-lgw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="697.10144927536237" y="598.36956521739137"/>
+            <point key="canvasLocation" x="-1616" y="597"/>
         </scene>
         <!--ChoosingGameRoom Scene-->
         <scene sceneID="81k-r8-gjB">
@@ -920,7 +920,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8O-Iu-I65" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="N4O-yq-5fS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-3068" y="600"/>
+            <point key="canvasLocation" x="-3144" y="598"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bCn-D1-bc6">
@@ -938,7 +938,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fdc-06-Jcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1946.376811594203" y="833.96739130434787"/>
+            <point key="canvasLocation" x="-1029" y="1037"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LKi-Le-9ms">
@@ -974,7 +974,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BIt-MH-dAG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1640.5797101449277" y="1127.4456521739132"/>
+            <point key="canvasLocation" x="-2843" y="1725"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BNl-nZ-bja">
