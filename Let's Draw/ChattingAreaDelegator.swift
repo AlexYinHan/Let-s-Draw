@@ -14,6 +14,10 @@ import Starscream
 class ChattingAreaDelegator:NSObject{
     
     static func sendChattingMessage(message: String, socket: WebSocket, sender me: User) {
+        if message == "" {
+            return
+        }
+        
         // web socket
         let parameters:[String: Any] = [
             "type": "chattingMessage",
