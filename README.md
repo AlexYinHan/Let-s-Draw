@@ -8,11 +8,11 @@ npm install websocket<br>
 mongo
 
 运行客户端前前需要先开启服务器：
-> cd express-let-s-draw/
+> cd express-let-s-draw/<br>
 npm start
 
 因为使用了第三方框架，编译客户端代码时，可能会出现error，在项目路径下：
->brew install carthage
+>brew install carthage<br>
 carthage update
 
 ## 功能说明
