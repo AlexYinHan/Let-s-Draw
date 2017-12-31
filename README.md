@@ -2,12 +2,12 @@
 《移动互联网应用开发》课程大作业
 ## 运行环境
 客户端代码使用XCode9+Swift4开发。<br>
-后端使用NodeJs+express框架开发了一个本地服务器。需要安装mongodb和websocket模块。<br>
-> brew install mongodb<br>
-npm install websocket<br>
-mongo
+后端使用NodeJs+express框架开发了一个本地服务器。安装了mongodb和websocket模块。<br>
 
-运行客户端前前需要先开启服务器：
+运行客户端前需要先在mongodb的安装目录下开启mongodb:
+>mongo
+
+然后在项目目录下开启服务器：
 > cd express-let-s-draw/<br>
 npm start
 
@@ -17,12 +17,12 @@ carthage update
 
 ## 功能说明
 下面按照使用流程对各个场景进行说明。<br>
-注：以下的示意图是在真机上截图后使用Mockplus重新整理得到的。<br>
+**注**：以下的示意图是在真机上截图后使用Mockplus重新整理得到的。<br>
 
 ### 登录
 一开始玩家输入昵称，“进入游戏”按钮只有当输入框中不为空时才为可用状态。<br>
 在这里可以点击头像后进入相册选择头像图片。<br>
-注：因为时间关系，服务器端没有实现图片服务器的功能，所以其他场景里，所有玩家的头像都是默认头像。<br>
+**注**：因为时间关系，服务器端没有实现图片服务器的功能，所以其他场景里，所有玩家的头像都是默认头像。<br>
 ![image](ScreenShots/SignIn.png)<br>
 点击“进入游戏”按钮后，向服务器发送消息，得到该玩家的ID。若没有得到ID，则会弹出一个AlertView提示连接失败。
 
