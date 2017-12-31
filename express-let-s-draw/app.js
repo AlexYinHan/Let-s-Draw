@@ -14,19 +14,34 @@ var mongoose = require('mongoose');
 var webSocketServer = require('websocket').server;
 var http = require('http');
 
+var GameRoom = require('./models/GameRoom');
+var PlayerList = require('./models/Player');
 mongoose.connect('mongodb://localhost/express-app', {useMongoClient: true},
 function(err) {
   if(err) {
     console.log('connect error', err);
   } else {
     console.log('connect successful');
+    // empty room and player list.
+    GameRoom.remove({}, function(error) {
+      if(error) {
+          console.log(err);
+      } else {
+        console.log('empty game rooms.');
+        PlayerList.remove({}, function(error) {
+          if(error) {
+              console.log(err);
+          } else {
+              console.log('empty player list.');
+          }
+        });
+      }
+    });  
   }
 });
 
 
 // WebSocket
-var GameRoom = require('./models/GameRoom');
-var PlayerList = require('./models/Player');
 
 var webSocketsServerPort = 9090;
 
@@ -134,7 +149,7 @@ wsServer.on('request', function(request) {
                 clients[i].client.sendUTF(JSON.stringify(dic));
                 break;
               }
-            }  
+            }
             clients[index].client.sendUTF(JSON.stringify(dic));
             break;
           }

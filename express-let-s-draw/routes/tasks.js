@@ -4,6 +4,8 @@ var Question = require('../models/Question');
 var GameRoom = require('../models/GameRoom');
 var PlayerList = require('../models/Player');
 
+var IdNumber = 1;// used to get a unrepeated id
+
 router.get('/', function(req, res, next) {
   res.send("This is a response to get.");
 });
@@ -64,16 +66,17 @@ router.post('/signIn', function(req, res, next) {
   //var playerName = req.query.userName;
   var playerName = req.body.userName;
 
-  var randomId = -1;
-  var isThisIdExist = 0;
-  do {
-    randomId = 1 + Math.round(Math.random()*1000); // 1 ~ 1001
-    PlayerList.find({Id: randomId}, function(err, players) {
-        if (players.length > 0) {
-          isThisIdExist = 1;
-        }
-    });
-  }while(isThisIdExist == 1);
+  var randomId = IdNumber;
+  IdNumber = IdNumber + 1;
+  // var isThisIdExist = 0;
+  // do {
+  //   randomId = 1 + Math.round(Math.random()*1000); // 1 ~ 1001
+  //   PlayerList.find({Id: randomId}, function(err, players) {
+  //       if (players.length > 0) {
+  //         isThisIdExist = 1;
+  //       }
+  //   });
+  // }while(isThisIdExist == 1);
 
   PlayerList.create({name: playerName, Id: randomId}, function(err){
     if (err) {
@@ -114,15 +117,16 @@ router.get('/getRoomWithId', function(req, res, next) {
 router.post('/createRoom', function(req, res, next) {
 
   var isThisIdExist = 0;
-  var randomId = -1;
-  do {
-    randomId = 1000 + Math.round(Math.random()*999); // 1000 ~ 1999
-    GameRoom.find({roomId: randomId}, function(err, players) {
-        if (players.length > 0) {
-          isThisIdExist = 1;
-        }
-    });
-  }while(isThisIdExist == 1);
+  var randomId = IdNumber + 1000;
+  IdNumber = IdNumber + 1;
+  // do {
+  //   randomId = 1000 + Math.round(Math.random()*999); // 1000 ~ 1999
+  //   GameRoom.find({roomId: randomId}, function(err, players) {
+  //       if (players.length > 0) {
+  //         isThisIdExist = 1;
+  //       }
+  //   });
+  // }while(isThisIdExist == 1);
 
   var randomQuestionId = 1 + Math.round(Math.random()*(questionBank.length-2)); // 1 ~ (questionBank.length-1)
 
