@@ -5,9 +5,15 @@
 后端使用NodeJs+express框架开发了一个本地服务器。需要安装mongodb和websocket模块。<br>
 > brew install mongodb<br>
 npm install websocket<br>
+mongo
 
 运行客户端前前需要先开启服务器：
-> npm start
+> cd express-let-s-draw/
+npm start
+
+因为使用了第三方框架，编译客户端代码时，可能会出现error，在项目路径下：
+>brew install carthage
+carthage update
 
 ## 功能说明
 下面按照使用流程对各个场景进行说明。<br>
